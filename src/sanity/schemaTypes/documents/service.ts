@@ -16,8 +16,8 @@ export const serviceType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "body",
-      title: "İçerik",
+      name: "longDescription",
+      title: "Uzun Açıklama",
       type: "array",
       of: [
         { type: "block" },
@@ -51,6 +51,22 @@ export const serviceType = defineType({
           ],
         },
       ],
+    }),
+
+    // Süreç Adımları
+    defineField({
+      name: "steps",
+      title: "Süreç Adımları",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "title", title: "Başlık", type: "string" },
+            { name: "description", title: "Kısa Açıklama", type: "string" }
+          ]
+        }
+      ]
     }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
   ],

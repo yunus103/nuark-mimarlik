@@ -48,68 +48,20 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
 
   return (
     <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* Marka & İletişim */}
-          <div className="space-y-4">
-            <h3 className="font-bold text-lg">{settings?.siteName}</h3>
-            {settings?.siteTagline && (
-              <p className="text-sm text-muted-foreground">{settings.siteTagline}</p>
-            )}
-            <div className="space-y-2">
-              {contact?.phone && (
-                <a
-                  href={`tel:${contact.phone}`}
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <RiPhoneLine className="shrink-0" />
-                  {contact.phone}
-                </a>
-              )}
-              {contact?.email && (
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <RiMailLine className="shrink-0" />
-                  {contact.email}
-                </a>
-              )}
-              {contact?.address && (
-                <p className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <RiMapPinLine className="shrink-0 mt-0.5" />
-                  {contact.address}
-                </p>
+          {/* Marka & Sosyal Medya */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">{settings?.siteName || "NUARK MİMARLIK"}</h3>
+              {settings?.siteTagline && (
+                <p className="mt-2 text-sm text-muted-foreground max-w-[250px] leading-relaxed">{settings.siteTagline}</p>
               )}
             </div>
-          </div>
-
-          {/* Footer Linkleri */}
-          {footerLinks.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="font-bold text-sm uppercase tracking-wider">Hızlı Linkler</h3>
-              <nav className="space-y-2">
-                {footerLinks.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={resolveHref(item)}
-                    target={item.openInNewTab ? "_blank" : undefined}
-                    rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-                    className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          )}
-
-          {/* Sosyal Medya */}
-          {socialLinks.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="font-bold text-sm uppercase tracking-wider">Sosyal Medya</h3>
-              <div className="flex flex-wrap gap-3">
+            
+            {socialLinks.length > 0 && (
+              <div className="flex gap-3">
                 {socialLinks.map((social, i) => {
                   const Icon = socialIconMap[social.platform];
                   if (!Icon) return null;
@@ -120,27 +72,95 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.platform}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                      className="flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted-foreground hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-all duration-300"
                     >
-                      <Icon size={16} />
+                      <Icon size={18} />
                     </a>
                   );
                 })}
               </div>
+            )}
+          </div>
+
+          {/* Footer Linkleri */}
+          {footerLinks.length > 0 && (
+            <div className="space-y-6">
+              <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">Hızlı Linkler</h3>
+              <nav className="flex flex-col space-y-3">
+                {footerLinks.map((item, i) => (
+                  <Link
+                    key={i}
+                    href={resolveHref(item)}
+                    target={item.openInNewTab ? "_blank" : undefined}
+                    rel={item.openInNewTab ? "noopener noreferrer" : undefined}
+                    className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
           )}
+
+          {/* Hizmetler Özeti (Statik/Sabit) */}
+          <div className="space-y-6">
+            <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">Hizmetlerimiz</h3>
+            <nav className="flex flex-col space-y-3">
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+                Mimari Tasarım
+              </Link>
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+                İç Mimari
+              </Link>
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+                Proje Yönetimi
+              </Link>
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+                İnşaat Uygulama
+              </Link>
+            </nav>
+          </div>
+
+          {/* İletişim */}
+          <div className="space-y-6">
+            <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">İletişim</h3>
+            <div className="flex flex-col space-y-4">
+              {contact?.address && (
+                <div className="flex items-start gap-3">
+                  <RiMapPinLine className="shrink-0 mt-1 text-brand-gold" size={18} />
+                  <span className="text-sm text-muted-foreground leading-relaxed">{contact.address}</span>
+                </div>
+              )}
+              {contact?.phone && (
+                <div className="flex items-center gap-3">
+                  <RiPhoneLine className="shrink-0 text-brand-gold" size={18} />
+                  <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:text-brand-gold transition-colors">
+                    {contact.phone}
+                  </a>
+                </div>
+              )}
+              {contact?.email && (
+                <div className="flex items-center gap-3">
+                  <RiMailLine className="shrink-0 text-brand-gold" size={18} />
+                  <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:text-brand-gold transition-colors">
+                    {contact.email}
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Alt Bar */}
-        <div className="mt-12 border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            © {currentYear} {settings?.siteName}. Tüm hakları saklıdır.
+        <div className="mt-16 border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground tracking-wide uppercase">
+            © {currentYear} {settings?.siteName || "NUARK MİMARLIK"}. Tüm hakları saklıdır.
           </p>
-          <div className="flex gap-4">
-            <Link href="/yasal/gizlilik-politikasi" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+          <div className="flex gap-6">
+            <Link href="/yasal/gizlilik-politikasi" className="text-xs tracking-wide uppercase text-muted-foreground hover:text-brand-gold transition-colors">
               Gizlilik Politikası
             </Link>
-            <Link href="/yasal/kullanim-kosullari" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/yasal/kullanim-kosullari" className="text-xs tracking-wide uppercase text-muted-foreground hover:text-brand-gold transition-colors">
               Kullanım Koşulları
             </Link>
           </div>

@@ -6,7 +6,7 @@ export const layoutQuery = groq`{
   "settings": *[_type == "siteSettings"][0] {
     siteName, siteTagline,
     logo { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
-    logoDark { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
+    logoText,
     logoHeight,
     contactInfo { phone, email, address, whatsappNumber, mapIframe },
     socialLinks[] { platform, url },
@@ -21,19 +21,48 @@ export const layoutQuery = groq`{
 // ─── Sayfalar ──────────────────────────────────────────────────────────────────
 
 export const homePageQuery = groq`*[_type == "homePage"][0] {
-  heroTitle, heroSubtitle, heroCtaLabel, heroCtaSlug,
-  heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  heroEyebrow, heroTitle, heroSubtitle, heroPrimaryCtaLabel, heroPrimaryCtaSlug, heroSecondaryCtaLabel, heroSecondaryCtaSlug,
+  heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, caption, alt, hotspot, crop },
+  stats[] { value, label },
+  featuredProjectsTitle,
+  "featuredProjects": *[_type == "project"] | order(order asc, _createdAt desc) [0..5] {
+    title, slug, category, year, city,
+    coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  },
+  servicesSectionTitle, servicesIntro,
+  aboutTitle, aboutText,
+  aboutImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  ctaTitle, ctaSubtitle,
+  clientLogos[] {
+    companyName,
+    logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  },
   seo
 }`;
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
-  pageTitle, pageSubtitle, body,
-  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  heroHeadline, heroSubtitle,
+  storyTitle, storyText,
+  storyImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  values[] { title, description },
+  team[] {
+    name, title, bio,
+    photo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  },
+  milestones[] { year, event },
   seo
 }`;
 
-export const contactPageQuery = groq`*[_type == "contactPage"][0] {
-  pageTitle, pageSubtitle, formTitle, successMessage, seo
+export const contactPageQuery = groq`{
+  "page": *[_type == "contactPage"][0] {
+    heroHeadline, heroSubtitle,
+    formTitle, projectTypes, successMessage,
+    seo
+  },
+  "settings": *[_type == "siteSettings"][0] {
+    contactInfo { phone, email, address, whatsappNumber, mapIframe },
+    socialLinks[] { platform, url }
+  }
 }`;
 
 // ─── Blog ──────────────────────────────────────────────────────────────────────
@@ -60,33 +89,40 @@ export const blogPostBySlugQuery = groq`*[_type == "blogPost" && slug.current ==
 
 export const serviceListQuery = groq`*[_type == "service"] | order(_createdAt asc) {
   title, slug,
-  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  longDescription[] {
+    ...,
+    _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
+  },
+  steps[] { title, description }
 }`;
 
 export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0] {
   title, slug,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
-  body[] {
+  longDescription[] {
     ...,
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
   },
+  steps[] { title, description },
   seo
 }`;
 
 // ─── Projeler ──────────────────────────────────────────────────────────────────
 
-export const projectListQuery = groq`*[_type == "project"] | order(_createdAt asc) {
-  title, slug,
-  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+export const projectListQuery = groq`*[_type == "project"] | order(order asc, _createdAt desc) {
+  title, slug, category, city, year, featured,
+  coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
 }`;
 
 export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0] {
-  title, slug,
-  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
-  body[] {
+  title, slug, category, city, location, year,
+  coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  description[] {
     ...,
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
   },
+  gallery[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   seo
 }`;
 

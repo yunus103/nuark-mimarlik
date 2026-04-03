@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { RiMenu3Line, RiCloseLine, RiArrowDownSLine } from "react-icons/ri";
 
@@ -24,62 +24,93 @@ function resolveHref(item: NavItem): string {
 
 export function Header({ settings, navigation }: { settings: any; navigation: any }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  
   const links: NavItem[] = navigation?.headerLinks || [];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Ana sayfada ve en üstte isek şeffaf, değilse bulanık/beyaz(veya koyu) arka plan
+  const bgClass = (isHome && !scrolled && !menuOpen)
+    ? "bg-transparent border-transparent"
+    : "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b";
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
+    <header className={`fixed top-0 z-40 w-full transition-colors duration-300 ${bgClass}`}>
+      <div className="container mx-auto flex h-24 items-center justify-between px-4">
         <Link href="/" className="flex items-center group h-full">
-          <div className="relative flex items-center justify-start transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-4 max-w-[250px] md:max-w-[450px]">
+          <div className="relative flex items-center justify-start gap-4 transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-2">
             {settings?.logo ? (
-              <>
-                <SanityImage
-                  image={settings.logo}
-                  width={800}
-                  height={200}
-                  fit="max"
-                  className="h-full w-auto object-contain object-left dark:hidden"
-                  priority
-                />
-                {settings?.logoDark ? (
-                  <SanityImage
-                    image={settings.logoDark}
-                    width={800}
-                    height={200}
-                    fit="max"
-                    className="h-full w-auto object-contain object-left hidden dark:block"
-                    priority
-                  />
-                ) : (
+              <div className="flex items-center gap-4 h-full">
+                <div className="h-full w-auto max-w-[120px] md:max-w-[150px]">
                   <SanityImage
                     image={settings.logo}
-                    width={800}
-                    height={200}
+                    width={400}
+                    height={600}
                     fit="max"
-                    className="h-full w-auto object-contain object-left hidden dark:block grayscale invert opacity-90"
+                    className="h-full w-auto object-contain object-left transition-all duration-300"
                     priority
                   />
+                </div>
+                {settings?.logoText && (
+                  <div className="flex flex-col justify-center border-l border-foreground/20 pl-4 h-12">
+                    <span className={`font-serif text-lg md:text-xl font-bold tracking-tight leading-none transition-colors duration-300 ${
+                      isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
+                    }`}>
+                      {settings.logoText}
+                    </span>
+                  </div>
                 )}
-              </>
+              </div>
             ) : (
-              <span className="font-bold text-xl tracking-tight leading-none">{settings?.siteName}</span>
+              <span className={`font-bold text-xl tracking-tight leading-none transition-colors duration-300 ${
+                isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
+              }`}>
+                {settings?.siteName || "NUARK"}
+              </span>
             )}
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-6 xl:gap-8">
           {links.map((item, i) => (
-            <DesktopNavItem key={i} item={item} />
+            <DesktopNavItem key={i} item={item} isHomeTop={isHome && !scrolled} />
           ))}
-          <ThemeToggle />
+          <div className="flex items-center gap-4 ml-4">
+            <Link href="/iletisim">
+              <Button 
+                variant="outline" 
+                className={`rounded-none border-2 font-bold px-8 transition-all duration-300 hover:bg-brand-gold hover:text-black hover:border-brand-gold cursor-pointer ${
+                  isHome && !scrolled && !menuOpen 
+                    ? "text-brand-gold border-brand-gold bg-black/20" 
+                    : "text-foreground border-brand-gold"
+                }`}
+              >
+                İletişime Geç
+              </Button>
+            </Link>
+          </div>
         </nav>
 
         {/* Mobile Controls */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menüyü aç/kapat">
-            {menuOpen ? <RiCloseLine size={20} /> : <RiMenu3Line size={20} />}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setMenuOpen(!menuOpen)} 
+            aria-label="Menüyü aç/kapat"
+            className={isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"}
+          >
+            {menuOpen ? <RiCloseLine size={24} /> : <RiMenu3Line size={24} />}
           </Button>
         </div>
       </div>
@@ -129,8 +160,10 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
   );
 }
 
-function DesktopNavItem({ item }: { item: NavItem }) {
+function DesktopNavItem({ item, isHomeTop }: { item: NavItem, isHomeTop?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const textClass = isHomeTop ? "text-white/90 hover:text-white" : "text-foreground/80 hover:text-foreground";
 
   if (!item.subLinks || item.subLinks.length === 0) {
     return (
@@ -138,7 +171,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
         href={resolveHref(item)}
         target={item.openInNewTab ? "_blank" : undefined}
         rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-        className="text-sm font-medium transition-colors hover:text-primary"
+        className={`text-sm font-medium tracking-wide uppercase transition-colors ${textClass}`}
       >
         {item.label}
       </Link>
@@ -153,7 +186,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     >
       <Link
         href={resolveHref(item)}
-        className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
+        className={`flex items-center gap-1 text-sm font-medium tracking-wide uppercase transition-colors ${textClass}`}
       >
         {item.label}
         <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>

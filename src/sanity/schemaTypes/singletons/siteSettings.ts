@@ -9,10 +9,10 @@ export const siteSettingsType = defineType({
     defineField({ name: "siteTagline", title: "Slogan", type: "string" }),
     defineField({
       name: "logo",
-      title: "Logo (Açık Tema)",
+      title: "Logo",
       type: "image",
       options: { hotspot: true },
-      description: "Önerilen: 400x120px (Yatay) veya 200x200px (Kare). Şeffaf PNG veya SVG tercih edilmelidir.",
+      description: "Dikey (portre) logo için önerilen boyutlar: 200x300px veya 150x250px. Şeffaf PNG veya SVG tercih edilmelidir.",
       fields: [
         defineField({
           name: "alt",
@@ -23,18 +23,10 @@ export const siteSettingsType = defineType({
       ],
     }),
     defineField({
-      name: "logoDark",
-      title: "Logo (Koyu Tema)",
-      type: "image",
-      options: { hotspot: true },
-      description: "Karanlık modda gösterilecek logo. Önerilen: 400x120px (Yatay). Boş bırakılırsa standart logo kullanılır.",
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Alternatif Metin",
-          type: "string",
-        }),
-      ],
+      name: "logoText",
+      title: "Logo Yanı Yazısı",
+      type: "string",
+      description: "Logonun hemen sağında görünecek olan yazı (Örn: NUARK MİMARLIK).",
     }),
     defineField({ name: "favicon", title: "Favicon", type: "image", description: "512x512px kare görsel önerilir." }),
     defineField({ name: "defaultOgImage", title: "Varsayılan OG Görseli", type: "image", description: "Sosyal medya paylaşımları için. 1200x630px." }),

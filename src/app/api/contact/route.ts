@@ -7,6 +7,7 @@ const schema = z.object({
   email: z.string().email("Geçerli bir e-posta girin"),
   phone: z.string().optional(),
   subject: z.string().optional(),
+  projectType: z.string().optional(),
   message: z.string().min(10, "Mesaj en az 10 karakter olmalı"),
   honeypot: z.string().max(0),
 });
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: result.error.flatten().fieldErrors }, { status: 400 });
   }
 
-  const { name, email, phone, subject, message } = result.data;
+  const { name, email, phone, subject, projectType, message } = result.data;
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -39,6 +40,7 @@ export async function POST(request: NextRequest) {
         <p><strong>İsim:</strong> ${name}</p>
         <p><strong>E-posta:</strong> ${email}</p>
         ${phone ? `<p><strong>Telefon:</strong> ${phone}</p>` : ""}
+        ${projectType ? `<p><strong>Proje Tipi:</strong> ${projectType}</p>` : ""}
         ${subject ? `<p><strong>Konu:</strong> ${subject}</p>` : ""}
         <p><strong>Mesaj:</strong></p>
         <p>${message.replace(/\n/g, "<br/>")}</p>
