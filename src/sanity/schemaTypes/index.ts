@@ -8,7 +8,6 @@ import { contactPageType } from "./singletons/contactPage";
 import { blogPostType } from "./documents/blogPost";
 import { serviceType } from "./documents/service";
 import { projectType } from "./documents/project";
-import { legalPageType } from "./documents/legalPage";
 import { faqType } from "./documents/faq";
 
 export const schemaTypes = [
@@ -25,6 +24,5 @@ export const schemaTypes = [
   blogPostType,
   serviceType,
   projectType,
-  legalPageType,
   faqType,
 ];

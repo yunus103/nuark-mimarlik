@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
       blogPost: ["blog"],
       service: ["services"],
       project: ["projects"],
-      legalPage: ["legal"],
     };
 
     const tags = tagMap[type] || ["layout"];

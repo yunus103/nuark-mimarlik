@@ -156,14 +156,17 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           <p className="text-xs text-muted-foreground tracking-wide uppercase">
             © {currentYear} {settings?.siteName || "NUARK MİMARLIK"}. Tüm hakları saklıdır.
           </p>
-          <div className="flex gap-6">
-            <Link href="/yasal/gizlilik-politikasi" className="text-xs tracking-wide uppercase text-muted-foreground hover:text-brand-gold transition-colors">
-              Gizlilik Politikası
-            </Link>
-            <Link href="/yasal/kullanim-kosullari" className="text-xs tracking-wide uppercase text-muted-foreground hover:text-brand-gold transition-colors">
-              Kullanım Koşulları
-            </Link>
-          </div>
+          <p className="text-xs text-muted-foreground tracking-wide uppercase">
+            Tasarım ve Geliştirme:{" "}
+            <a
+              href="https://sedminadijital.com/tr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-brand-gold transition-colors font-bold"
+            >
+              Sedmina Dijital
+            </a>
+          </p>
         </div>
       </div>
     </footer>

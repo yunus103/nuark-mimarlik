@@ -126,19 +126,12 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   seo
 }`;
 
-// ─── Yasal Sayfalar ────────────────────────────────────────────────────────────
-
-export const legalPageBySlugQuery = groq`*[_type == "legalPage" && slug.current == $slug][0] {
-  title, slug, body, _updatedAt, seo
-}`;
-
 // ─── Sitemap ───────────────────────────────────────────────────────────────────
 
 export const allSlugsForSitemapQuery = groq`{
   "blogPosts": *[_type == "blogPost" && defined(slug.current)] { "slug": slug.current, _updatedAt },
   "services": *[_type == "service" && defined(slug.current)] { "slug": slug.current, _updatedAt },
-  "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt },
-  "legalPages": *[_type == "legalPage" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+  "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt }
 }`;
 
 // ─── Varsayılan SEO ────────────────────────────────────────────────────────────
