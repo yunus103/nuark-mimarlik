@@ -45,15 +45,18 @@ export async function POST(request: NextRequest) {
 
     // Etiketlere göre yenile (Granular)
     tags.forEach((tag) => {
-      revalidateTag(tag);
+      // @ts-ignore
+      revalidateTag(tag, "page");
       console.log(`Revalidated tag: ${tag}`);
     });
 
     // Eğer dökümanın kendine has bir slug'ı varsa onu da yenileyebiliriz (Opsiyonel)
     if (type && slug) {
-      revalidateTag(`${type}:${slug}`);
+      // @ts-ignore
+      revalidateTag(`${type}:${slug}`, "page");
       console.log(`Revalidated slug tag: ${type}:${slug}`);
     }
+
 
     // Global ayarlar değiştiyse path bazlı da yenileyelim
     if (type === "siteSettings" || type === "navigation") {
