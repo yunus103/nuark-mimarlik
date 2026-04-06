@@ -46,14 +46,14 @@ export async function POST(request: NextRequest) {
     // Etiketlere göre yenile (Granular)
     tags.forEach((tag) => {
       // @ts-ignore
-      revalidateTag(tag, "page");
+      revalidateTag(tag, { expire: 0 });
       console.log(`Revalidated tag: ${tag}`);
     });
 
     // Eğer dökümanın kendine has bir slug'ı varsa onu da yenileyebiliriz (Opsiyonel)
     if (type && slug) {
       // @ts-ignore
-      revalidateTag(`${type}:${slug}`, "page");
+      revalidateTag(`${type}:${slug}`, { expire: 0 });
       console.log(`Revalidated slug tag: ${type}:${slug}`);
     }
 

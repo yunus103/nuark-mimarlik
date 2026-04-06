@@ -146,6 +146,8 @@ export const allSlugsForSitemapQuery = groq`{
 export const defaultSeoQuery = groq`*[_type == "siteSettings"][0] {
   "title": defaultSeo.metaTitle,
   "description": defaultSeo.metaDescription,
-  "ogImage": defaultOgImage,
-  siteName
+  "ogImage": defaultOgImage { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
+  siteName,
+  siteTagline,
+  favicon { asset->{ url } }
 }`;
