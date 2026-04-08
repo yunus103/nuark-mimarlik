@@ -42,12 +42,7 @@ export default async function ProjectPage({ params }: Props) {
 
   if (!project) notFound();
 
-  const galleryImages = (project.gallery || [])
-    .map((img: any) => ({
-      url: urlForImage(img)?.auto("format").width(1920).url() || "",
-      alt: img.alt || "",
-    }))
-    .filter((img: any) => img.url);
+  const galleryImages = (project.gallery || []).filter((img: any) => img?.asset);
 
   return (
     <article className="bg-background min-h-screen">

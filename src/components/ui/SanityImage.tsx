@@ -15,6 +15,7 @@ type SanityImageProps = {
   className?: string;
   priority?: boolean;
   fit?: "crop" | "fill" | "fillmax" | "max" | "scale" | "min";
+  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
 };
 
 export function SanityImage({
@@ -26,6 +27,7 @@ export function SanityImage({
   className,
   priority = false,
   fit = "crop",
+  objectFit,
 }: SanityImageProps) {
   if (!image?.asset) return null;
 
@@ -41,7 +43,6 @@ export function SanityImage({
   const blurDataURL = getImageLqip(image);
 
   // 2. Hotspot (Odak Noktası) hesaplama
-  // Sanity hotspot değerleri 0-1 arasındadır, bu yüzden yüzdesiyle çarpıyoruz.
   const objectPosition = image.hotspot
     ? `${image.hotspot.x * 100}% ${image.hotspot.y * 100}%`
     : "center";
@@ -60,7 +61,7 @@ export function SanityImage({
       priority={priority}
       style={{ 
         objectPosition,
-        objectFit: fill ? "cover" : undefined 
+        objectFit: objectFit || (fill ? "cover" : undefined) 
       }}
       placeholder={blurDataURL ? "blur" : "empty"}
       blurDataURL={blurDataURL}

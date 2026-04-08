@@ -1,147 +1,179 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import { RiCloseLine, RiArrowLeftLine, RiArrowRightLine, RiFullscreenLine } from "react-icons/ri";
-
-interface LightboxImage {
-  url: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-}
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SanityImage } from '@/components/ui/SanityImage';
+import { RiCloseLine, RiArrowLeftSLine, RiArrowRightSLine, RiFullscreenLine } from "react-icons/ri";
 
 interface ProjectLightboxProps {
-  images: LightboxImage[];
+  images: any[];
 }
 
 export function ProjectLightbox({ images }: ProjectLightboxProps) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const open = (index: number) => setActiveIndex(index);
-  const close = () => setActiveIndex(null);
-
-  const prev = useCallback(() => {
-    if (activeIndex === null) return;
-    setActiveIndex((activeIndex - 1 + images.length) % images.length);
-  }, [activeIndex, images.length]);
-
-  const next = useCallback(() => {
-    if (activeIndex === null) return;
-    setActiveIndex((activeIndex + 1) % images.length);
-  }, [activeIndex, images.length]);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
-    if (activeIndex === null) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImage === null) return;
+      if (e.key === 'Escape') setSelectedImage(null);
+      if (e.key === 'ArrowLeft') paginate(-1);
+      if (e.key === 'ArrowRight') paginate(1);
     };
-    window.addEventListener("keydown", handleKey);
-    document.body.style.overflow = "hidden";
+    
+    if (selectedImage !== null) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    
     return () => {
-      window.removeEventListener("keydown", handleKey);
+      window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeIndex, prev, next]);
+  }, [selectedImage, images.length]);
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setSelectedImage((prev) => {
+      if (prev === null) return null;
+      if (newDirection === 1) return (prev < images.length - 1 ? prev + 1 : 0);
+      return (prev > 0 ? prev - 1 : images.length - 1);
+    });
+  };
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9
+    })
+  };
+
+  if (!images || images.length === 0) return null;
 
   return (
     <>
-      {/* Gallery Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
-        {images.map((img, i) => (
-          <button
-            key={i}
-            onClick={() => open(i)}
-            className="group relative overflow-hidden bg-brand-black focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
-            aria-label={`Galeri görseli ${i + 1}: ${img.alt || ""}`}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+        {images.map((image, i) => (
+          <div 
+            key={i} 
+            className="group relative cursor-pointer overflow-hidden rounded-sm aspect-[4/3] bg-brand-black"
+            onClick={() => setSelectedImage(i)}
           >
-            <div className="relative aspect-[4/3] w-full">
-              <Image
-                src={img.url}
-                alt={img.alt || `Proje görseli ${i + 1}`}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-all duration-700 group-hover:scale-105"
-              />
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <RiFullscreenLine className="text-white text-3xl drop-shadow-lg" />
+            <SanityImage
+              image={image}
+              width={800}
+              height={600}
+              sizes="(max-width: 768px) 50vw, 33vw"
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            {/* Hover overlay with icon */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500">
+                <RiFullscreenLine className="text-2xl" />
               </div>
             </div>
-          </button>
+          </div>
         ))}
       </div>
 
-      {/* Lightbox Overlay */}
-      {activeIndex !== null && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm flex items-center justify-center"
-          onClick={close}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Proje galeri görünümü"
-        >
-          {/* Close Button */}
-          <button
-            onClick={close}
-            className="absolute top-4 right-4 z-10 text-white/80 hover:text-white p-3 hover:bg-white/10 transition-colors duration-200 rounded-none"
-            aria-label="Kapat"
+      <AnimatePresence initial={false} custom={direction}>
+        {selectedImage !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 px-4 md:px-12 backdrop-blur-sm touch-none"
+            onClick={() => setSelectedImage(null)}
           >
-            <RiCloseLine className="text-3xl" />
-          </button>
-
-          {/* Counter */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/70 font-sans text-xs tracking-widest uppercase z-10">
-            {activeIndex + 1} / {images.length}
-          </div>
-
-          {/* Prev Button */}
-          {images.length > 1 && (
-            <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute left-4 z-10 text-white/80 hover:text-white p-3 hover:bg-white/10 transition-colors duration-200 rounded-none"
-              aria-label="Önceki görsel"
-            >
-              <RiArrowLeftLine className="text-3xl" />
-            </button>
-          )}
-
-          {/* Main Image */}
-          <div
-            className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={images[activeIndex].url}
-              alt={images[activeIndex].alt || `Görsel ${activeIndex + 1}`}
-              width={1920}
-              height={1080}
-              className="object-contain max-h-[85vh] w-auto max-w-full"
-              priority
-            />
-          </div>
-
-          {/* Next Button */}
-          {images.length > 1 && (
-            <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute right-4 z-10 text-white/80 hover:text-white p-3 hover:bg-white/10 transition-colors duration-200 rounded-none"
-              aria-label="Sonraki görsel"
-            >
-              <RiArrowRightLine className="text-3xl" />
-            </button>
-          )}
-
-          {/* Alt text */}
-          {images[activeIndex].alt && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 font-sans text-xs tracking-wider text-center max-w-md px-4">
-              {images[activeIndex].alt}
+            {/* Top Bar */}
+            <div className="absolute top-0 left-0 right-0 p-6 md:p-10 flex justify-between items-center z-10">
+              <div className="text-white font-sans text-sm tracking-[0.2em] uppercase opacity-70">
+                {selectedImage + 1} <span className="mx-2 text-white/30">/</span> {images.length}
+              </div>
+              <button 
+                className="w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer group"
+                onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
+              >
+                <RiCloseLine className="text-3xl transform group-hover:rotate-90 transition-transform duration-300" />
+              </button>
             </div>
-          )}
-        </div>
-      )}
+
+            {/* Navigation Arrows */}
+            {images.length > 1 && (
+              <>
+                <button 
+                  className="hidden md:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    paginate(-1);
+                  }}
+                >
+                  <RiArrowLeftSLine className="text-5xl transform group-hover:-translate-x-2 transition-transform" />
+                </button>
+                <button 
+                  className="hidden md:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    paginate(1);
+                  }}
+                >
+                  <RiArrowRightSLine className="text-5xl transform group-hover:translate-x-2 transition-transform" />
+                </button>
+              </>
+            )}
+
+            {/* Main Image Container */}
+            <div className="relative w-full h-[70vh] md:h-[85vh] flex items-center justify-center overflow-hidden">
+              <motion.div
+                key={selectedImage}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.3 }
+                }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(_, { offset, velocity }) => {
+                  if (offset.x > 100 || (offset.x > 20 && velocity.x > 500)) {
+                    paginate(-1);
+                  } else if (offset.x < -100 || (offset.x < -20 && velocity.x < -500)) {
+                    paginate(1);
+                  }
+                }}
+                className="absolute w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <SanityImage
+                  image={images[selectedImage]}
+                  fill
+                  fit="max"
+                  objectFit="contain"
+                  sizes="100vw"
+                  className="pointer-events-none select-none"
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

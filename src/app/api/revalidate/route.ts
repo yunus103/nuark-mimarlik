@@ -6,7 +6,10 @@ export async function POST(request: NextRequest) {
   try {
     const signature = request.headers.get(SIGNATURE_HEADER_NAME);
     if (!signature) {
-      return NextResponse.json({ message: "No signature provided" }, { status: 401 });
+      return NextResponse.json(
+        { message: "No signature provided" },
+        { status: 401 },
+      );
     }
 
     const body = await request.text();
@@ -14,12 +17,18 @@ export async function POST(request: NextRequest) {
 
     if (!secret) {
       console.error("SANITY_WEBHOOK_SECRET is not set");
-      return NextResponse.json({ message: "Secret not configured" }, { status: 500 });
+      return NextResponse.json(
+        { message: "Secret not configured" },
+        { status: 500 },
+      );
     }
 
     // Doğrulama işlemi
     if (!isValidSignature(body, signature, secret)) {
-      return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
+      return NextResponse.json(
+        { message: "Invalid signature" },
+        { status: 401 },
+      );
     }
 
     const payload = JSON.parse(body);
@@ -56,7 +65,6 @@ export async function POST(request: NextRequest) {
       console.log(`Revalidated slug tag: ${type}:${slug}`);
     }
 
-
     // Global ayarlar değiştiyse path bazlı da yenileyelim
     if (type === "siteSettings" || type === "navigation") {
       revalidatePath("/", "layout");
@@ -72,5 +80,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
-
