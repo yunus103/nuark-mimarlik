@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="absolute top-0 left-0 right-0 pt-24 px-6 md:px-12 z-10">
           <Link
             href="/projeler"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-brand-gold transition-colors duration-300 font-sans text-xs font-bold tracking-widest uppercase group"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-brand-accent transition-colors duration-300 font-sans text-xs font-bold tracking-widest uppercase group"
           >
             <RiArrowLeftLine className="group-hover:-translate-x-1 transition-transform duration-300" />
             Tüm Projeler
@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-24 pb-12 md:pb-16 z-10">
           <FadeIn direction="up">
             {project.category && (
-              <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">
                 {project.category}
               </span>
             )}
@@ -85,13 +85,13 @@ export default async function ProjectPage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-5 mt-5">
               {(project.location || project.city) && (
                 <span className="text-white/60 font-sans text-sm flex items-center gap-2">
-                  <RiMapPinLine className="text-brand-gold" />
+                  <RiMapPinLine className="text-brand-accent" />
                   {[project.location, project.city].filter(Boolean).join(", ")}
                 </span>
               )}
               {project.year && (
                 <span className="text-white/60 font-sans text-sm flex items-center gap-2">
-                  <RiCalendarLine className="text-brand-gold" />
+                  <RiCalendarLine className="text-brand-accent" />
                   {project.year}
                 </span>
               )}
@@ -117,7 +117,7 @@ export default async function ProjectPage({ params }: Props) {
         <section className="bg-brand-black py-16 md:py-24 border-t border-white/10">
           <div className="container mx-auto px-4 md:px-8 max-w-7xl">
             <FadeIn direction="up" className="mb-10">
-              <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-2">
+              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-2">
                 Fotoğraf Galerisi
               </span>
               <p className="text-white/30 font-sans text-xs">
@@ -135,14 +135,14 @@ export default async function ProjectPage({ params }: Props) {
           <Link href="/projeler">
             <Button
               variant="outline"
-              className="rounded-none border-brand-gold/60 text-brand-gold hover:border-brand-gold hover:bg-brand-gold hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 transition-all duration-300"
+              className="rounded-none border-brand-accent/60 text-brand-accent hover:border-brand-accent hover:bg-brand-accent hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 transition-all duration-300"
             >
               <RiArrowLeftLine className="mr-2" />
               Tüm Projelere Dön
             </Button>
           </Link>
           <Link href="/iletisim">
-            <Button className="rounded-none bg-brand-gold text-brand-black hover:bg-white hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 font-bold transition-all duration-300">
+            <Button className="rounded-none bg-brand-accent text-brand-black hover:bg-white hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 font-bold transition-all duration-300">
               Projenizi Görüşelim
             </Button>
           </Link>

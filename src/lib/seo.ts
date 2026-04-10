@@ -60,6 +60,9 @@ export async function buildMetadata(params: BuildMetadataParams = {}): Promise<M
     title,
     description,
     robots: noIndex ? "noindex, nofollow" : "index, follow",
+    verification: {
+      google: defaults?.googleSearchConsole,
+    },
     ...(faviconUrl && { icons: { icon: faviconUrl } }),
     ...(canonicalUrl && { alternates: { canonical: canonicalUrl } }),
     openGraph: {

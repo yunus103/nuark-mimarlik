@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { Button } from "@/components/ui/button";
-import { RiMenu3Line, RiCloseLine, RiArrowDownSLine } from "react-icons/ri";
+import { RiMenu3Line, RiCloseLine, RiArrowRightLine, RiMapPinLine, RiPhoneLine, RiMailLine } from "react-icons/ri";
 
 type NavItem = {
   label: string;
@@ -29,6 +28,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
   const isHome = pathname === "/";
   
   const links: NavItem[] = navigation?.headerLinks || [];
+  const contact = settings?.contactInfo;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,187 +38,200 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Ana sayfada ve en üstte isek şeffaf, değilse bulanık/beyaz(veya koyu) arka plan
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [menuOpen]);
+
   const bgClass = (isHome && !scrolled && !menuOpen)
     ? "bg-transparent border-transparent"
-    : "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b";
+    : "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-white/10 dark:border-white/10";
 
   return (
-    <header className={`fixed top-0 z-40 w-full transition-colors duration-300 ${bgClass}`}>
-      <div className="container mx-auto flex h-24 items-center justify-between px-4">
-        <Link href="/" className="flex items-center group h-full">
-          <div className="relative flex items-center justify-start gap-4 transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-2">
-            {settings?.logo ? (
-              <div className="flex items-center gap-4 h-full">
-                <div className="h-full w-auto max-w-[120px] md:max-w-[150px]">
-                  <SanityImage
-                    image={settings.logo}
-                    width={400}
-                    height={600}
-                    fit="max"
-                    className="h-full w-auto object-contain object-left transition-all duration-300"
-                    priority
-                  />
-                </div>
-                {settings?.logoText && (
-                  <div className="flex flex-col justify-center border-l border-foreground/20 pl-4 h-12">
-                    <span className={`font-serif text-lg md:text-xl font-bold tracking-tight leading-none transition-colors duration-300 ${
-                      isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
-                    }`}>
-                      {settings.logoText}
-                    </span>
+    <>
+      <header className={`fixed top-0 z-40 w-full transition-colors duration-300 ${bgClass}`}>
+        <div className="container mx-auto flex h-24 items-center justify-between px-4">
+          <Link href="/" className="flex items-center group h-full">
+            <div className="relative flex items-center justify-start gap-4 transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-2">
+              {settings?.logo ? (
+                <div className="flex items-center gap-4 h-full">
+                  <div className="h-full w-fit">
+                    <SanityImage
+                      image={{ ...settings.logo, crop: undefined, hotspot: undefined }}
+                      width={600}
+                      height={800}
+                      fit="max"
+                      className="h-full w-auto object-contain transition-all duration-300"
+                      priority
+                    />
                   </div>
-                )}
-              </div>
-            ) : (
-              <span className={`font-bold text-xl tracking-tight leading-none transition-colors duration-300 ${
-                isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
-              }`}>
-                {settings?.siteName || "NUARK"}
-              </span>
-            )}
-          </div>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6 xl:gap-8">
-          {links.map((item, i) => (
-            <DesktopNavItem key={i} item={item} isHomeTop={isHome && !scrolled} />
-          ))}
-          <div className="flex items-center gap-4 ml-4">
-            <Link href="/iletisim">
-              <Button 
-                variant="outline" 
-                className={`rounded-none border-2 font-bold px-8 transition-all duration-300 hover:bg-brand-gold hover:text-black hover:border-brand-gold cursor-pointer ${
-                  isHome && !scrolled && !menuOpen 
-                    ? "text-brand-gold border-brand-gold bg-black/20" 
-                    : "text-foreground border-brand-gold"
-                }`}
-              >
-                İletişime Geç
-              </Button>
-            </Link>
-          </div>
-        </nav>
-
-        {/* Mobile Controls */}
-        <div className="flex items-center gap-2 md:hidden">
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={() => setMenuOpen(!menuOpen)} 
-            aria-label="Menüyü aç/kapat"
-            className={isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"}
-          >
-            {menuOpen ? <RiCloseLine size={24} /> : <RiMenu3Line size={24} />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="border-t md:hidden overflow-hidden"
-          >
-            <nav className="container mx-auto flex flex-col gap-2 px-4 py-6">
-              {links.map((item, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between">
-                    <Link
-                      href={resolveHref(item)}
-                      onClick={() => !item.subLinks && setMenuOpen(false)}
-                      className="text-base font-medium py-2 transition-colors hover:text-primary"
-                    >
-                      {item.label}
-                    </Link>
-                  </div>
-                  {item.subLinks && (
-                    <div className="flex flex-col gap-1 pl-4 border-l ml-1 mt-1">
-                      {item.subLinks.map((sub, j) => (
-                        <Link
-                          key={j}
-                          href={resolveHref(sub)}
-                          onClick={() => setMenuOpen(false)}
-                          className="text-sm font-medium py-2 text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
+                  {settings?.logoText && (
+                    <div className="flex flex-col justify-center border-l border-foreground/20 pl-4 h-12">
+                      <span className={`font-serif text-lg md:text-xl font-bold tracking-tight leading-none transition-colors duration-300 ${
+                        isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
+                      }`}>
+                        {settings.logoText}
+                      </span>
                     </div>
                   )}
                 </div>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  );
-}
-
-function DesktopNavItem({ item, isHomeTop }: { item: NavItem, isHomeTop?: boolean }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const textClass = isHomeTop ? "text-white/90 hover:text-white" : "text-foreground/80 hover:text-foreground";
-
-  if (!item.subLinks || item.subLinks.length === 0) {
-    return (
-      <Link
-        href={resolveHref(item)}
-        target={item.openInNewTab ? "_blank" : undefined}
-        rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-        className={`text-sm font-medium tracking-wide uppercase transition-colors ${textClass}`}
-      >
-        {item.label}
-      </Link>
-    );
-  }
-
-  return (
-    <div 
-      className="relative group"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <Link
-        href={resolveHref(item)}
-        className={`flex items-center gap-1 text-sm font-medium tracking-wide uppercase transition-colors ${textClass}`}
-      >
-        {item.label}
-        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <RiArrowDownSLine size={16} />
-        </motion.span>
-      </Link>
-      
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-0 top-full pt-4 min-w-[200px]"
-          >
-            <div className="bg-popover border rounded-xl shadow-xl p-2 overflow-hidden">
-              {item.subLinks.map((sub, j) => (
-                <Link
-                  key={j}
-                  href={resolveHref(sub)}
-                  target={sub.openInNewTab ? "_blank" : undefined}
-                  rel={sub.openInNewTab ? "noopener noreferrer" : undefined}
-                  className="flex items-center px-4 py-2.5 text-sm font-medium rounded-lg hover:bg-muted transition-colors"
-                >
-                  {sub.label}
-                </Link>
-              ))}
+              ) : (
+                <span className={`font-bold text-xl tracking-tight leading-none transition-colors duration-300 ${
+                  isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
+                }`}>
+                  {settings?.siteName || "NUARK"}
+                </span>
+              )}
             </div>
-          </motion.div>
+          </Link>
+
+          {/* Menü Açma Butonu */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setMenuOpen(true)}
+              aria-label="Menüyü aç"
+              className={`flex items-center gap-3 transition-colors duration-300 group cursor-pointer ${
+                isHome && !scrolled ? "text-white hover:text-brand-accent" : "text-foreground hover:text-brand-accent p-2 md:p-0"
+              }`}
+            >
+              <span className="hidden md:block font-bold uppercase tracking-widest text-xs group-hover:text-brand-accent transition-colors">Menü</span>
+              <div className="p-2 border border-current rounded-none">
+                <RiMenu3Line size={24} />
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Kayarak Gelen Tam Ekran / Panel Menü */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Arka Plan Karartma (Backdrop) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
+            />
+
+            {/* Sidebar / Tam Ekran (Mobil İçin) Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Smooth ease-out
+              className="fixed top-0 right-0 z-50 h-[100dvh] w-full md:w-[450px] lg:w-[500px] bg-brand-black text-brand-off-white shadow-2xl flex flex-col pointer-events-auto overflow-hidden"
+            >
+              {/* Menü Kapatma Başlığı */}
+              <div className="flex items-center justify-end h-24 px-4 shrink-0 border-b border-white/5">
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 text-white/50 hover:text-brand-accent transition-colors duration-300 group cursor-pointer"
+                >
+                  <span className="hidden md:block font-bold uppercase tracking-widest text-xs group-hover:text-brand-accent transition-colors">Kapat</span>
+                  <div className="p-2 border border-current rounded-none">
+                    <RiCloseLine size={24} />
+                  </div>
+                </button>
+              </div>
+
+              {/* Linkler - İçerik */}
+              <div className="flex-1 flex flex-col items-center md:items-start justify-center px-8 md:px-16 overflow-y-auto w-full py-8 select-none">
+                <div className="flex flex-col items-center md:items-start space-y-8 md:space-y-6 w-full">
+                  {links.map((item, i) => (
+                    <motion.div 
+                      key={i} 
+                      className="flex flex-col items-center md:items-start w-full text-center md:text-left"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + (i * 0.05), duration: 0.4 }}
+                    >
+                      <Link
+                        href={resolveHref(item)}
+                        target={item.openInNewTab ? "_blank" : undefined}
+                        onClick={() => setMenuOpen(false)}
+                        className="text-4xl md:text-4xl font-serif font-bold hover:text-brand-accent transition-colors duration-300 relative group block"
+                      >
+                        {item.label}
+                      </Link>
+                      
+                      {/* Sublinks */}
+                      {item.subLinks && item.subLinks.length > 0 && (
+                        <div className="flex flex-col items-center md:items-start space-y-3 mt-4 w-full">
+                          {item.subLinks.map((sub, j) => (
+                            <Link
+                              key={j}
+                              href={resolveHref(sub)}
+                              target={sub.openInNewTab ? "_blank" : undefined}
+                              onClick={() => setMenuOpen(false)}
+                              className="text-base text-white/60 hover:text-brand-accent transition-colors uppercase tracking-widest font-sans font-medium"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                  
+                  {/* Ekstra CTA / Aksiyon Butonu */}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.4 }}
+                    className="mt-8 md:mt-12 pt-8 w-full border-t border-white/10 flex justify-center md:justify-start"
+                  >
+                     <Link
+                        href="/iletisim"
+                        onClick={() => setMenuOpen(false)}
+                        className="group inline-flex items-center gap-4 text-brand-accent text-sm font-bold uppercase tracking-widest"
+                      >
+                        <span>İletişime Geç</span>
+                        <div className="p-3 border border-brand-accent rounded-none group-hover:bg-brand-accent group-hover:text-black transition-all duration-300">
+                          <RiArrowRightLine size={18} />
+                        </div>
+                      </Link>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Alt Bilgi (İletişim Paneli) - Sadece masaüstünde veya scroll yapıldığında */}
+              <div className="shrink-0 bg-white/5 p-6 md:p-8 border-t border-white/10 md:pb-12 mt-auto">
+                <div className="flex flex-col space-y-4">
+                  {contact?.phone && (
+                    <div className="flex items-center gap-4">
+                      <RiPhoneLine className="shrink-0 text-brand-accent" size={20} />
+                      <a href={`tel:${contact.phone}`} className="text-sm font-sans text-white/70 hover:text-brand-accent transition-colors font-medium">
+                        {contact.phone}
+                      </a>
+                    </div>
+                  )}
+                  {contact?.email && (
+                    <div className="flex items-center gap-4">
+                      <RiMailLine className="shrink-0 text-brand-accent" size={20} />
+                      <a href={`mailto:${contact.email}`} className="text-sm font-sans text-white/70 hover:text-brand-accent transition-colors font-medium break-all text-left">
+                        {contact.email}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }

@@ -72,7 +72,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.platform}
-                      className="flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted-foreground hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-all duration-300"
+                      className="flex h-10 w-10 items-center justify-center rounded-none border border-border text-muted-foreground hover:bg-brand-accent hover:text-black hover:border-brand-accent transition-all duration-300"
                     >
                       <Icon size={18} />
                     </a>
@@ -93,7 +93,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
                     href={resolveHref(item)}
                     target={item.openInNewTab ? "_blank" : undefined}
                     rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-                    className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit"
+                    className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit"
                   >
                     {item.label}
                   </Link>
@@ -106,16 +106,16 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           <div className="space-y-6">
             <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">Hizmetlerimiz</h3>
             <nav className="flex flex-col space-y-3">
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
                 Mimari Tasarım
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
                 İç Mimari
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
                 Proje Yönetimi
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-gold transition-colors w-fit">
+              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
                 İnşaat Uygulama
               </Link>
             </nav>
@@ -127,22 +127,22 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
             <div className="flex flex-col space-y-4">
               {contact?.address && (
                 <div className="flex items-start gap-3">
-                  <RiMapPinLine className="shrink-0 mt-1 text-brand-gold" size={18} />
+                  <RiMapPinLine className="shrink-0 mt-1 text-brand-accent" size={18} />
                   <span className="text-sm text-muted-foreground leading-relaxed">{contact.address}</span>
                 </div>
               )}
               {contact?.phone && (
                 <div className="flex items-center gap-3">
-                  <RiPhoneLine className="shrink-0 text-brand-gold" size={18} />
-                  <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:text-brand-gold transition-colors">
+                  <RiPhoneLine className="shrink-0 text-brand-accent" size={18} />
+                  <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:text-brand-accent transition-colors">
                     {contact.phone}
                   </a>
                 </div>
               )}
               {contact?.email && (
                 <div className="flex items-center gap-3">
-                  <RiMailLine className="shrink-0 text-brand-gold" size={18} />
-                  <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:text-brand-gold transition-colors">
+                  <RiMailLine className="shrink-0 text-brand-accent" size={18} />
+                  <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:text-brand-accent transition-colors">
                     {contact.email}
                   </a>
                 </div>
@@ -162,7 +162,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
               href="https://sedminadijital.com/tr"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-brand-gold transition-colors font-bold"
+              className="text-muted-foreground hover:text-brand-accent transition-colors font-bold"
             >
               Sedmina Dijital
             </a>

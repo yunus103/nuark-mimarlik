@@ -46,7 +46,7 @@ export function ReferansMarquee({ references }: ReferansMarqueeProps) {
                 />
               </div>
             ) : (
-              <span className="text-white/40 font-serif font-bold text-lg md:text-xl group-hover:text-brand-gold transition-colors duration-300 whitespace-nowrap">
+              <span className="text-white/40 font-serif font-bold text-lg md:text-xl group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap">
                 {ref.clientName}
               </span>
             )}

@@ -9,6 +9,7 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { Button } from "@/components/ui/button";
 import { RichText } from "@/components/ui/RichText";
 import { ReferansMarquee } from "@/components/ui/ReferansMarquee";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import Link from "next/link";
 import { RiArrowRightLine } from "react-icons/ri";
 
@@ -58,7 +59,7 @@ export default async function HomePage() {
         <div className="relative z-10 w-full container mx-auto px-4 py-12 flex flex-col items-center md:items-start md:mt-24">
           <FadeIn direction="up" duration={0.8} className="w-full max-w-4xl">
             {data?.heroEyebrow && (
-              <span className="block text-brand-gold font-sans text-sm font-bold tracking-widest uppercase mb-6">
+              <span className="block text-brand-accent font-sans text-sm font-bold tracking-widest uppercase mb-6">
                 {data.heroEyebrow}
               </span>
             )}
@@ -76,14 +77,14 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start w-full">
               {data?.heroPrimaryCtaLabel && data?.heroPrimaryCtaSlug && (
                 <Link href={`/${data.heroPrimaryCtaSlug}`} className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto bg-brand-gold text-brand-black hover:bg-brand-black hover:text-brand-gold rounded-none border-2 border-brand-gold transition-all duration-300 font-bold uppercase tracking-widest text-xs h-16 px-10 shadow-lg shadow-black/20">
+                  <Button size="lg" className="w-full sm:w-auto bg-brand-accent text-brand-black hover:bg-brand-black hover:text-brand-accent rounded-none border-2 border-brand-accent transition-all duration-300 font-bold uppercase tracking-widest text-xs h-16 px-10 shadow-lg shadow-black/20">
                     {data.heroPrimaryCtaLabel}
                   </Button>
                 </Link>
               )}
               {data?.heroSecondaryCtaLabel && data?.heroSecondaryCtaSlug && (
                 <Link href={`/${data.heroSecondaryCtaSlug}`} className="w-full sm:w-auto">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto text-white border-white/40 hover:border-brand-gold hover:text-brand-gold bg-black/10 backdrop-blur-sm rounded-none transition-all duration-300 font-bold uppercase tracking-widest text-xs h-16 px-10 shadow-lg shadow-black/20">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto text-white border-white/40 hover:border-brand-accent hover:text-brand-accent bg-black/10 backdrop-blur-sm rounded-none transition-all duration-300 font-bold uppercase tracking-widest text-xs h-16 px-10 shadow-lg shadow-black/20">
                     {data.heroSecondaryCtaLabel}
                   </Button>
                 </Link>
@@ -93,28 +94,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. STATS SECTION */}
-      {data?.stats && data.stats.length > 0 && (
-        <section className="bg-brand-black border-t border-white/10 py-16 md:py-24 relative z-20">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-white/10">
-              {data.stats.map((stat: any, i: number) => (
-                <FadeIn key={i} delay={i * 0.1} direction="up" className="flex flex-col items-center md:items-start md:px-8 text-center md:text-left">
-                  <span className="text-4xl md:text-6xl font-serif font-bold text-brand-gold mb-2">{stat.value}</span>
-                  <span className="text-sm font-sans text-white/70 uppercase tracking-widest">{stat.label}</span>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* 2. STATS SECTION (Moved to About Section) */}
 
       {/* 3. REFERANSLAR MARQUEE */}
       {marqueeRefs.length > 0 && (
         <section className="bg-brand-black border-b border-white/10 pb-16 md:pb-24 pt-4 md:pt-8 overflow-hidden z-20 relative">
           <div className="container mx-auto px-4 mb-10 text-center">
             <FadeIn direction="up">
-              <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-3">Referanslarımız</span>
+              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-3">Referanslarımız</span>
               <p className="text-white/30 font-sans text-sm tracking-wide">Birlikte çalışmaktan gurur duyduğumuz kurumlar</p>
             </FadeIn>
           </div>
@@ -135,16 +122,30 @@ export default async function HomePage() {
                   <div className="prose prose-lg dark:prose-invert prose-headings:font-serif text-muted-foreground">
                     <RichText value={data.aboutText} />
                   </div>
-                  <Link href="/hakkimizda" className="inline-flex items-center gap-2 text-brand-gold font-bold uppercase tracking-wider text-sm hover:gap-4 transition-all duration-300 mt-4 group">
+                  <Link href="/hakkimizda" className="inline-flex items-center gap-2 text-brand-accent font-bold uppercase tracking-wider text-sm hover:gap-4 transition-all duration-300 mt-4 group">
                     <span>Kurumsal Profilimizi İnceleyin</span>
                     <RiArrowRightLine className="transition-transform group-hover:translate-x-1" />
                   </Link>
+
+                  {/* Stats inside About Text Column */}
+                  {data?.stats && data.stats.length > 0 && (
+                    <div className="grid grid-cols-2 gap-8 pt-8 mt-12 border-t border-border/50">
+                      {data.stats.map((stat: any, i: number) => (
+                        <FadeIn key={i} delay={i * 0.1} direction="up" className="flex flex-col items-start gap-1">
+                          <span className="text-4xl md:text-5xl font-sans font-bold text-brand-accent">
+                            <AnimatedCounter value={stat.value} />
+                          </span>
+                          <span className="text-xs font-sans text-muted-foreground uppercase tracking-widest font-bold">{stat.label}</span>
+                        </FadeIn>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </FadeIn>
 
               {data.aboutImage && (
                 <FadeIn direction="left" delay={0.2}>
-                  <div className="relative aspect-[4/5] w-full">
+                  <div className="relative aspect-[4/5] w-full mt-10 lg:mt-0">
                     <SanityImage
                       image={data.aboutImage}
                       fill
@@ -152,7 +153,7 @@ export default async function HomePage() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     {/* Brutalist Shadow / Offset */}
-                    <div className="absolute -bottom-6 -right-6 w-full h-full border border-brand-gold/30 -z-10 hidden md:block" />
+                    <div className="absolute -bottom-6 -right-6 w-full h-full border border-brand-accent/30 -z-10 hidden md:block" />
                   </div>
                 </FadeIn>
               )}
@@ -166,11 +167,11 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
             <FadeIn>
-              <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">PORTFOLYO</span>
+              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">PORTFOLYO</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">{data?.featuredProjectsTitle || "Öne Çıkan Projeler"}</h2>
             </FadeIn>
             <FadeIn delay={0.2} className="hidden md:block">
-              <Link href="/projeler" className="inline-flex items-center gap-2 text-foreground font-bold uppercase tracking-wider text-sm hover:text-brand-gold transition-colors group">
+              <Link href="/projeler" className="inline-flex items-center gap-2 text-foreground font-bold uppercase tracking-wider text-sm hover:text-brand-accent transition-colors group">
                 Tüm Projeleri Gör <RiArrowRightLine className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </FadeIn>
@@ -194,7 +195,7 @@ export default async function HomePage() {
                     
                     {/* Overlay Info */}
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                      <span className="text-brand-gold text-xs font-bold tracking-widest uppercase mb-2">
+                      <span className="text-brand-accent text-xs font-bold tracking-widest uppercase mb-2">
                         {project.category || "Proje"} {project.year ? `— ${project.year}` : ""}
                       </span>
                       <h3 className="text-white text-2xl font-serif font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -229,7 +230,7 @@ export default async function HomePage() {
       <section className="py-24 md:py-32 bg-brand-black text-brand-off-white border-y border-white/10">
         <div className="container mx-auto px-4">
           <FadeIn direction="up" className="max-w-3xl mx-auto text-center mb-16">
-            <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">UZMANLIK</span>
+            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">UZMANLIK</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight mb-6">{data?.servicesSectionTitle || "Mimari & Tasarım Hizmetleri"}</h2>
             <p className="text-white/70 text-lg leading-relaxed">{data?.servicesIntro || "Tasarım aşamasından inşaatın tamamlanmasına kadar, sürdürülebilir ve estetik çözümler sunarak hayalinizdeki projeleri gerçeğe dönüştürüyoruz."}</p>
           </FadeIn>
@@ -242,7 +243,7 @@ export default async function HomePage() {
               { title: "İnşaat Uygulama", desc: "Tasarımı hayata geçiren detaylı anahtar teslim uygulamalar." },
             ].map((service, i) => (
               <div key={i} className="bg-brand-black p-10 lg:p-12 group hover:bg-white/5 transition-colors duration-300">
-                <span className="text-brand-gold text-3xl font-serif font-bold block mb-6 opacity-50 group-hover:opacity-100 transition-opacity">0{i+1}</span>
+                <span className="text-brand-accent text-3xl font-serif font-bold block mb-6 opacity-50 group-hover:opacity-100 transition-opacity">0{i+1}</span>
                 <h3 className="text-xl font-serif font-bold mb-4">{service.title}</h3>
                 <p className="text-white/60 text-sm leading-relaxed">{service.desc}</p>
               </div>
@@ -251,7 +252,7 @@ export default async function HomePage() {
 
           <div className="mt-16 text-center">
              <Link href="/hizmetlerimiz">
-              <Button className="rounded-none bg-brand-gold text-brand-black hover:bg-white hover:text-black uppercase tracking-widest text-xs h-12 px-8 font-bold border-transparent">
+              <Button className="rounded-none bg-brand-accent text-brand-black hover:bg-white hover:text-black uppercase tracking-widest text-xs h-12 px-8 font-bold border-transparent">
                 Hizmetlerimizi İnceleyin
               </Button>
             </Link>
@@ -264,7 +265,7 @@ export default async function HomePage() {
         <section className="relative py-32 flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-background z-0" />
           {/* Subtle abstract geometric background element */}
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-gold/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 z-0" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-accent/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 z-0" />
           
           <div className="relative z-10 container mx-auto px-4 text-center">
             <FadeIn>

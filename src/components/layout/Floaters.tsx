@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 
-export function Floaters({ whatsappNumber }: { whatsappNumber?: string }) {
+export function Floaters({ whatsappNumber, showWhatsappButton }: { whatsappNumber?: string; showWhatsappButton?: boolean }) {
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -12,23 +12,24 @@ export function Floaters({ whatsappNumber }: { whatsappNumber?: string }) {
   });
 
   const cleanNumber = whatsappNumber ? whatsappNumber.replace(/\D/g, "") : "";
+  const isEnabled = showWhatsappButton !== false; // Default to true if undefined
 
   return (
     <>
       {/* Scroll Progress Bar - İnce Altın Sarısı Çizgi */}
       <motion.div
-        className="fixed top-0 right-0 w-[3px] bg-brand-gold z-50 origin-top"
+        className="fixed top-0 right-0 w-[3px] bg-brand-accent z-50 origin-top"
         style={{ scaleY, height: "100vh" }}
       />
 
       {/* WhatsApp Butonu */}
-      {cleanNumber && (
+      {isEnabled && cleanNumber && (
         <motion.a
           href={`https://wa.me/${cleanNumber}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp ile iletişime geç"
-          className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-none bg-brand-black border border-brand-gold text-brand-gold shadow-lg hover:bg-brand-gold hover:text-black transition-colors duration-300"
+          className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-none bg-brand-black border border-brand-accent text-brand-accent shadow-lg hover:bg-brand-accent hover:text-black transition-colors duration-300"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 1, type: "spring" }}

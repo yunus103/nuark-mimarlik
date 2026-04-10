@@ -39,7 +39,7 @@ function Field({
     <div className="space-y-2">
       <label className="block text-[11px] font-bold tracking-widest uppercase text-muted-foreground">
         {label}
-        {required && <span className="text-brand-gold ml-1">*</span>}
+        {required && <span className="text-brand-accent ml-1">*</span>}
       </label>
       {children}
       {error && (
@@ -54,10 +54,10 @@ function Field({
 
 // Input style
 const inputClass =
-  "w-full bg-transparent border-0 border-b border-foreground/20 focus:border-brand-gold px-0 py-3 text-sm font-sans text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors duration-300 rounded-none";
+  "w-full bg-transparent border-0 border-b border-foreground/20 focus:border-brand-accent px-0 py-3 text-sm font-sans text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors duration-300 rounded-none";
 
 const selectClass =
-  "w-full bg-background border-0 border-b border-foreground/20 focus:border-brand-gold px-0 py-3 text-sm font-sans text-foreground outline-none transition-colors duration-300 rounded-none appearance-none cursor-pointer";
+  "w-full bg-background border-0 border-b border-foreground/20 focus:border-brand-accent px-0 py-3 text-sm font-sans text-foreground outline-none transition-colors duration-300 rounded-none appearance-none cursor-pointer";
 
 export function ContactForm({
   formTitle = "Bize Ulaşın",
@@ -125,8 +125,8 @@ export function ContactForm({
   if (status === "success") {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center space-y-6">
-        <div className="w-16 h-16 border border-brand-gold flex items-center justify-center">
-          <RiCheckLine className="text-brand-gold text-3xl" />
+        <div className="w-16 h-16 border border-brand-accent flex items-center justify-center">
+          <RiCheckLine className="text-brand-accent text-3xl" />
         </div>
         <div>
           <p className="font-serif text-xl font-bold text-foreground mb-2">Teşekkürler!</p>
@@ -145,7 +145,7 @@ export function ContactForm({
 
       {formTitle && (
         <div className="mb-10">
-          <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-3">
+          <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-3">
             Mesaj Gönderin
           </span>
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground">{formTitle}</h2>
@@ -251,7 +251,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={status === "loading"}
-            className="inline-flex items-center gap-3 bg-brand-black text-brand-off-white border border-brand-black hover:bg-brand-gold hover:text-brand-black hover:border-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-sans font-bold uppercase tracking-widest text-xs h-12 px-10 rounded-none"
+            className="inline-flex items-center gap-3 bg-brand-black text-brand-off-white border border-brand-black hover:bg-brand-accent hover:text-brand-black hover:border-brand-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-sans font-bold uppercase tracking-widest text-xs h-12 px-10 rounded-none"
           >
             {status === "loading" ? (
               <>

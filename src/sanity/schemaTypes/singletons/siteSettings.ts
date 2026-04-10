@@ -54,6 +54,13 @@ export const siteSettingsType = defineType({
           description: "Başında + ile ülke kodu dahil. Örn: +905001234567",
         }),
         defineField({
+          name: "showWhatsappButton",
+          title: "WhatsApp Butonunu Göster",
+          type: "boolean",
+          initialValue: true,
+          description: "Sağ altta yüzen WhatsApp iletişim butonunu açar/kapatır.",
+        }),
+        defineField({
           name: "mapIframe",
           title: "Harita iFrame Kodu",
           type: "text",
@@ -65,6 +72,7 @@ export const siteSettingsType = defineType({
     defineField({ name: "socialLinks", title: "Sosyal Medya Hesapları", type: "array", of: [{ type: "socialLink" }] }),
     defineField({ name: "gaId", title: "Google Analytics ID", type: "string", description: "Örn: G-XXXXXXXXXX" }),
     defineField({ name: "gtmId", title: "Google Tag Manager ID", type: "string", description: "Örn: GTM-XXXXXXX" }),
+    defineField({ name: "googleSearchConsole", title: "Google Search Console Doğrulama Kodu", type: "string", description: "Sadece içerik kısmını giriniz (content=\"...\"). Örn: _XXXXXXX..." }),
   ],
   preview: { select: { title: "siteName" } },
 });

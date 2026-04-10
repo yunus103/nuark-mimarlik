@@ -22,7 +22,7 @@ export default async function ServicesPage() {
       <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
         <div className="container mx-auto max-w-5xl text-center md:text-left">
           <FadeIn direction="up">
-            <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-6">UZMANLIK ALANLARIMIZ</span>
+            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">UZMANLIK ALANLARIMIZ</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
               Hizmetlerimiz
             </h1>
@@ -51,7 +51,7 @@ export default async function ServicesPage() {
                             className="object-cover grayscale filter transition-all duration-700 hover:grayscale-0"
                             sizes="(max-width: 1024px) 100vw, 50vw"
                           />
-                           <div className={`absolute -bottom-6 ${isEven ? "-right-6" : "-left-6"} w-full h-full border border-brand-gold/30 -z-10 hidden md:block`} />
+                           <div className={`absolute -bottom-6 ${isEven ? "-right-6" : "-left-6"} w-full h-full border border-brand-accent/30 -z-10 hidden md:block`} />
                         </div>
                       ) : (
                         <div className="w-full aspect-[4/5] bg-muted flex items-center justify-center">Görsel Yok</div>
@@ -70,7 +70,7 @@ export default async function ServicesPage() {
 
                       {service.steps && service.steps.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-sm font-bold tracking-widest uppercase mb-6 text-brand-gold">Hizmet Süreci</h3>
+                          <h3 className="font-sans text-sm font-bold tracking-widest uppercase mb-6 text-brand-accent">Hizmet Süreci</h3>
                           <ul className="space-y-6">
                             {service.steps.map((step: any, stepIdx: number) => (
                               <li key={stepIdx} className="flex items-start gap-4">

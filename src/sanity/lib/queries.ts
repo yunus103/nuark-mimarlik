@@ -8,9 +8,9 @@ export const layoutQuery = groq`{
     logo { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
     logoText,
     logoHeight,
-    contactInfo { phone, email, address, whatsappNumber, mapIframe },
+    contactInfo { phone, email, address, whatsappNumber, showWhatsappButton, mapIframe },
     socialLinks[] { platform, url },
-    gaId, gtmId
+    gaId, gtmId, googleSearchConsole
   },
   "navigation": *[_type == "navigation"][0] {
     headerLinks[] { label, linkType, internalSlug, externalUrl, openInNewTab, subLinks[] { label, linkType, internalSlug, externalUrl, openInNewTab } },
@@ -60,7 +60,7 @@ export const contactPageQuery = groq`{
     seo
   },
   "settings": *[_type == "siteSettings"][0] {
-    contactInfo { phone, email, address, whatsappNumber, mapIframe },
+    contactInfo { phone, email, address, whatsappNumber, showWhatsappButton, mapIframe },
     socialLinks[] { platform, url }
   }
 }`;
@@ -142,5 +142,6 @@ export const defaultSeoQuery = groq`*[_type == "siteSettings"][0] {
   "ogImage": defaultOgImage { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
   siteName,
   siteTagline,
-  favicon { asset->{ url } }
+  favicon { asset->{ url } },
+  googleSearchConsole
 }`;

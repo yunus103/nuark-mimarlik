@@ -25,7 +25,7 @@ export default async function AboutPage() {
       <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
         <div className="container mx-auto max-w-5xl">
           <FadeIn direction="up">
-            <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-6">MİMARİ VİZYONUMUZ</span>
+            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">MİMARİ VİZYONUMUZ</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
               {data?.heroHeadline || "Tasarımda Kalite ve Benzersizlik"}
             </h1>
@@ -66,7 +66,7 @@ export default async function AboutPage() {
               ) : (
                 <div className="w-full h-full bg-muted flex items-center justify-center">Görsel Bekleniyor</div>
               )}
-              <div className="absolute -bottom-6 -right-6 w-full h-full border border-brand-gold/30 -z-10 hidden md:block" />
+              <div className="absolute -bottom-6 -right-6 w-full h-full border border-brand-accent/30 -z-10 hidden md:block" />
             </FadeIn>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default async function AboutPage() {
             {data?.valuesTitle && (
               <div className="px-4 py-16 md:py-24 border-b border-white/10 text-center">
                 <FadeIn>
-                   <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">DEĞERLERİMİZ</span>
+                   <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">DEĞERLERİMİZ</span>
                    <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">{data.valuesTitle}</h2>
                 </FadeIn>
               </div>
@@ -87,7 +87,7 @@ export default async function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10 border-b border-white/10">
               {data.values.map((value: any, i: number) => (
                 <FadeIn key={i} delay={i * 0.1} className="p-12 md:p-16 hover:bg-white/5 transition-colors duration-300">
-                  <span className="text-brand-gold text-2xl font-serif font-bold block mb-4">0{i+1}</span>
+                  <span className="text-brand-accent text-2xl font-serif font-bold block mb-4">0{i+1}</span>
                   <h3 className="text-xl font-serif font-bold mb-4">{value.title}</h3>
                   <p className="text-white/60 text-sm leading-relaxed">{value.description}</p>
                 </FadeIn>
@@ -101,7 +101,7 @@ export default async function AboutPage() {
       <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-4">
           <FadeIn className="mb-16">
-            <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">EKİBİMİZ</span>
+            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">EKİBİMİZ</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">{data?.teamTitle || "Kurucu ve Mimarlar"}</h2>
           </FadeIn>
           
@@ -119,7 +119,7 @@ export default async function AboutPage() {
                   )}
                 </div>
                 <h3 className="text-2xl font-serif font-bold mb-1">{member.name}</h3>
-                <p className="text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">{member.title}</p>
+                <p className="text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">{member.title}</p>
                 {member.bio && <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>}
               </FadeIn>
             )) : (
@@ -134,7 +134,7 @@ export default async function AboutPage() {
         <section className="py-24 md:py-32 bg-muted/30 border-t">
           <div className="container mx-auto px-4 max-w-4xl">
             <FadeIn className="text-center mb-16">
-              <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-4">ZAMAN ÇİZELGESİ</span>
+              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">ZAMAN ÇİZELGESİ</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">Kilometre Taşları</h2>
             </FadeIn>
 
@@ -142,7 +142,7 @@ export default async function AboutPage() {
               {data.milestones.map((milestone: any, i: number) => (
                 <FadeIn key={i} delay={i * 0.1} className="flex flex-col md:flex-row border-b border-foreground/10 last:border-0 p-8 hover:bg-background transition-colors duration-300">
                   <div className="md:w-1/4 mb-4 md:mb-0">
-                    <span className="text-3xl font-serif font-bold text-brand-gold">{milestone.year}</span>
+                    <span className="text-3xl font-serif font-bold text-brand-accent">{milestone.year}</span>
                   </div>
                   <div className="md:w-3/4 flex items-center">
                     <p className="text-lg font-sans text-foreground">{milestone.event}</p>

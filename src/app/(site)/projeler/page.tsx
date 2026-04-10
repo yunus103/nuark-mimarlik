@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
       <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
         <div className="container mx-auto max-w-5xl">
           <FadeIn direction="up">
-            <span className="block text-brand-gold font-sans text-xs font-bold tracking-widest uppercase mb-6">PORTFOLYO</span>
+            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">PORTFOLYO</span>
             <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
               Projelerimiz
             </h1>
@@ -53,7 +53,7 @@ export default async function ProjectsPage() {
                     )}
                     
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                       <span className="text-brand-gold text-xs font-bold tracking-widest uppercase mb-2">
+                       <span className="text-brand-accent text-xs font-bold tracking-widest uppercase mb-2">
                         {project.category || "Proje"} {project.year ? `— ${project.year}` : ""}
                       </span>
                       <h3 className="text-white text-2xl font-serif font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
