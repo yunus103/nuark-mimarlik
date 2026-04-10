@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Floaters } from "@/components/layout/Floaters";
 import { Analytics, GtmNoscript } from "@/components/layout/Analytics";
 import { JsonLd, organizationJsonLd } from "@/components/seo/JsonLd";
+import IntroAnimation from "@/components/ui/IntroAnimation";
 import { draftMode } from "next/headers";
 import Link from "next/link";
 
@@ -14,6 +15,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
+      <IntroAnimation
+        logo={data?.settings?.logo}
+        logoText={data?.settings?.logoText}
+        siteName={data?.settings?.siteName}
+      />
       {isDraft && (
         <div className="fixed top-0 left-0 right-0 z-50 bg-yellow-400 text-yellow-900 text-center text-sm py-2 font-medium">
           Önizleme modu aktif.{" "}

@@ -61,7 +61,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
       <header className={`fixed top-0 z-40 w-full transition-colors duration-300 ${bgClass}`}>
         <div className="container mx-auto flex h-24 items-center justify-between px-4">
           <Link href="/" className="flex items-center group h-full">
-            <div className="relative flex items-center justify-start gap-4 transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-2">
+            <div id="nav-logo-target" style={{ opacity: 0 }} className="relative flex items-center justify-start gap-4 transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-2">
               {settings?.logo ? (
                 <div className="flex items-center gap-4 h-full">
                   <div className="h-full w-fit">
