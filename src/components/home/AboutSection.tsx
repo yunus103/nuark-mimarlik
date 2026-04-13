@@ -15,7 +15,7 @@ export function AboutSection({ data }: AboutSectionProps) {
   if (!data?.aboutTitle || !data?.aboutText) return null;
 
   return (
-    <section className="py-24 md:py-32 bg-background">
+    <section className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <FadeIn direction="right">

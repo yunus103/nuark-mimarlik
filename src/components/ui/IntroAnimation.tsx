@@ -123,7 +123,7 @@ export default function IntroAnimation({ logo, logoText, siteName }: IntroAnimat
         {logo ? (
           <>
             {/* Logo görseli - navbar'dakiyle aynı boyut oranı */}
-            <div style={{ height: '48px', width: 'auto' }}>
+            <div style={{ height: '48px', width: 'fit-content', display: 'flex', flexShrink: 0 }}>
               <SanityImage
                 image={{ ...logo, crop: undefined, hotspot: undefined }}
                 width={600}
