@@ -25,8 +25,8 @@ export default async function AboutPage() {
       <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
         <div className="container mx-auto max-w-5xl">
           <FadeIn direction="up">
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">MİMARİ VİZYONUMUZ</span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
+            <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-6">MİMARİ VİZYONUMUZ</span>
+            <h1 className="text-4xl md:text-5xl font-brand font-bold tracking-tight mb-8 leading-[1.1]">
               {data?.heroHeadline || "Tasarımda Kalite ve Benzersizlik"}
             </h1>
             {data?.heroSubtitle && (
@@ -43,7 +43,7 @@ export default async function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <FadeIn direction="right">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight mb-8 text-foreground">
+              <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight mb-8 text-foreground">
                 {data?.storyTitle || "Hikayemiz"}
               </h2>
               <div className="prose prose-lg dark:prose-invert prose-headings:font-serif text-muted-foreground leading-relaxed">
@@ -79,7 +79,7 @@ export default async function AboutPage() {
             {data?.valuesTitle && (
               <div className="px-4 py-16 md:py-24 border-b border-white/10 text-center">
                 <FadeIn>
-                   <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">DEĞERLERİMİZ</span>
+                   <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">DEĞERLERİMİZ</span>
                    <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">{data.valuesTitle}</h2>
                 </FadeIn>
               </div>
@@ -101,7 +101,7 @@ export default async function AboutPage() {
       <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-4">
           <FadeIn className="mb-16">
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">EKİBİMİZ</span>
+            <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">EKİBİMİZ</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">{data?.teamTitle || "Kurucu ve Mimarlar"}</h2>
           </FadeIn>
           
@@ -119,7 +119,7 @@ export default async function AboutPage() {
                   )}
                 </div>
                 <h3 className="text-2xl font-serif font-bold mb-1">{member.name}</h3>
-                <p className="text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">{member.title}</p>
+                <p className="text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">{member.title}</p>
                 {member.bio && <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>}
               </FadeIn>
             )) : (
@@ -134,7 +134,7 @@ export default async function AboutPage() {
         <section className="py-24 md:py-32 bg-muted/30 border-t">
           <div className="container mx-auto px-4 max-w-4xl">
             <FadeIn className="text-center mb-16">
-              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">ZAMAN ÇİZELGESİ</span>
+              <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">ZAMAN ÇİZELGESİ</span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">Kilometre Taşları</h2>
             </FadeIn>
 

@@ -11,8 +11,8 @@ export function ServicesSection({ data }: ServicesSectionProps) {
     <section className="py-24 md:py-32 bg-brand-black text-brand-off-white border-y border-white/10">
       <div className="container mx-auto px-4">
         <FadeIn direction="up" className="max-w-3xl mx-auto text-center mb-16">
-          <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">UZMANLIK</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight mb-6">{data?.servicesSectionTitle || "Mimari & Tasarım Hizmetleri"}</h2>
+          <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">UZMANLIK</span>
+          <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight mb-6">{data?.servicesSectionTitle || "Mimari & Tasarım Hizmetleri"}</h2>
           <p className="text-white/70 text-lg leading-relaxed">{data?.servicesIntro || "Tasarım aşamasından inşaatın tamamlanmasına kadar, sürdürülebilir ve estetik çözümler sunarak hayalinizdeki projeleri gerçeğe dönüştürüyoruz."}</p>
         </FadeIn>
 
@@ -24,8 +24,8 @@ export function ServicesSection({ data }: ServicesSectionProps) {
             { title: "İnşaat Uygulama", desc: "Tasarımı hayata geçiren detaylı anahtar teslim uygulamalar." },
           ].map((service, i) => (
             <div key={i} className="bg-brand-black p-10 lg:p-12 group hover:bg-white/5 transition-colors duration-300">
-              <span className="text-brand-accent text-3xl font-serif font-bold block mb-6 opacity-50 group-hover:opacity-100 transition-opacity">0{i+1}</span>
-              <h3 className="text-xl font-serif font-bold mb-4">{service.title}</h3>
+              <span className="text-brand-accent text-3xl font-brand font-bold block mb-6 opacity-50 group-hover:opacity-100 transition-opacity">0{i+1}</span>
+              <h3 className="text-xl font-brand font-bold mb-4">{service.title}</h3>
               <p className="text-white/60 text-sm leading-relaxed">{service.desc}</p>
             </div>
           ))}

@@ -22,8 +22,8 @@ export default async function ServicesPage() {
       <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
         <div className="container mx-auto max-w-5xl text-center md:text-left">
           <FadeIn direction="up">
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">UZMANLIK ALANLARIMIZ</span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
+            <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-6">UZMANLIK ALANLARIMIZ</span>
+            <h1 className="text-5xl md:text-7xl font-brand font-bold tracking-tight mb-8 leading-[1.1]">
               Hizmetlerimiz
             </h1>
             <p className="text-xl md:text-2xl font-sans text-white/70 max-w-3xl leading-relaxed">
@@ -60,7 +60,7 @@ export default async function ServicesPage() {
 
                     {/* Metin Sütunu */}
                     <FadeIn direction={isEven ? "left" : "right"} className={`${isEven ? "order-2" : "order-2 lg:order-1"}`}>
-                      <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight mb-8">{service.title}</h2>
+                      <h2 className="text-4xl md:text-5xl font-brand font-bold tracking-tight mb-8">{service.title}</h2>
                       
                       {service.longDescription && (
                         <div className="prose prose-lg dark:prose-invert prose-headings:font-serif text-muted-foreground leading-relaxed mb-12">

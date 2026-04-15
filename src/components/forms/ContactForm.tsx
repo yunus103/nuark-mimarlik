@@ -37,7 +37,7 @@ function Field({
 }) {
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-bold tracking-widest uppercase text-muted-foreground">
+      <label className="block text-[11px] font-brand font-bold tracking-widest uppercase text-muted-foreground">
         {label}
         {required && <span className="text-brand-accent ml-1">*</span>}
       </label>
@@ -129,7 +129,7 @@ export function ContactForm({
           <RiCheckLine className="text-brand-accent text-3xl" />
         </div>
         <div>
-          <p className="font-serif text-xl font-bold text-foreground mb-2">Teşekkürler!</p>
+          <p className="font-brand text-xl font-bold text-foreground mb-2">Teşekkürler!</p>
           <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">{successMessage}</p>
         </div>
       </div>
@@ -145,10 +145,10 @@ export function ContactForm({
 
       {formTitle && (
         <div className="mb-10">
-          <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-3">
+          <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-3">
             Mesaj Gönderin
           </span>
-          <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground">{formTitle}</h2>
+          <h2 className="text-2xl md:text-3xl font-brand font-bold text-foreground">{formTitle}</h2>
         </div>
       )}
 
@@ -251,7 +251,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={status === "loading"}
-            className="inline-flex items-center gap-3 bg-brand-black text-brand-off-white border border-brand-black hover:bg-brand-accent hover:text-brand-black hover:border-brand-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-sans font-bold uppercase tracking-widest text-xs h-12 px-10 rounded-none"
+            className="inline-flex items-center gap-3 bg-brand-black text-brand-off-white border border-brand-black hover:bg-brand-accent hover:text-brand-black hover:border-brand-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-brand font-bold uppercase tracking-widest text-xs h-12 px-10 rounded-none"
           >
             {status === "loading" ? (
               <>

@@ -54,7 +54,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           {/* Marka & Sosyal Medya */}
           <div className="space-y-6">
             <div>
-              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">{settings?.siteName || "NUARK MİMARLIK"}</h3>
+              <h3 className="font-brand text-2xl font-bold tracking-tight text-foreground">{settings?.siteName || "NUARK MİMARLIK"}</h3>
               {settings?.siteTagline && (
                 <p className="mt-2 text-sm text-muted-foreground max-w-[250px] leading-relaxed">{settings.siteTagline}</p>
               )}
@@ -85,7 +85,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           {/* Footer Linkleri */}
           {footerLinks.length > 0 && (
             <div className="space-y-6">
-              <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">Hızlı Linkler</h3>
+              <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">Hızlı Linkler</h3>
               <nav className="flex flex-col space-y-3">
                 {footerLinks.map((item, i) => (
                   <Link
@@ -104,7 +104,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
 
           {/* Hizmetler Özeti (Statik/Sabit) */}
           <div className="space-y-6">
-            <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">Hizmetlerimiz</h3>
+            <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">Hizmetlerimiz</h3>
             <nav className="flex flex-col space-y-3">
               <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
                 Mimari Tasarım
@@ -123,7 +123,7 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
 
           {/* İletişim */}
           <div className="space-y-6">
-            <h3 className="font-sans text-sm font-bold tracking-widest text-foreground uppercase">İletişim</h3>
+            <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">İletişim</h3>
             <div className="flex flex-col space-y-4">
               {contact?.address && (
                 <div className="flex items-start gap-3">

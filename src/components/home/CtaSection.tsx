@@ -17,7 +17,7 @@ export function CtaSection({ data }: CtaSectionProps) {
       
       <div className="relative z-10 container mx-auto px-4 text-center">
         <FadeIn>
-          <h2 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 max-w-4xl mx-auto leading-[1.1]">
+          <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tight mb-8 max-w-4xl mx-auto leading-[1.1]">
             {data.ctaTitle}
           </h2>
           {data.ctaSubtitle && (
@@ -26,7 +26,7 @@ export function CtaSection({ data }: CtaSectionProps) {
             </p>
           )}
           <Link href="/iletisim">
-            <Button size="lg" className="rounded-none bg-foreground text-background hover:bg-primary uppercase tracking-widest text-sm h-16 px-12 font-bold shadow-xl shadow-foreground/5">
+            <Button size="lg" className="rounded-none bg-foreground text-background hover:bg-primary font-brand uppercase tracking-widest text-sm h-16 px-12 font-bold shadow-xl shadow-foreground/5">
               Projeye Başlayalım
             </Button>
           </Link>

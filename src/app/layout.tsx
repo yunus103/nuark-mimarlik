@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { DM_Sans, Michroma } from "next/font/google";
 import "./globals.css";
-
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-cormorant",
-});
 
 const dmSans = DM_Sans({ 
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "700"],
   variable: "--font-dm-sans",
+});
+
+const michroma = Michroma({
+  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-brand",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${dmSans.variable} ${cormorant.variable} font-sans`}>{children}</body>
+      <body className={`${dmSans.variable} ${michroma.variable} font-sans`}>{children}</body>
     </html>
   );
 }

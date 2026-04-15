@@ -76,7 +76,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                   </div>
                   {settings?.logoText && (
                     <div className="flex flex-col justify-center border-l border-foreground/20 pl-4 h-12">
-                      <span className={`font-serif text-lg md:text-xl font-bold tracking-tight leading-none transition-colors duration-300 ${
+                      <span className={`font-brand text-base md:text-lg font-bold tracking-tight leading-none transition-colors duration-300 ${
                         isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
                       }`}>
                         {settings.logoText}
@@ -85,7 +85,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                   )}
                 </div>
               ) : (
-                <span className={`font-bold text-xl tracking-tight leading-none transition-colors duration-300 ${
+                <span className={`font-brand font-bold text-lg tracking-tight leading-none transition-colors duration-300 ${
                   isHome && !scrolled && !menuOpen ? "text-white" : "text-foreground"
                 }`}>
                   {settings?.siteName || "NUARK"}
@@ -103,7 +103,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                 isHome && !scrolled ? "text-white hover:text-brand-accent" : "text-foreground hover:text-brand-accent p-2 md:p-0"
               }`}
             >
-              <span className="hidden md:block font-bold uppercase tracking-widest text-xs group-hover:text-brand-accent transition-colors">Menü</span>
+              <span className="hidden md:block font-brand font-bold uppercase tracking-widest text-xs group-hover:text-brand-accent transition-colors">Menü</span>
               <div className="p-2 border border-current rounded-none">
                 <RiMenu3Line size={24} />
               </div>
@@ -162,7 +162,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                         href={resolveHref(item)}
                         target={item.openInNewTab ? "_blank" : undefined}
                         onClick={() => setMenuOpen(false)}
-                        className="text-4xl md:text-4xl font-serif font-bold hover:text-brand-accent transition-colors duration-300 relative group block"
+                        className="text-4xl md:text-4xl font-brand font-bold hover:text-brand-accent transition-colors duration-300 relative group block"
                       >
                         {item.label}
                       </Link>
@@ -176,7 +176,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                               href={resolveHref(sub)}
                               target={sub.openInNewTab ? "_blank" : undefined}
                               onClick={() => setMenuOpen(false)}
-                              className="text-base text-white/60 hover:text-brand-accent transition-colors uppercase tracking-widest font-sans font-medium"
+                              className="text-base text-white/60 hover:text-brand-accent transition-colors uppercase tracking-widest font-brand font-medium"
                             >
                               {sub.label}
                             </Link>

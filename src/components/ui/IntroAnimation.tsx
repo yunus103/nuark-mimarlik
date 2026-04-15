@@ -146,7 +146,7 @@ export default function IntroAnimation({ logo, logoText, siteName }: IntroAnimat
               >
                 <span
                   style={{
-                    fontFamily: 'Georgia, serif',
+                    fontFamily: 'var(--font-brand)',
                     fontSize: '20px',
                     fontWeight: 700,
                     letterSpacing: '-0.02em',
@@ -162,6 +162,7 @@ export default function IntroAnimation({ logo, logoText, siteName }: IntroAnimat
         ) : (
           <span
             style={{
+              fontFamily: 'var(--font-brand)',
               fontSize: '20px',
               fontWeight: 700,
               letterSpacing: '0.18em',
