@@ -17,6 +17,7 @@ import {
   RiGlobalLine,
   RiArrowRightUpLine,
 } from "react-icons/ri";
+import { PageHero } from "@/components/ui/PageHero";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch(contactPageQuery, {}, { next: { tags: ["contact"] } });
@@ -58,22 +59,14 @@ export default async function ContactPage() {
   return (
     <>
       {/* HERO */}
-      <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
-        <div className="container mx-auto max-w-5xl text-center">
-          <FadeIn direction="up">
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">İLETİŞİM</span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-8 leading-[1.1]">
-              {page?.heroHeadline || "Bizimle İletişime Geçin"}
-            </h1>
-            <p className="text-xl md:text-2xl font-sans text-white/70 max-w-2xl mx-auto leading-relaxed">
-              {page?.heroSubtitle || "Yeni bir proje, ortaklık veya detaylı bilgi için yanınızdayız."}
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="İLETİŞİM"
+        title={page?.heroHeadline || "Bizimle İletişime Geçin"}
+        description={page?.heroSubtitle || "Yeni bir proje, ortaklık veya detaylı bilgi için yanınızdayız."}
+      />
 
       {/* CONTENT */}
-      <section className="py-24 md:py-32 bg-background">
+      <section className="py-24 md:py-32 bg-brand-off-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
 

@@ -8,6 +8,7 @@ import { RichText } from "@/components/ui/RichText";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { PageHero } from "@/components/ui/PageHero";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getClient().fetch(servicesPageQuery, {}, { next: { tags: ["services"] } });
@@ -26,24 +27,12 @@ export default async function ServicesPage() {
   const { page, services = [] } = data || {};
 
   return (
-    <div className="bg-brand-black min-h-screen">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-40 pb-24 md:pt-56 md:pb-32 px-4 border-b border-white/5 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-brand-accent/5 blur-[120px] rounded-full -z-10" />
-        <div className="container mx-auto max-w-5xl text-center">
-          <FadeIn direction="up">
-            <span className="inline-block text-brand-accent font-brand text-xs font-bold tracking-[0.3em] uppercase mb-8">
-              NUARK MİMARLIK
-            </span>
-            <h1 className="text-5xl md:text-8xl font-brand font-bold tracking-tighter mb-10 leading-[1] text-brand-off-white">
-              {page?.heroTitle || "Hizmetlerimiz"}
-            </h1>
-            <p className="text-xl md:text-2xl font-sans text-brand-off-white/60 max-w-3xl mx-auto leading-relaxed">
-              {page?.heroSubtitle || "Fikirden anahtar teslimine kadar, sürecin her aşamasında kalite ve titizlikle yanınızdayız."}
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <PageHero
+        title={page?.heroTitle || "Hizmetlerimiz"}
+        description={page?.heroSubtitle || "Fikirden anahtar teslimine kadar, sürecin her aşamasında kalite ve titizlikle yanınızdayız."}
+      />
 
       {/* Services List Section */}
       <section>

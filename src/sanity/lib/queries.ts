@@ -45,6 +45,7 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
   heroHeadline, heroSubtitle,
+  stats[] { value, label },
   storyTitle, storyText,
   storyImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   values[] { title, description },
@@ -52,7 +53,6 @@ export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
     name, title, bio,
     photo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
   },
-  milestones[] { year, event },
   seo
 }`;
 

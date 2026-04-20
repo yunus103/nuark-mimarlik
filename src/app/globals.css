@@ -156,6 +156,10 @@
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+  
+  @media (max-width: 768px) {
+    animation-duration: 15s;
+  }
 }
 .animate-marquee:hover {
   animation-play-state: paused;

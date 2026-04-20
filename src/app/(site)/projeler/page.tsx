@@ -4,6 +4,7 @@ import { projectListQuery } from "@/sanity/lib/queries";
 import { buildMetadata } from "@/lib/seo";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { PageHero } from "@/components/ui/PageHero";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
@@ -18,21 +19,13 @@ export default async function ProjectsPage() {
 
   return (
     <>
-      <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
-        <div className="container mx-auto max-w-5xl">
-          <FadeIn direction="up">
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-6">PORTFOLYO</span>
-            <h1 className="text-5xl md:text-7xl font-brand font-bold tracking-tight mb-8 leading-[1.1]">
-              Projelerimiz
-            </h1>
-            <p className="text-xl md:text-2xl font-sans text-white/70 max-w-2xl leading-relaxed">
-              Özgün tasarım anlayışımızla hayat verdiğimiz, fonksiyonellik ve estetiği buluşturan seçkin çalışmalarımız.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="PORTFOLYO"
+        title="Projelerimiz"
+        description="Özgün tasarım anlayışımızla hayat verdiğimiz, fonksiyonellik ve estetiği buluşturan seçkin çalışmalarımız."
+      />
 
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-brand-off-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-10 md:gap-y-12">
             {projects.map((project: any, i: number) => (
