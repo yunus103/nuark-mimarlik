@@ -5,6 +5,7 @@ import { navigationType } from "./singletons/navigation";
 import { homePageType } from "./singletons/homePage";
 import { aboutPageType } from "./singletons/aboutPage";
 import { contactPageType } from "./singletons/contactPage";
+import { servicesPageType } from "./singletons/servicesPage";
 import { blogPostType } from "./documents/blogPost";
 import { serviceType } from "./documents/service";
 import { projectType } from "./documents/project";
@@ -20,9 +21,11 @@ export const schemaTypes = [
   homePageType,
   aboutPageType,
   contactPageType,
+  servicesPageType,
   // Collections
   blogPostType,
   serviceType,
+
   projectType,
   faqType,
 ];

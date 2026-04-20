@@ -37,6 +37,9 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
     companyName,
     logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
   },
+  "services": *[_type == "service"] | order(order asc, _createdAt asc) {
+    title, summary, order
+  },
   seo
 }`;
 
@@ -51,6 +54,18 @@ export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
   },
   milestones[] { year, event },
   seo
+}`;
+
+export const servicesPageQuery = groq`{
+  "page": *[_type == "servicesPage"][0] {
+    heroTitle, heroSubtitle,
+    ctaTitle, ctaDescription, ctaButtonLabel,
+    seo
+  },
+  "services": *[_type == "service"] | order(order asc, _createdAt asc) {
+    title, summary, description, features,
+    mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  }
 }`;
 
 export const contactPageQuery = groq`{
@@ -87,26 +102,27 @@ export const blogPostBySlugQuery = groq`*[_type == "blogPost" && slug.current ==
 
 // ─── Hizmetler ─────────────────────────────────────────────────────────────────
 
-export const serviceListQuery = groq`*[_type == "service"] | order(_createdAt asc) {
+export const serviceListQuery = groq`*[_type == "service"] | order(order asc, _createdAt asc) {
   title, slug,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
-  longDescription[] {
+  description[] {
     ...,
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
   },
-  steps[] { title, description }
+  features
 }`;
 
 export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0] {
   title, slug,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
-  longDescription[] {
+  description[] {
     ...,
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
   },
-  steps[] { title, description },
+  features,
   seo
 }`;
+
 
 // ─── Projeler ──────────────────────────────────────────────────────────────────
 

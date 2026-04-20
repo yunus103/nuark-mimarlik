@@ -5,69 +5,58 @@ export const serviceType = defineType({
   title: "Hizmet",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Başlık", type: "string", validation: (Rule) => Rule.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (Rule) => Rule.required() }),
+    defineField({ 
+      name: "title", 
+      title: "Başlık", 
+      type: "string", 
+      description: "Hizmetin tam adı (Örn: Mimari Tasarım)",
+      validation: (Rule) => Rule.required() 
+    }),
+    defineField({ 
+      name: "slug", 
+      title: "Slug", 
+      type: "slug", 
+      description: "URL adresi için benzersiz kimlik (Opsiyonel)",
+      options: { source: "title" }, 
+    }),
+    defineField({
+      name: "order",
+      title: "Sıralama",
+      type: "number",
+      description: "Hizmetlerin listedeki sırası (Küçük sayı üstte görünür)",
+      initialValue: 0,
+    }),
     defineField({
       name: "mainImage",
       title: "Ana Görsel",
       type: "image",
+      description: "Hizmetler sayfasında görünecek dikey veya kare görsel",
       options: { hotspot: true },
-      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() })],
+      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string" })],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "longDescription",
-      title: "Uzun Açıklama",
-      type: "array",
-      of: [
-        { type: "block" },
-        {
-          type: "image",
-          options: { hotspot: true },
-          fields: [
-            defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({
-              name: "alignment",
-              title: "Hizalama",
-              type: "string",
-              options: { list: [{ title: "Sol", value: "left" }, { title: "Orta", value: "center" }, { title: "Sağ", value: "right" }, { title: "Tam Genişlik", value: "full" }] },
-              initialValue: "center",
-            }),
-            defineField({
-              name: "size",
-              title: "Boyut",
-              type: "string",
-              options: { 
-                list: [
-                  { title: "Çok Küçük (%25)", value: "25" },
-                  { title: "Küçük (%33)", value: "33" },
-                  { title: "Orta (%50)", value: "50" },
-                  { title: "Geniş (%75)", value: "75" },
-                  { title: "Tam Genişlik (%100)", value: "100" }
-                ] 
-              },
-              initialValue: "100",
-            }),
-          ],
-        },
-      ],
+      name: "summary",
+      title: "Kısa Özet (Ana Sayfa)",
+      type: "text",
+      rows: 2,
+      description: "Ana sayfadaki 4'lü gridde görünecek çok kısa açıklama",
     }),
-
-    // Süreç Adımları
     defineField({
-      name: "steps",
-      title: "Süreç Adımları",
+      name: "description",
+      title: "Açıklama (Hizmetler Sayfası)",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            { name: "title", title: "Başlık", type: "string" },
-            { name: "description", title: "Kısa Açıklama", type: "string" }
-          ]
-        }
-      ]
+      of: [{ type: "block" }],
+      description: "Hizmetler sayfasında görselin yanında görünecek detaylı metin",
+    }),
+    defineField({
+      name: "features",
+      title: "Öne Çıkan Özellikler / Maddeler",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Hizmetin altına madde madde eklenecek özellikler",
     }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
+
   ],
 });

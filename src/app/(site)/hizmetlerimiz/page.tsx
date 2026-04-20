@@ -1,99 +1,177 @@
 import { Metadata } from "next";
-import { client } from "@/sanity/lib/client";
-import { serviceListQuery } from "@/sanity/lib/queries";
+import { getClient } from "@/sanity/lib/client";
+import { servicesPageQuery } from "@/sanity/lib/queries";
 import { buildMetadata } from "@/lib/seo";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { RichText } from "@/components/ui/RichText";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Check } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const data = await getClient().fetch(servicesPageQuery, {}, { next: { tags: ["services"] } });
+  const { page } = data || {};
+  
   return buildMetadata({
-    title: "Hizmetlerimiz",
-    description: "Nuark Mimarlık'ın sunduğu mimari ve tasarım hizmetleri.",
+    title: page?.seo?.metaTitle || page?.heroTitle || "Hizmetlerimiz",
+    description: page?.seo?.metaDescription || page?.heroSubtitle,
     canonicalPath: "/hizmetlerimiz",
+    pageSeo: page?.seo,
   });
 }
 
 export default async function ServicesPage() {
-  const services = await client.fetch(serviceListQuery, {}, { next: { tags: ["services"] } });
+  const data = await getClient().fetch(servicesPageQuery, {}, { next: { tags: ["services"] } });
+  const { page, services = [] } = data || {};
 
   return (
-    <>
-      <section className="bg-brand-black text-brand-off-white pt-32 pb-20 md:pt-48 md:pb-32 px-4 border-b border-white/10">
-        <div className="container mx-auto max-w-5xl text-center md:text-left">
+    <div className="bg-brand-black min-h-screen">
+      {/* Hero Section */}
+      <section className="relative pt-40 pb-24 md:pt-56 md:pb-32 px-4 border-b border-white/5 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-brand-accent/5 blur-[120px] rounded-full -z-10" />
+        <div className="container mx-auto max-w-5xl text-center">
           <FadeIn direction="up">
-            <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-6">UZMANLIK ALANLARIMIZ</span>
-            <h1 className="text-5xl md:text-7xl font-brand font-bold tracking-tight mb-8 leading-[1.1]">
-              Hizmetlerimiz
+            <span className="inline-block text-brand-accent font-brand text-xs font-bold tracking-[0.3em] uppercase mb-8">
+              NUARK MİMARLIK
+            </span>
+            <h1 className="text-5xl md:text-8xl font-brand font-bold tracking-tighter mb-10 leading-[1] text-brand-off-white">
+              {page?.heroTitle || "Hizmetlerimiz"}
             </h1>
-            <p className="text-xl md:text-2xl font-sans text-white/70 max-w-3xl leading-relaxed">
-              Fikirden anahtar teslimine kadar, sürecin her aşamasında kalite ve titizlikle yanınızdayız.
+            <p className="text-xl md:text-2xl font-sans text-brand-off-white/60 max-w-3xl mx-auto leading-relaxed">
+              {page?.heroSubtitle || "Fikirden anahtar teslimine kadar, sürecin her aşamasında kalite ve titizlikle yanınızdayız."}
             </p>
           </FadeIn>
         </div>
       </section>
 
-      <section className="bg-background">
+      {/* Services List Section */}
+      <section>
         {services.map((service: any, index: number) => {
           const isEven = index % 2 === 0;
+          const serviceNumber = String(index + 1).padStart(2, "0");
+          
           return (
-             <div key={service.slug?.current || index} id={service.slug?.current} className="py-24 md:py-32 border-b border-foreground/10 last:border-0 scroll-mt-24">
-                <div className="container mx-auto px-4">
-                  <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center ${isEven ? "" : "lg:flex-row-reverse"}`}>
-                    
-                    {/* Görsel Sütunu */}
-                    <FadeIn direction={isEven ? "right" : "left"} className={`${isEven ? "order-1" : "order-1 lg:order-2"}`}>
-                      {service.mainImage ? (
-                        <div className="relative aspect-[4/5] w-full">
-                          <SanityImage
-                            image={service.mainImage}
-                            fill
-                            className="object-cover grayscale filter transition-all duration-700 hover:grayscale-0"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                          />
-                           <div className={`absolute -bottom-6 ${isEven ? "-right-6" : "-left-6"} w-full h-full border border-brand-accent/30 -z-10 hidden md:block`} />
+            <div 
+              key={service._id || index} 
+              className={`py-32 md:py-48 border-b last:border-0 overflow-hidden ${
+                isEven 
+                  ? "bg-brand-off-white border-brand-black/5" 
+                  : "bg-brand-black border-white/5"
+              }`}
+            >
+              <div className="container mx-auto px-4">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center`}>
+                  
+                  {/* Image Column */}
+                  <div className={`${isEven ? "lg:order-1" : "lg:order-2"}`}>
+                    <FadeIn direction={isEven ? "right" : "left"}>
+                      <div className="relative max-w-lg mx-auto">
+                        <div className="relative aspect-[4/5] w-full overflow-hidden group">
+                          {service.mainImage ? (
+                            <SanityImage
+                              image={service.mainImage}
+                              fill
+                              className="object-cover transition-all duration-700 group-hover:scale-105"
+                              sizes="(max-width: 1024px) 100vw, 45vw"
+                            />
+                          ) : (
+                            <div className={`w-full h-full flex items-center justify-center ${isEven ? "bg-brand-black/5 text-brand-black/20" : "bg-white/5 text-white/20"}`}>
+                              Görsel Seçilmedi
+                            </div>
+                          )}
+                          <div className={`absolute inset-0 transition-colors duration-500 ${isEven ? "bg-brand-black/5 group-hover:bg-transparent" : "bg-brand-black/20 group-hover:bg-transparent"}`} />
                         </div>
-                      ) : (
-                        <div className="w-full aspect-[4/5] bg-muted flex items-center justify-center">Görsel Yok</div>
-                      )}
+                        {/* Decorative background frame */}
+                        <div className={`absolute -inset-4 border -z-10 translate-x-8 translate-y-8 hidden lg:block ${isEven ? "border-brand-accent/30" : "border-brand-accent/20"}`} />
+                      </div>
                     </FadeIn>
-
-                    {/* Metin Sütunu */}
-                    <FadeIn direction={isEven ? "left" : "right"} className={`${isEven ? "order-2" : "order-2 lg:order-1"}`}>
-                      <h2 className="text-4xl md:text-5xl font-brand font-bold tracking-tight mb-8">{service.title}</h2>
-                      
-                      {service.longDescription && (
-                        <div className="prose prose-lg dark:prose-invert prose-headings:font-serif text-muted-foreground leading-relaxed mb-12">
-                          <RichText value={service.longDescription} />
-                        </div>
-                      )}
-
-                      {service.steps && service.steps.length > 0 && (
-                        <div>
-                          <h3 className="font-sans text-sm font-bold tracking-widest uppercase mb-6 text-brand-accent">Hizmet Süreci</h3>
-                          <ul className="space-y-6">
-                            {service.steps.map((step: any, stepIdx: number) => (
-                              <li key={stepIdx} className="flex items-start gap-4">
-                                <span className="bg-muted text-foreground font-bold font-serif w-8 h-8 flex items-center justify-center shrink-0">
-                                  {stepIdx + 1}
-                                </span>
-                                <div>
-                                  <h4 className="font-bold text-foreground mb-1">{step.title}</h4>
-                                  <p className="text-sm text-muted-foreground">{step.description}</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </FadeIn>
-
                   </div>
+
+                  {/* Content Column */}
+                  <div className={`${isEven ? "lg:order-2" : "lg:order-1"}`}>
+                    <FadeIn direction={isEven ? "left" : "right"}>
+                      <div className="relative">
+                        <span className={`text-[120px] md:text-[180px] font-brand font-bold absolute -top-24 -left-12 pointer-events-none select-none ${isEven ? "text-brand-black/[0.03]" : "text-brand-accent/5"}`}>
+                          {serviceNumber}
+                        </span>
+                        
+                        <h2 className={`text-4xl md:text-6xl font-brand font-bold tracking-tight mb-8 relative ${isEven ? "text-brand-black" : "text-brand-off-white"}`}>
+                          {service.title}
+                        </h2>
+                        
+                        {service.description && (
+                          <div className={`mb-10 leading-relaxed text-lg lg:text-xl ${isEven ? "text-brand-black/80" : "text-brand-off-white/70"}`}>
+                            <RichText 
+                              value={service.description} 
+                              className={`prose-p:mb-4 last:prose-p:mb-0 ${
+                                isEven ? "prose-p:text-brand-black/80" : "prose-p:text-brand-off-white/70"
+                              }`} 
+                            />
+                          </div>
+                        )}
+
+                        {service.features && service.features.length > 0 && (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                            {service.features.map((feature: string, fIdx: number) => (
+                              <div key={fIdx} className="flex items-start gap-3">
+                                <div className={`mt-1.5 p-0.5 rounded-full shrink-0 ${isEven ? "bg-brand-accent/10 text-brand-accent" : "bg-brand-accent/20 text-brand-accent"}`}>
+                                  <Check className="w-3.5 h-3.5" />
+                                </div>
+                                <span className={`font-medium ${isEven ? "text-brand-black/80" : "text-brand-off-white/80"}`}>
+                                  {feature}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </FadeIn>
+                  </div>
+
                 </div>
-             </div>
+              </div>
+            </div>
           );
         })}
       </section>
-    </>
+
+      {/* Page CTA Section - Alternating Background */}
+      {(() => {
+        const isCtaWhite = services.length % 2 === 0;
+        return (
+          <section className={`py-24 md:py-40 relative overflow-hidden transition-colors duration-500 ${isCtaWhite ? "bg-brand-off-white" : "bg-brand-black"}`}>
+            {/* Decorative elements */}
+            <div className={`absolute top-0 left-0 w-full h-px ${isCtaWhite ? "bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent" : "bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"}`} />
+            <div className={`absolute bottom-0 right-0 w-1/2 aspect-square rounded-full blur-[120px] translate-x-1/3 translate-y-1/3 ${isCtaWhite ? "bg-brand-accent/5" : "bg-brand-accent/5"}`} />
+            
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-5xl mx-auto text-center">
+                <FadeIn>
+                  <span className={`font-brand text-xs font-bold tracking-[0.3em] uppercase mb-8 block ${isCtaWhite ? "text-brand-accent" : "text-brand-accent"}`}>
+                    BİZE ULAŞIN
+                  </span>
+                  <h2 className={`text-4xl md:text-7xl font-brand font-bold tracking-tighter mb-10 leading-tight ${isCtaWhite ? "text-brand-black" : "text-brand-off-white"}`}>
+                    {page?.ctaTitle || "Hayalinizdeki Projeyi Birlikte Tasarlayalım"}
+                  </h2>
+                  <p className={`text-lg md:text-xl max-w-2xl mx-auto mb-16 ${isCtaWhite ? "text-brand-black/60" : "text-brand-off-white/60"}`}>
+                    {page?.ctaDescription || "Sizin için en doğru mimari çözümü üretmek, alanı verimli kullanmak ve estetikle fonksiyonu birleştirmek için buradayız."}
+                  </p>
+                  <Link href="/iletisim">
+                    <Button className={`rounded-none font-brand uppercase tracking-widest text-xs h-16 px-12 font-bold transition-all duration-300 shadow-2xl ${
+                      isCtaWhite 
+                        ? "bg-brand-black text-brand-off-white hover:bg-brand-accent hover:text-white" 
+                        : "bg-brand-off-white text-brand-black hover:bg-brand-accent hover:text-white shadow-brand-accent/10"
+                    }`}>
+                      BİZİMLE İLETİŞİME GEÇİN
+                    </Button>
+                  </Link>
+                </FadeIn>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+    </div>
   );
 }
