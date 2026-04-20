@@ -80,6 +80,23 @@ export const contactPageQuery = groq`{
   }
 }`;
 
+export const referanslarPageQuery = groq`{
+  "page": *[_type == "referanslarPage"][0] {
+    heroHeadline, heroSubtitle,
+    sectionTitle, sectionSubtitle,
+    clients[] {
+      companyName, sector, url, forceGrayscale,
+      logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+    },
+    ctaTitle, ctaDescription,
+    seo
+  },
+  "fallbackClients": *[_type == "homePage"][0].clientLogos[] {
+    companyName,
+    logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  }
+}`;
+
 // ─── Blog ──────────────────────────────────────────────────────────────────────
 
 export const blogListQuery = groq`*[_type == "blogPost"] | order(publishedAt desc) {
