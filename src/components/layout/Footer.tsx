@@ -37,12 +37,22 @@ const socialIconMap: Record<string, React.ElementType> = {
 
 function resolveHref(item: NavItem): string {
   if (item.linkType === "external") return item.externalUrl || "#";
-  return item.internalSlug === "home" || !item.internalSlug ? "/" : `/${item.internalSlug}`;
+  return item.internalSlug === "home" || !item.internalSlug
+    ? "/"
+    : `/${item.internalSlug}`;
 }
 
-export function Footer({ settings, navigation }: { settings: any; navigation: any }) {
+export function Footer({
+  settings,
+  navigation,
+}: {
+  settings: any;
+  navigation: any;
+}) {
   const footerLinks: NavItem[] = navigation?.footerLinks || [];
-  const socialLinks: SocialLink[] = (settings?.socialLinks || []).filter((s: SocialLink) => s.url);
+  const socialLinks: SocialLink[] = (settings?.socialLinks || []).filter(
+    (s: SocialLink) => s.url,
+  );
   const contact = settings?.contactInfo;
   const currentYear = new Date().getFullYear();
 
@@ -50,16 +60,19 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-
           {/* Marka & Sosyal Medya */}
           <div className="space-y-6">
             <div>
-              <h3 className="font-brand text-2xl font-bold tracking-tight text-foreground">{settings?.siteName || "NUARK MİMARLIK"}</h3>
+              <h3 className="font-brand text-2xl font-bold tracking-tight text-foreground">
+                {settings?.siteName || "NUARK MİMARLIK"}
+              </h3>
               {settings?.siteTagline && (
-                <p className="mt-2 text-sm text-muted-foreground max-w-[250px] leading-relaxed">{settings.siteTagline}</p>
+                <p className="mt-2 text-sm text-muted-foreground max-w-[250px] leading-relaxed">
+                  {settings.siteTagline}
+                </p>
               )}
             </div>
-            
+
             {socialLinks.length > 0 && (
               <div className="flex gap-3">
                 {socialLinks.map((social, i) => {
@@ -85,7 +98,9 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           {/* Footer Linkleri */}
           {footerLinks.length > 0 && (
             <div className="space-y-6">
-              <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">Hızlı Linkler</h3>
+              <h3 className="font-brand text-sm font-bold tracking-widest text-brand-accent uppercase">
+                Hızlı Linkler
+              </h3>
               <nav className="flex flex-col space-y-3">
                 {footerLinks.map((item, i) => (
                   <Link
@@ -104,18 +119,32 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
 
           {/* Hizmetler Özeti (Statik/Sabit) */}
           <div className="space-y-6">
-            <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">Hizmetlerimiz</h3>
+            <h3 className="font-brand text-sm font-bold tracking-widest text-brand-accent uppercase">
+              Hizmetlerimiz
+            </h3>
             <nav className="flex flex-col space-y-3">
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
+              <Link
+                href="/hizmetlerimiz"
+                className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit"
+              >
                 Mimari Tasarım
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
+              <Link
+                href="/hizmetlerimiz"
+                className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit"
+              >
                 İç Mimari
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
+              <Link
+                href="/hizmetlerimiz"
+                className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit"
+              >
                 Proje Yönetimi
               </Link>
-              <Link href="/hizmetlerimiz" className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit">
+              <Link
+                href="/hizmetlerimiz"
+                className="text-sm text-muted-foreground hover:text-brand-accent transition-colors w-fit"
+              >
                 İnşaat Uygulama
               </Link>
             </nav>
@@ -123,26 +152,45 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
 
           {/* İletişim */}
           <div className="space-y-6">
-            <h3 className="font-brand text-sm font-bold tracking-widest text-foreground uppercase">İletişim</h3>
+            <h3 className="font-brand text-sm font-bold tracking-widest text-brand-accent uppercase">
+              İletişim
+            </h3>
             <div className="flex flex-col space-y-4">
               {contact?.address && (
                 <div className="flex items-start gap-3">
-                  <RiMapPinLine className="shrink-0 mt-1 text-brand-accent" size={18} />
-                  <span className="text-sm text-muted-foreground leading-relaxed">{contact.address}</span>
+                  <RiMapPinLine
+                    className="shrink-0 mt-1 text-brand-accent"
+                    size={18}
+                  />
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    {contact.address}
+                  </span>
                 </div>
               )}
               {contact?.phone && (
                 <div className="flex items-center gap-3">
-                  <RiPhoneLine className="shrink-0 text-brand-accent" size={18} />
-                  <a href={`tel:${contact.phone}`} className="text-sm text-muted-foreground hover:text-brand-accent transition-colors">
+                  <RiPhoneLine
+                    className="shrink-0 text-brand-accent"
+                    size={18}
+                  />
+                  <a
+                    href={`tel:${contact.phone}`}
+                    className="text-sm text-muted-foreground hover:text-brand-accent transition-colors"
+                  >
                     {contact.phone}
                   </a>
                 </div>
               )}
               {contact?.email && (
                 <div className="flex items-center gap-3">
-                  <RiMailLine className="shrink-0 text-brand-accent" size={18} />
-                  <a href={`mailto:${contact.email}`} className="text-sm text-muted-foreground hover:text-brand-accent transition-colors">
+                  <RiMailLine
+                    className="shrink-0 text-brand-accent"
+                    size={18}
+                  />
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-sm text-muted-foreground hover:text-brand-accent transition-colors"
+                  >
                     {contact.email}
                   </a>
                 </div>
@@ -154,7 +202,8 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
         {/* Alt Bar */}
         <div className="mt-16 border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground tracking-wide uppercase">
-            © {currentYear} {settings?.siteName || "NUARK MİMARLIK"}. Tüm hakları saklıdır.
+            © {currentYear} {settings?.siteName || "NUARK MİMARLIK"}. Tüm
+            hakları saklıdır.
           </p>
           <p className="text-xs text-muted-foreground tracking-wide uppercase">
             Tasarım ve Geliştirme:{" "}
