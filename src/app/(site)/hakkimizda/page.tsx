@@ -77,7 +77,7 @@ export default async function AboutPage() {
     data?.stats && data.stats.length > 0 ? data.stats : FALLBACK_STATS;
 
   return (
-    <div className="bg-brand-off-white min-h-screen">
+    <div className="bg-brand-off-white min-h-screen overflow-x-hidden">
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
       <PageHero
@@ -90,11 +90,11 @@ export default async function AboutPage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
             {stats.map((stat, i) => (
-              <FadeIn key={i} delay={i * 0.08} className="px-8 py-12 text-center">
-                <span className="block text-4xl md:text-5xl font-brand font-bold text-brand-off-white tracking-tight mb-2">
+              <FadeIn key={i} delay={i * 0.08} className="px-4 py-8 md:px-8 md:py-12 text-center">
+                <span className="block text-2xl md:text-5xl font-brand font-bold text-brand-off-white tracking-tight mb-1 md:mb-2">
                   <AnimatedCounter value={stat.value} />
                 </span>
-                <span className="text-xs font-brand font-bold text-brand-accent tracking-widest uppercase">
+                <span className="text-[10px] md:text-xs font-brand font-bold text-brand-accent tracking-widest uppercase">
                   {stat.label}
                 </span>
               </FadeIn>
@@ -104,7 +104,7 @@ export default async function AboutPage() {
       </section>
 
       {/* ── 3. HİKAYEMİZ ────────────────────────────────────────────────── */}
-      <section className="py-28 md:py-40 bg-brand-off-white border-b border-brand-black/8">
+      <section className="py-28 md:py-40 bg-brand-off-white border-b border-brand-black/8 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 items-center">
 
@@ -269,7 +269,7 @@ export default async function AboutPage() {
               <span className="font-brand text-xs font-bold tracking-[0.3em] uppercase mb-7 block text-brand-accent">
                 BİZİMLE ÇALIŞIN
               </span>
-              <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white">
+              <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white break-words">
                 Projenizi Birlikte<br />Hayata Geçirelim
               </h2>
               <p className="text-lg max-w-xl mx-auto mb-14 text-brand-off-white/55">
