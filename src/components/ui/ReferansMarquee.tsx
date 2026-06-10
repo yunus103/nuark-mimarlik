@@ -29,7 +29,7 @@ export function ReferansMarquee({ references }: ReferansMarqueeProps) {
       <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 z-10 bg-gradient-to-l from-brand-black to-transparent pointer-events-none" />
 
       {/* Marquee track */}
-      <div className="flex animate-marquee will-change-transform">
+      <div className="flex w-max animate-marquee will-change-transform">
         {items.map((ref, i) => (
           <div
             key={i}
