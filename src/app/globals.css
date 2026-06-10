@@ -159,10 +159,10 @@
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 40s linear infinite;
 
   @media (max-width: 768px) {
-    animation-duration: 12s;
+    animation-duration: 24s;
   }
 }
 .animate-marquee:hover {
