@@ -35,6 +35,8 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
   ctaTitle, ctaSubtitle,
   clientLogos[] {
     companyName,
+    logoScale,
+    logoFilter,
     logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
   },
   "services": *[_type == "service"] | order(order asc, _createdAt asc) {

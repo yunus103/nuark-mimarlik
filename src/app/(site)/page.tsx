@@ -36,6 +36,8 @@ export default async function HomePage() {
     clientLogo: item.logo?.asset
       ? { url: urlForImage(item.logo)?.auto("format").width(256).url() || "", alt: item.logo.alt }
       : undefined,
+    logoScale: item.logoScale,
+    logoFilter: item.logoFilter,
   })).filter((r: any) => r.clientName);
 
   return (
