@@ -11,7 +11,7 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { Button } from "@/components/ui/button";
 import { ProjectLightbox } from "@/components/ui/ProjectLightbox";
 import Link from "next/link";
-import { RiArrowLeftLine, RiMapPinLine, RiCalendarLine } from "react-icons/ri";
+import { RiArrowLeftLine, RiMapPinLine, RiCalendarLine, RiUserLine, RiRuler2Line } from "react-icons/ri";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -82,7 +82,7 @@ export default async function ProjectPage({ params }: Props) {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-brand-off-white tracking-tight leading-[1.05] max-w-4xl">
               {project.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-5 mt-5">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-6">
               {(project.location || project.city) && (
                 <span className="text-white/60 font-sans text-sm flex items-center gap-2">
                   <RiMapPinLine className="text-brand-accent" />
@@ -95,22 +95,24 @@ export default async function ProjectPage({ params }: Props) {
                   {project.year}
                 </span>
               )}
+              {project.client && (
+                <span className="text-white/60 font-sans text-sm flex items-center gap-2">
+                  <RiUserLine className="text-brand-accent" />
+                  <span className="text-white/40">Müşteri:</span> {project.client}
+                </span>
+              )}
+              {project.area && (
+                <span className="text-white/60 font-sans text-sm flex items-center gap-2">
+                  <RiRuler2Line className="text-brand-accent" />
+                  <span className="text-white/40">Alan:</span> {project.area}
+                </span>
+              )}
             </div>
           </FadeIn>
         </div>
       </div>
 
-      {/* ── DESCRIPTION ── */}
-      {project.description && project.description.length > 0 && (
-        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-24 max-w-4xl">
-          <FadeIn direction="up">
-            <RichText
-              value={project.description}
-              className="text-muted-foreground [&_p]:text-base md:[&_p]:text-lg [&_p]:leading-relaxed [&_p]:mb-5"
-            />
-          </FadeIn>
-        </div>
-      )}
+
 
       {/* ── GALLERY ── */}
       {galleryImages.length > 0 && (

@@ -149,7 +149,7 @@ export const projectListQuery = groq`*[_type == "project"] | order(order asc, _c
 }`;
 
 export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0] {
-  title, slug, category, city, location, year,
+  title, slug, category, city, location, year, client, area,
   coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   description[] {
     ...,

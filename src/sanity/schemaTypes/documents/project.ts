@@ -31,6 +31,8 @@ export const projectType = defineType({
     defineField({ name: "city", title: "Şehir", type: "string" }),
     defineField({ name: "location", title: "Konum / Adres", type: "string" }),
     defineField({ name: "year", title: "Proje Yılı", type: "string", description: "Örn: 2024" }),
+    defineField({ name: "client", title: "Müşteri", type: "string", description: "Proje sahibi kişi veya kurum (Örn: Ahmet Yılmaz veya Nuark A.Ş.)" }),
+    defineField({ name: "area", title: "Proje Alanı (m²)", type: "string", description: "Metrekare cinsinden alan (Örn: 450 m²)" }),
 
     defineField({
       name: "coverImage",
@@ -54,7 +56,7 @@ export const projectType = defineType({
       name: "description",
       title: "Proje Detayları",
       type: "array",
-      description: "Projenin tasarım hikayesi ve detaylı bilgilerini buraya giriniz.",
+      description: "NOT: Bu alan şu an web sitesinde gösterilmemektedir. Projenin tasarım hikayesi ve detaylı bilgilerini buraya giriniz.",
       of: [
         { type: "block" },
         {
