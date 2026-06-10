@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: Props) {
     <article className="bg-background min-h-screen">
 
       {/* ── HERO ── */}
-      <div className="relative w-full h-[70vh] md:h-[90vh] bg-brand-black overflow-hidden">
+      <div className="relative w-full h-[55vh] md:h-[70vh] bg-brand-black overflow-hidden">
         {project.coverImage && (
           <SanityImage
             image={project.coverImage}
@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/30 to-transparent" />
 
         {/* Back */}
-        <div className="absolute top-0 left-0 right-0 pt-24 px-6 md:px-12 z-10">
+        <div className="absolute top-0 left-0 right-0 pt-32 px-6 md:px-12 z-10">
           <Link
             href="/projeler"
             className="inline-flex items-center gap-2 text-white/60 hover:text-brand-accent transition-colors duration-300 font-sans text-xs font-bold tracking-widest uppercase group"
