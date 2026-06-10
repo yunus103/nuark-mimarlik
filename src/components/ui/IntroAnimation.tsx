@@ -49,12 +49,12 @@ export default function IntroAnimation({ logo, logoText, siteName }: IntroAnimat
       const sceneRect = safeOverlay.getBoundingClientRect()
       const moveRect = safeLogo.getBoundingClientRect()
       const navRect = navTarget.getBoundingClientRect()
-
+      
       const srcX = moveRect.left - sceneRect.left + moveRect.width / 2
       const srcY = moveRect.top - sceneRect.top + moveRect.height / 2
       const tgtX = navRect.left - sceneRect.left + navRect.width / 2
       const tgtY = navRect.top - sceneRect.top + navRect.height / 2
-
+      
       safeLogo.style.transition = 'none'
       safeLogo.style.left = srcX + 'px'
       safeLogo.style.top = srcY + 'px'
@@ -123,7 +123,7 @@ export default function IntroAnimation({ logo, logoText, siteName }: IntroAnimat
         {logo ? (
           <>
             {/* Logo görseli - navbar'dakiyle aynı boyut oranı */}
-            <div style={{ height: '48px', width: 'fit-content', display: 'flex', flexShrink: 0 }}>
+            <div style={{ height: '72px', width: 'fit-content', display: 'flex', flexShrink: 0 }}>
               <SanityImage
                 image={{ ...logo, crop: undefined, hotspot: undefined }}
                 width={600}
