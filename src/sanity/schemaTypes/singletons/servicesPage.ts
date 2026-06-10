@@ -7,17 +7,17 @@ export const servicesPageType = defineType({
   fields: [
     defineField({
       name: "heroTitle",
-      title: "Hero Başlık",
+      title: "Sayfa Ana Başlığı",
       type: "string",
-      description: "Hizmetlerimiz sayfası en üstündeki ana başlık",
+      description: "Hizmetlerimiz sayfasının en üstündeki ana başlık.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heroSubtitle",
-      title: "Hero Alt Başlık",
+      title: "Sayfa Alt Başlığı",
       type: "text",
       rows: 2,
-      description: "Başlığın altındaki kısa açıklama metni",
+      description: "Başlığın altındaki kısa açıklama metni.",
     }),
     defineField({
       name: "ctaTitle",

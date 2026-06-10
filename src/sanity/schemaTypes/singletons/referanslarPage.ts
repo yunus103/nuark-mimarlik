@@ -14,20 +14,20 @@ export const referanslarPageType = defineType({
     // ── Hero ──────────────────────────────────────────────────────────────────
     defineField({
       name: "heroHeadline",
-      title: "Sayfa Başlığı",
+      title: "Sayfa Ana Başlığı",
       type: "string",
       group: "hero",
       description:
-        "Sayfanın en üstündeki ana başlık. Örnek: \"Referanslarımız\" veya \"Güvendikleri Markalar\"",
+        "Sayfanın en üstündeki ana başlık (Örn: Güvendikleri Markalar).",
     }),
     defineField({
       name: "heroSubtitle",
-      title: "Sayfa Alt Açıklaması",
+      title: "Sayfa Alt Başlığı",
       type: "text",
       rows: 2,
       group: "hero",
       description:
-        "Başlığın altındaki kısa tanıtım cümlesi. Örnek: \"Yıllar içinde birlikte çalıştığımız markalar ve kurumlar.\"",
+        "Başlığın altındaki kısa tanıtım cümlesi.",
     }),
 
     // ── Referanslar ───────────────────────────────────────────────────────────

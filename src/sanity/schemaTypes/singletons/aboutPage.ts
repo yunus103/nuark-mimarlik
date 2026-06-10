@@ -8,19 +8,19 @@ export const aboutPageType = defineType({
     // ── Hero ──────────────────────────────────────────────────────────────────
     defineField({
       name: "heroHeadline",
-      title: "Sayfa Başlığı",
+      title: "Sayfa Ana Başlığı",
       type: "string",
       description:
-        "Sayfanın en üstündeki ana başlık. Örnek: \"Hakkımızda\" veya \"Mekanlara Kimlik Kazandırıyoruz\"",
+        "Sayfanın en üstündeki ana başlık. Örnek: \"Mekanlara Kimlik Kazandırıyoruz\"",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heroSubtitle",
-      title: "Sayfa Alt Açıklaması",
+      title: "Sayfa Alt Başlığı",
       type: "text",
       rows: 2,
       description:
-        "Başlığın hemen altındaki kısa tanıtım cümlesi. Örnek: \"Mimarlık, iç tasarım ve proje yönetimini tek çatı altında buluşturarak fikir aşamasından anahtar teslimine kadar her adımda kalite ve titizlikle yanınızdayız.\"",
+        "Ana başlığın hemen altındaki kısa tanıtım cümlesi.",
     }),
 
     // ── İstatistikler ─────────────────────────────────────────────────────────

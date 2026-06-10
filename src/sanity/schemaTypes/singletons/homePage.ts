@@ -16,37 +16,39 @@ export const homePageType = defineType({
   ],
   fields: [
     // Hero
-    defineField({ name: "heroEyebrow", title: "Hero Üst Etiket", type: "string", group: "hero" }),
-    defineField({ name: "heroTitle", title: "Hero Başlık", type: "string", validation: (Rule) => Rule.required(), group: "hero" }),
-    defineField({ name: "heroSubtitle", title: "Hero Alt Başlık", type: "text", rows: 3, group: "hero" }),
+    defineField({ name: "heroEyebrow", title: "Hero Üst Etiket", type: "string", group: "hero", description: "Ana başlığın üzerinde görünen küçük, vurgulu yazı. Örn: 'GELECEĞİ TASARLIYORUZ'" }),
+    defineField({ name: "heroTitle", title: "Hero Başlık", type: "string", validation: (Rule) => Rule.required(), group: "hero", description: "Ana sayfada en üstte görünen büyük başlık." }),
+    defineField({ name: "heroSubtitle", title: "Hero Alt Başlık", type: "text", rows: 3, group: "hero", description: "Başlığın altındaki kısa açıklama metni." }),
     defineField({
       name: "heroImage",
       title: "Hero Görseli",
       type: "image",
       options: { hotspot: true },
       group: "hero",
+      description: "Giriş bölümü arka plan görseli. Önerilen oran: 16:9 veya 21:9. Minimum genişlik: 1920px.",
       fields: [
-        defineField({ name: "caption", title: "Küçük Bilgi Metni", type: "string" }),
-        defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() }),
+        defineField({ name: "caption", title: "Küçük Bilgi Metni", type: "string", description: "Görselin üzerinde veya yanında görünecek ek not." }),
+        defineField({ name: "alt", title: "Erişilebilirlik Metni (Alt)", type: "string", validation: (Rule) => Rule.required(), description: "Görselin içeriğini kısaca tanımlayın." }),
       ],
     }),
-    defineField({ name: "heroPrimaryCtaLabel", title: "Birincil Buton Metni", type: "string", group: "hero" }),
-    defineField({ name: "heroPrimaryCtaSlug", title: "Birincil Buton Linki", type: "string", group: "hero" }),
+    defineField({ name: "heroPrimaryCtaLabel", title: "Birincil Buton Metni", type: "string", group: "hero", description: "Örn: 'Projelerimizi İnceleyin'" }),
+    defineField({ name: "heroPrimaryCtaSlug", title: "Birincil Buton Linki", type: "string", group: "hero", description: "Yönlendirilecek sayfa (Örn: 'projeler' veya 'iletisim')." }),
     defineField({ name: "heroSecondaryCtaLabel", title: "İkincil Buton Metni", type: "string", group: "hero" }),
     defineField({ name: "heroSecondaryCtaSlug", title: "İkincil Buton Linki", type: "string", group: "hero" }),
 
     // İstatistikler
     defineField({
       name: "stats",
-      title: "İstatistikler",
+      title: "Hızlı İstatistikler",
       type: "array",
       group: "stats",
+      description: "Rakamlarla başarılarınızı sergileyin (Maksimum 4 adet).",
       of: [
         {
           type: "object",
           fields: [
-            { name: "value", title: "Değer", type: "string" },
-            { name: "label", title: "Açıklama", type: "string" },
+            { name: "value", title: "Değer", type: "string", description: "Örn: '150+' veya '15 Yıl'" },
+            { name: "label", title: "Açıklama", type: "string", description: "Örn: 'Tamamlanan Proje' veya 'Deneyim'" },
           ],
         },
       ],
@@ -54,43 +56,45 @@ export const homePageType = defineType({
     }),
 
     // Seçkin Projeler
-    defineField({ name: "featuredProjectsTitle", title: "Öne Çıkan Projeler Başlığı", type: "string", group: "projects" }),
+    defineField({ name: "featuredProjectsTitle", title: "Öne Çıkan Projeler Bölüm Başlığı", type: "string", group: "projects", initialValue: "Öne Çıkan Projeler" }),
     defineField({
       name: "featuredProjects",
-      title: "Öne Çıkan Projeler",
+      title: "Seçili Projeler",
       type: "array",
       group: "projects",
+      description: "Ana sayfada listelenecek projeleri seçin (Maksimum 3 adet).",
       of: [{ type: "reference", to: [{ type: "project" }] }],
       validation: (Rule) => Rule.max(3),
     }),
 
     // Hizmetler Özeti
-    defineField({ name: "servicesSectionTitle", title: "Hizmetler Başlığı", type: "string", group: "services" }),
-    defineField({ name: "servicesIntro", title: "Hizmetler Kısa Açıklaması", type: "text", rows: 2, group: "services" }),
+    defineField({ name: "servicesSectionTitle", title: "Hizmetler Bölüm Başlığı", type: "string", group: "services", initialValue: "Neler Yapıyoruz?" }),
+    defineField({ name: "servicesIntro", title: "Hizmetler Kısa Tanıtımı", type: "text", rows: 2, group: "services" }),
 
     // Kısa Tanıtım
-    defineField({ name: "aboutTitle", title: "Tanıtım Başlığı", type: "string", group: "about" }),
-    defineField({ name: "aboutText", title: "Tanıtım Metni", type: "array", of: [{ type: "block" }], group: "about" }),
+    defineField({ name: "aboutTitle", title: "Hakkımızda Özet Başlığı", type: "string", group: "about" }),
+    defineField({ name: "aboutText", title: "Hakkımızda Özet Metni", type: "array", of: [{ type: "block" }], group: "about" }),
     defineField({
       name: "aboutImage",
-      title: "Tanıtım Görseli",
+      title: "Hakkımızda Tanıtım Görseli",
       group: "about",
       type: "image",
       options: { hotspot: true },
+      description: "Tanıtım metninin yanında görünecek fotoğraf. Önerilen oran: 4:5 veya 1:1.",
       fields: [defineField({ name: "alt", title: "Alt Metni", type: "string" })],
     }),
 
     // CTA
-    defineField({ name: "ctaTitle", title: "CTA Başlık", type: "string", group: "cta" }),
-    defineField({ name: "ctaSubtitle", title: "CTA Alt Başlık", type: "string", group: "cta" }),
+    defineField({ name: "ctaTitle", title: "Eylem Çağrısı (CTA) Başlığı", type: "string", group: "cta", description: "Örn: 'Hayalinizdeki projeyi birlikte hayata geçirelim.'" }),
+    defineField({ name: "ctaSubtitle", title: "CTA Alt Başlığı", type: "string", group: "cta" }),
 
     // Referans Markalar (Marquee)
     defineField({
       name: "clientLogos",
-      title: "Referans Markalar",
+      title: "Referans Markalar / Logolar",
       type: "array",
       group: "clients",
-      description: "Ana sayfada kayan bant olarak gösterilir.",
+      description: "Ana sayfada kayan bant şeklinde gösterilecek marka logoları. Şeffaf PNG veya SVG tercih edilmelidir.",
       of: [
         {
           type: "object",
@@ -101,12 +105,12 @@ export const homePageType = defineType({
           fields: [
             defineField({
               name: "logo",
-              title: "Logo",
+              title: "Logo Dosyası",
               type: "image",
               options: { hotspot: true },
               validation: (Rule) => Rule.required(),
               fields: [
-                defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() }),
+                defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required(), description: "Şirket adı (Örn: ABC İnşaat)" }),
               ],
             }),
             defineField({ name: "companyName", title: "Şirket / Marka Adı", type: "string", validation: (Rule) => Rule.required() }),

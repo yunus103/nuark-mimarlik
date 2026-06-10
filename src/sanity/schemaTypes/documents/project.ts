@@ -5,34 +5,63 @@ export const projectType = defineType({
   title: "Proje",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Proje Adı", type: "string", validation: (Rule) => Rule.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (Rule) => Rule.required() }),
+    defineField({ 
+      name: "title", 
+      title: "Proje Adı", 
+      type: "string", 
+      validation: (Rule) => Rule.required(),
+      description: "Projenin tam adı (Örn: Nuark Rezidans)."
+    }),
+    defineField({ 
+      name: "slug", 
+      title: "Slug", 
+      type: "slug", 
+      options: { source: "title" }, 
+      validation: (Rule) => Rule.required(),
+      description: "URL adresi için benzersiz kimlik. Genellikle otomatik oluşturulur."
+    }),
 
-    defineField({ name: "category", title: "Kategori", type: "string", options: { list: ["Konut", "Ticari", "Ofis", "Karma Kullanım", "Kentsel Dönüşüm", "Kültür & Sanat", "Eğitim", "Sağlık", "Endüstriyel"] } }),
+    defineField({ 
+      name: "category", 
+      title: "Kategori", 
+      type: "string", 
+      options: { list: ["Konut", "Ticari", "Ofis", "Karma Kullanım", "Kentsel Dönüşüm", "Kültür & Sanat", "Eğitim", "Sağlık", "Endüstriyel"] },
+      description: "Projenin ait olduğu yapı türü."
+    }),
     defineField({ name: "city", title: "Şehir", type: "string" }),
     defineField({ name: "location", title: "Konum / Adres", type: "string" }),
-    defineField({ name: "year", title: "Yıl", type: "string" }),
+    defineField({ name: "year", title: "Proje Yılı", type: "string", description: "Örn: 2024" }),
 
     defineField({
       name: "coverImage",
-      title: "Kapak Görseli",
+      title: "Ana Kapak Görseli",
       type: "image",
       options: { hotspot: true },
-      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() })],
+      description: "Listeleme sayfalarında görünecek olan ana fotoğraf. Geniş (16:9) veya kare (1:1) olması tasarımda daha iyi durur.",
+      fields: [
+        defineField({ 
+          name: "alt", 
+          title: "Görsel Açıklaması (Alt Metin)", 
+          type: "string", 
+          validation: (Rule) => Rule.required(),
+          description: "SEO için kısa bir açıklama (Örn: Nuark Rezidans dış cephe görünümü)."
+        })
+      ],
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: "description",
-      title: "Proje Açıklaması",
+      title: "Proje Detayları",
       type: "array",
+      description: "Projenin tasarım hikayesi ve detaylı bilgilerini buraya giriniz.",
       of: [
         { type: "block" },
         {
           type: "image",
           options: { hotspot: true },
           fields: [
-            defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "alt", title: "Görsel Açıklaması (Alt Metin)", type: "string", validation: (Rule) => Rule.required() }),
             defineField({
               name: "alignment",
               title: "Hizalama",
@@ -54,15 +83,22 @@ export const projectType = defineType({
 
     defineField({
       name: "gallery",
-      title: "Fotoğraf Galerisi",
+      title: "Proje Fotoğrafları",
       type: "array",
-      of: [{ type: "image", options: { hotspot: true }, fields: [{ name: "alt", title: "Alt Metni", type: "string" }] }],
+      description: "Proje detay sayfasında alt kısımda yer alan görsel galerisi.",
+      of: [
+        { 
+          type: "image", 
+          options: { hotspot: true }, 
+          fields: [{ name: "alt", title: "Alt Metni", type: "string", description: "Fotoğrafın içeriği." }]
+        }
+      ],
       options: { layout: "grid" },
     }),
 
-    defineField({ name: "featured", title: "Öne Çıkarılsın mı?", type: "boolean", initialValue: false }),
-    defineField({ name: "order", title: "Sıralama", type: "number" }),
-    defineField({ name: "seo", title: "SEO", type: "seo" }),
+    defineField({ name: "featured", title: "Ana Sayfada Öne Çıkarsın mı?", type: "boolean", initialValue: false, description: "Açılırsa ana sayfadaki 'Öne Çıkan Projeler' arasında gösterilebilir." }),
+    defineField({ name: "order", title: "Görüntüleme Sırası", type: "number", description: "Küçük sayı daha önce gösterilir." }),
+    defineField({ name: "seo", title: "Proje SEO Ayarları", type: "seo" }),
   ],
   orderings: [
     { title: "Sıralama", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },

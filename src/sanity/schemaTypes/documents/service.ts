@@ -7,56 +7,63 @@ export const serviceType = defineType({
   fields: [
     defineField({ 
       name: "title", 
-      title: "Başlık", 
+      title: "Hizmet Başlığı", 
       type: "string", 
-      description: "Hizmetin tam adı (Örn: Mimari Tasarım)",
+      description: "Sunulan hizmetin tam adı (Örn: İç Mimari Tasarım)",
       validation: (Rule) => Rule.required() 
     }),
     defineField({ 
       name: "slug", 
       title: "Slug", 
       type: "slug", 
-      description: "URL adresi için benzersiz kimlik (Opsiyonel)",
+      description: "URL adresi için benzersiz kimlik (Otomatik oluşturulabilir).",
       options: { source: "title" }, 
     }),
     defineField({
       name: "order",
-      title: "Sıralama",
+      title: "Görüntüleme Sırası",
       type: "number",
-      description: "Hizmetlerin listedeki sırası (Küçük sayı üstte görünür)",
+      description: "Hizmetlerin listelendiği bölümlerde hangi sırada görüneceği (Küçük sayı üstte yer alır).",
       initialValue: 0,
     }),
     defineField({
       name: "mainImage",
-      title: "Ana Görsel",
+      title: "Hizmet Görseli",
       type: "image",
-      description: "Hizmetler sayfasında görünecek dikey veya kare görsel",
+      description: "Hizmet sayfasında ve listelerde görünecek olan fotoğraf. Önerilen oran: 4:5 (Dikey) veya 1:1 (Kare).",
       options: { hotspot: true },
-      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string" })],
+      fields: [
+        defineField({ 
+          name: "alt", 
+          title: "Görsel Açıklaması (Alt Metin)", 
+          type: "string",
+          description: "SEO ve erişilebilirlik için kısa açıklama."
+        })
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "summary",
-      title: "Kısa Özet (Ana Sayfa)",
+      title: "Kısa Özet (Ana Sayfa Görünümü)",
       type: "text",
       rows: 2,
-      description: "Ana sayfadaki 4'lü gridde görünecek çok kısa açıklama",
+      description: "Ana sayfadaki 4'lü hizmet gridinde görünecek çok kısa tanıtım cümlesi.",
     }),
     defineField({
       name: "description",
-      title: "Açıklama (Hizmetler Sayfası)",
+      title: "Hizmet Detaylı Açıklaması",
       type: "array",
       of: [{ type: "block" }],
-      description: "Hizmetler sayfasında görselin yanında görünecek detaylı metin",
+      description: "Hizmet sayfasında görselin yanında yer alan geniş anlatım metni.",
     }),
     defineField({
       name: "features",
-      title: "Öne Çıkan Özellikler / Maddeler",
+      title: "Sunulan Detaylar / Hizmet Maddeleri",
       type: "array",
       of: [{ type: "string" }],
-      description: "Hizmetin altına madde madde eklenecek özellikler",
+      description: "Hizmet kapsamında sunulan alt kalemler (Örn: Konsept Tasarım, Uygulama Projesi).",
     }),
-    defineField({ name: "seo", title: "SEO", type: "seo" }),
+    defineField({ name: "seo", title: "Hizmet SEO Ayarları", type: "seo" }),
 
   ],
 });

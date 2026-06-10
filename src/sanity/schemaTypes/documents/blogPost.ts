@@ -5,36 +5,64 @@ export const blogPostType = defineType({
   title: "Blog Yazısı",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Başlık", type: "string", validation: (Rule) => Rule.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (Rule) => Rule.required() }),
-    defineField({ name: "publishedAt", title: "Yayın Tarihi", type: "datetime", initialValue: () => new Date().toISOString() }),
+    defineField({ 
+      name: "title", 
+      title: "Yazı Başlığı", 
+      type: "string", 
+      validation: (Rule) => Rule.required(),
+      description: "Blog yazısının ana başlığı."
+    }),
+    defineField({ 
+      name: "slug", 
+      title: "Slug", 
+      type: "slug", 
+      options: { source: "title" }, 
+      validation: (Rule) => Rule.required(),
+      description: "Yazı için benzersiz URL adresi."
+    }),
+    defineField({ 
+      name: "publishedAt", 
+      title: "Yayınlanma Tarihi", 
+      type: "datetime", 
+      initialValue: () => new Date().toISOString(),
+      description: "Yazının sitede hangi tarihte yayınlandığını belirtir. İleri bir tarih seçilirse o tarihte yayına girer."
+    }),
     defineField({
       name: "mainImage",
       title: "Kapak Görseli",
       type: "image",
       options: { hotspot: true },
-      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() })],
+      description: "Blog yazısının kapak fotoğrafı. Önerilen oran: 16:9.",
+      fields: [
+        defineField({ 
+          name: "alt", 
+          title: "Görsel Açıklaması (Alt Metin)", 
+          type: "string", 
+          validation: (Rule) => Rule.required() 
+        })
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "excerpt",
-      title: "Özet",
+      title: "Kısa Özet",
       type: "text",
       rows: 3,
-      description: "Liste sayfalarında gösterilir. Maksimum 200 karakter.",
+      description: "Liste sayfalarında görünen kısa metin. Maksimum 200 karakter.",
       validation: (Rule) => Rule.max(200),
     }),
     defineField({
       name: "body",
-      title: "İçerik",
+      title: "Yazı İçeriği",
       type: "array",
+      description: "Blog yazısının tam metni ve içerik görselleri.",
       of: [
         { type: "block" },
         {
           type: "image",
           options: { hotspot: true },
           fields: [
-            defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "alt", title: "Görsel Açıklaması (Alt Metin)", type: "string", validation: (Rule) => Rule.required() }),
             defineField({
               name: "alignment",
               title: "Hizalama",
@@ -61,7 +89,7 @@ export const blogPostType = defineType({
         },
       ],
     }),
-    defineField({ name: "seo", title: "SEO", type: "seo" }),
+    defineField({ name: "seo", title: "Blog Yazısı SEO Ayarları", type: "seo" }),
   ],
   orderings: [{ title: "Yayın Tarihi (Yeni→Eski)", name: "publishedAtDesc", by: [{ field: "publishedAt", direction: "desc" }] }],
 });

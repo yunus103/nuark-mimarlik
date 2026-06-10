@@ -9,21 +9,29 @@ export const contactPageType = defineType({
     defineField({ name: "heroHeadline", title: "Hero Başlık", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "heroSubtitle", title: "Hero Alt Başlık", type: "text", rows: 3 }),
 
-    // Bilgiler
-    defineField({ name: "address", title: "Adres", type: "text", rows: 3 }),
-    defineField({ name: "phone", title: "Telefon", type: "string" }),
-    defineField({ name: "email", title: "E-posta", type: "string" }),
-    defineField({ name: "workingHours", title: "Çalışma Saatleri", type: "string" }),
-    defineField({ name: "whatsappNumber", title: "WhatsApp Numarası", type: "string", description: "Başında artı işareti ve ülke koduyla, boşluksuz giriniz. Örn: +905551234567" }),
+    // Basit Bilgiler
+    defineField({ 
+      name: "workingHours", 
+      title: "Çalışma Saatleri", 
+      type: "string",
+      description: "Örn: Pazartesi - Cumartesi: 09:00 - 18:00 (Pazar: Kapalı)"
+    }),
 
-    // Form
-    defineField({ name: "formTitle", title: "Form Başlığı", type: "string", initialValue: "Bize Ulaşın" }),
+    // Form Ayarları
+    defineField({ 
+      name: "formTitle", 
+      title: "Form Başlığı", 
+      type: "string", 
+      initialValue: "Bize Ulaşın",
+      description: "İletişim formunun üzerindeki başlık."
+    }),
     defineField({
       name: "projectTypes",
       title: "Proje Tipleri",
       type: "array",
       of: [{ type: "string" }],
-      options: { layout: "tags" }
+      options: { layout: "tags" },
+      description: "Müşterinin formda seçebileceği proje kategorileri (Örn: Konut, Ofis, Restoran)."
     }),
     defineField({
       name: "successMessage",
@@ -31,12 +39,20 @@ export const contactPageType = defineType({
       type: "text",
       rows: 2,
       initialValue: "Mesajınız alındı. En kısa sürede size dönüş yapacağız.",
+      description: "Form başarıyla gönderildiğinde kullanıcıya gösterilecek teşekkür mesajı."
     }),
-    defineField({ name: "recipientEmail", title: "Bildirim E-postası", type: "string", description: "Form verilerinin gönderileceği e-posta adresi." }),
+    defineField({ 
+      name: "recipientEmail", 
+      title: "Bildirim E-postası", 
+      type: "string", 
+      description: "Form verilerinin (müşteri taleplerinin) gönderileceği ana e-posta adresi." 
+    }),
 
-    // Harita
-    defineField({ name: "mapEmbedUrl", title: "Harita iFrame URL", type: "text", rows: 4, description: "Google Maps üzerinden alınan iframe HTML kodunu yapıştırın." }),
-
-    defineField({ name: "seo", title: "SEO", type: "seo" }),
+    defineField({ 
+      name: "seo", 
+      title: "Sayfa SEO Ayarları", 
+      type: "seo",
+      description: "Bu sayfa için özel arama motoru ayarları. Boş bırakılırsa genel site ayarları kullanılır."
+    }),
   ],
 });
