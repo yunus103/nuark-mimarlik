@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: Props) {
     <article className="bg-background min-h-screen">
 
       {/* ── HERO ── */}
-      <div className="relative w-full h-[55vh] md:h-[70vh] bg-brand-black overflow-hidden">
+      <div className="relative w-full h-[70vh] md:h-[90vh] bg-brand-black overflow-hidden">
         {project.coverImage && (
           <SanityImage
             image={project.coverImage}
