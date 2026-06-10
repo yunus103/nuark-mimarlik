@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const FALLBACK_VALUES = [
   {
-    title: "Tasarım Mükemmeliyeti",
+    title: "Tasarım Bütünselliği",
     description:
       "Her projede estetik ile işlevselliği bir arada sunarız. Malzeme seçiminden biçim kararlarına kadar her detay, mekanın ruhuna hizmet eder.",
   },
@@ -52,9 +52,9 @@ const FALLBACK_VALUES = [
       "Kullanıcı deneyimini merkeze alarak mekanları; güvenli, erişilebilir ve ilham verici biçimde kurguluyoruz.",
   },
   {
-    title: "Zamansız Estetik",
+    title: "Uzun Ömürlü Tasarımlar",
     description:
-      "Trend akımlardan beslenerek ancak onlara bağlı kalmadan, on yıllar sonra da değer taşıyacak mekanlar yaratmayı hedefliyoruz.",
+      "Trend akımlardan beslenerek ancak onlara bağlı kalmadan, on yıllar sonra da değer taşıyacak mekanlar tasarlamayı hedefliyoruz.",
   },
 ];
 
