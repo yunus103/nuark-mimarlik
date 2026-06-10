@@ -169,6 +169,14 @@ export const allSlugsForSitemapQuery = groq`{
   "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt }
 }`;
 
+// ─── Galeri ────────────────────────────────────────────────────────────────────
+
+export const galleryPageQuery = groq`*[_type == "galleryPage"][0] {
+  heroTitle, heroSubtitle,
+  gallery[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  seo
+}`;
+
 // ─── Varsayılan SEO ────────────────────────────────────────────────────────────
 
 export const defaultSeoQuery = groq`*[_type == "siteSettings"][0] {

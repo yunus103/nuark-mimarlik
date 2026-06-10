@@ -8,9 +8,10 @@ import { RiCloseLine, RiArrowLeftSLine, RiArrowRightSLine, RiFullscreenLine } fr
 interface ProjectLightboxProps {
   images: any[];
   title?: string;
+  limit?: number;
 }
 
-export function ProjectLightbox({ images, title }: ProjectLightboxProps) {
+export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [direction, setDirection] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -65,7 +66,7 @@ export function ProjectLightbox({ images, title }: ProjectLightboxProps) {
 
   if (!images || images.length === 0) return null;
 
-  const displayedImages = isExpanded ? images : images.slice(0, 3);
+  const displayedImages = isExpanded ? images : images.slice(0, limit);
 
   return (
     <>
@@ -101,13 +102,13 @@ export function ProjectLightbox({ images, title }: ProjectLightboxProps) {
         ))}
       </div>
 
-      {images.length > 3 && !isExpanded && (
+      {images.length > limit && !isExpanded && (
         <div className="flex justify-center mt-8">
           <button
             onClick={() => setIsExpanded(true)}
             className="rounded-none border border-brand-accent/60 text-brand-accent hover:border-brand-accent hover:bg-brand-accent hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 font-sans transition-all duration-300 cursor-pointer"
           >
-            Tümünü Göster ({images.length} Görsel)
+            {limit === 3 ? `Tümünü Göster (${images.length} Görsel)` : `Daha Fazla Göster (${images.length - limit} Görsel)`}
           </button>
         </div>
       )}

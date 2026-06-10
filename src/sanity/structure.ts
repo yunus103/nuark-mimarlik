@@ -29,6 +29,8 @@ export const structure: StructureResolver = (S) =>
               .child(S.document().schemaType("servicesPage").documentId("servicesPage")),
             S.listItem().title("🏆 Referanslarımız").id("referanslarPage").schemaType("referanslarPage")
               .child(S.document().schemaType("referanslarPage").documentId("referanslarPage")),
+            S.listItem().title("🖼️ Galeri Sayfası").id("galleryPage").schemaType("galleryPage")
+              .child(S.document().schemaType("galleryPage").documentId("galleryPage")),
           ])
 
         ),
