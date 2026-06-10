@@ -145,7 +145,7 @@ export function ContactForm({
 
       {formTitle && (
         <div className="mb-10">
-          <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-3">
+          <span className="block text-brand-accent font-brand text-sm font-bold tracking-widest uppercase mb-3">
             Mesaj Gönderin
           </span>
           <h2 className="text-2xl md:text-3xl font-brand font-bold text-foreground">{formTitle}</h2>

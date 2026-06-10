@@ -137,7 +137,7 @@ export default async function ServicesPage() {
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-5xl mx-auto text-center">
                 <FadeIn>
-                  <span className={`font-brand text-xs font-bold tracking-[0.3em] uppercase mb-8 block ${isCtaWhite ? "text-brand-accent" : "text-brand-accent"}`}>
+                  <span className={`font-brand text-sm font-bold tracking-[0.3em] uppercase mb-8 block ${isCtaWhite ? "text-brand-accent" : "text-brand-accent"}`}>
                     BİZE ULAŞIN
                   </span>
                   <h2 className={`text-4xl md:text-7xl font-brand font-bold tracking-tighter mb-10 leading-tight ${isCtaWhite ? "text-brand-black" : "text-brand-off-white"}`}>

@@ -14,7 +14,7 @@ export function FeaturedProjectsSection({ data }: FeaturedProjectsSectionProps) 
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
           <FadeIn>
-            <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">PORTFOLYO</span>
+            <span className="block text-brand-accent font-sans text-sm font-bold tracking-widest uppercase mb-4">PORTFOLYO</span>
             <h2 className="text-4xl md:text-5xl font-brand font-bold tracking-tight">{data?.featuredProjectsTitle || "Öne Çıkan Projeler"}</h2>
           </FadeIn>
           <FadeIn delay={0.2} className="hidden md:block">

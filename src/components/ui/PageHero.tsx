@@ -18,7 +18,7 @@ export function PageHero({ eyebrow = "NUARK MİMARLIK", title, description }: Pa
     <section className="pt-36 pb-16 md:pt-48 md:pb-20 px-4 bg-brand-off-white border-b border-brand-black/10">
       <div className="container mx-auto max-w-5xl">
         <FadeIn direction="up">
-          <span className="inline-block text-brand-accent font-brand text-xs font-bold tracking-[0.3em] uppercase mb-5">
+          <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-5">
             {eyebrow}
           </span>
           <h1 className="text-4xl md:text-6xl font-brand font-bold tracking-tight mb-0 leading-[1.1] text-brand-black">

@@ -30,7 +30,7 @@ export function ServicesSection({ data }: ServicesSectionProps) {
     <section className="py-24 md:py-32 bg-brand-black text-brand-off-white border-y border-white/10">
       <div className="container mx-auto px-4">
         <FadeIn direction="up" className="max-w-3xl mx-auto text-center mb-16">
-          <span className="block text-brand-accent font-brand text-xs font-bold tracking-widest uppercase mb-4">
+          <span className="block text-brand-accent font-brand text-sm font-bold tracking-widest uppercase mb-4">
             UZMANLIK
           </span>
           <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight mb-6">

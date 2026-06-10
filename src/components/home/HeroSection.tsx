@@ -25,7 +25,7 @@ export function HeroSection({ data }: HeroSectionProps) {
       <div className="relative z-10 w-full container mx-auto px-4 py-12 flex flex-col items-center md:items-start md:mt-24">
         <FadeIn direction="up" duration={0.8} className="w-full max-w-4xl">
           {data?.heroEyebrow && (
-            <span className="block text-brand-accent font-brand text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <span className="block text-brand-accent font-brand text-sm md:text-base font-bold tracking-[0.2em] uppercase mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               {data.heroEyebrow}
             </span>
           )}

@@ -78,7 +78,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-24 pb-12 md:pb-16 z-10">
           <FadeIn direction="up">
             {project.category && (
-              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-4">
+              <span className="block text-brand-accent font-sans text-sm font-bold tracking-widest uppercase mb-4">
                 {project.category}
               </span>
             )}
@@ -122,7 +122,7 @@ export default async function ProjectPage({ params }: Props) {
         <section className="bg-brand-black py-16 md:py-24 border-t border-white/10">
           <div className="container mx-auto px-4 md:px-8 max-w-7xl">
             <FadeIn direction="up" className="mb-12">
-              <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-2">
+              <span className="block text-brand-accent font-sans text-sm font-bold tracking-widest uppercase mb-2">
                 Fotoğraf Galerisi
               </span>
               <p className="text-white/30 font-sans text-xs">

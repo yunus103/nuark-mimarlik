@@ -64,7 +64,7 @@ export default async function ReferanslarPage() {
 
             {/* Bölüm başlığı */}
             <FadeIn className="mb-16 max-w-2xl">
-              <span className="inline-block text-brand-accent font-brand text-xs font-bold tracking-[0.3em] uppercase mb-4">
+              <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-4">
                 MARKALAR
               </span>
               <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight text-brand-black leading-[1.1]">
@@ -174,7 +174,7 @@ export default async function ReferanslarPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <FadeIn>
-              <span className="font-brand text-xs font-bold tracking-[0.3em] uppercase mb-7 block text-brand-accent">
+              <span className="font-brand text-sm font-bold tracking-[0.3em] uppercase mb-7 block text-brand-accent">
                 BİZİMLE ÇALIŞIN
               </span>
               <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white">
