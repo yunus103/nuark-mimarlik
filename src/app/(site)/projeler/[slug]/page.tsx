@@ -42,7 +42,10 @@ export default async function ProjectPage({ params }: Props) {
 
   if (!project) notFound();
 
-  const galleryImages = (project.gallery || []).filter((img: any) => img?.asset);
+  const finalImages = (project.gallery || []).filter((img: any) => img?.asset);
+  const renderImages = (project.galleryRender || []).filter((img: any) => img?.asset);
+  const constructionImages = (project.galleryConstruction || []).filter((img: any) => img?.asset);
+  const hasGallery = finalImages.length > 0 || renderImages.length > 0 || constructionImages.length > 0;
 
   return (
     <article className="bg-background min-h-screen">
@@ -115,10 +118,10 @@ export default async function ProjectPage({ params }: Props) {
 
 
       {/* ── GALLERY ── */}
-      {galleryImages.length > 0 && (
+      {hasGallery && (
         <section className="bg-brand-black py-16 md:py-24 border-t border-white/10">
           <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-            <FadeIn direction="up" className="mb-10">
+            <FadeIn direction="up" className="mb-12">
               <span className="block text-brand-accent font-sans text-xs font-bold tracking-widest uppercase mb-2">
                 Fotoğraf Galerisi
               </span>
@@ -126,7 +129,18 @@ export default async function ProjectPage({ params }: Props) {
                 Görsellere tıklayarak büyütebilirsiniz
               </p>
             </FadeIn>
-            <ProjectLightbox images={galleryImages} />
+
+            <div className="space-y-16">
+              {finalImages.length > 0 && (
+                <ProjectLightbox images={finalImages} title="Final Fotoğrafları" />
+              )}
+              {renderImages.length > 0 && (
+                <ProjectLightbox images={renderImages} title="Tasarım / Render Görselleri" />
+              )}
+              {constructionImages.length > 0 && (
+                <ProjectLightbox images={constructionImages} title="Uygulama Aşaması" />
+              )}
+            </div>
           </div>
         </section>
       )}

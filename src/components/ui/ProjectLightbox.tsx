@@ -7,11 +7,13 @@ import { RiCloseLine, RiArrowLeftSLine, RiArrowRightSLine, RiFullscreenLine } fr
 
 interface ProjectLightboxProps {
   images: any[];
+  title?: string;
 }
 
-export function ProjectLightbox({ images }: ProjectLightboxProps) {
+export function ProjectLightbox({ images, title }: ProjectLightboxProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [direction, setDirection] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -63,10 +65,20 @@ export function ProjectLightbox({ images }: ProjectLightboxProps) {
 
   if (!images || images.length === 0) return null;
 
+  const displayedImages = isExpanded ? images : images.slice(0, 3);
+
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
-        {images.map((image, i) => (
+      <div className="mb-16">
+      {title && (
+        <h3 className="text-base md:text-lg font-brand font-bold text-white mb-6 flex items-center gap-2.5 uppercase tracking-wider">
+          <span className="w-1 h-5 bg-brand-accent inline-block"></span>
+          {title}
+        </h3>
+      )}
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+        {displayedImages.map((image, i) => (
           <div 
             key={i} 
             className="group relative cursor-pointer overflow-hidden rounded-sm aspect-[4/3] bg-brand-black"
@@ -88,6 +100,18 @@ export function ProjectLightbox({ images }: ProjectLightboxProps) {
           </div>
         ))}
       </div>
+
+      {images.length > 3 && !isExpanded && (
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() => setIsExpanded(true)}
+            className="rounded-none border border-brand-accent/60 text-brand-accent hover:border-brand-accent hover:bg-brand-accent hover:text-brand-black uppercase tracking-widest text-xs h-12 px-8 font-sans transition-all duration-300 cursor-pointer"
+          >
+            Tümünü Göster ({images.length} Görsel)
+          </button>
+        </div>
+      )}
+    </div>
 
       <AnimatePresence initial={false} custom={direction}>
         {selectedImage !== null && (

@@ -156,6 +156,8 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }
   },
   gallery[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  galleryRender[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  galleryConstruction[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   seo
 }`;
 

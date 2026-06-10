@@ -85,9 +85,39 @@ export const projectType = defineType({
 
     defineField({
       name: "gallery",
-      title: "Proje Fotoğrafları",
+      title: "Final Fotoğrafları",
+      description: "Projenin tamamlanmış halini gösteren ana fotoğraf galerisi.",
       type: "array",
-      description: "Proje detay sayfasında alt kısımda yer alan görsel galerisi.",
+      of: [
+        { 
+          type: "image", 
+          options: { hotspot: true }, 
+          fields: [{ name: "alt", title: "Alt Metni", type: "string", description: "Fotoğrafın içeriği." }]
+        }
+      ],
+      options: { layout: "grid" },
+    }),
+
+    defineField({
+      name: "galleryRender",
+      title: "Tasarım / Render Görselleri",
+      description: "Projenin 3D tasarım ve render çalışmalarını içeren fotoğraf galerisi.",
+      type: "array",
+      of: [
+        { 
+          type: "image", 
+          options: { hotspot: true }, 
+          fields: [{ name: "alt", title: "Alt Metni", type: "string", description: "Fotoğrafın içeriği." }]
+        }
+      ],
+      options: { layout: "grid" },
+    }),
+
+    defineField({
+      name: "galleryConstruction",
+      title: "Uygulama Aşaması Görselleri",
+      description: "Projenin inşaat, şantiye ve uygulama aşamalarından fotoğraf galerisi.",
+      type: "array",
       of: [
         { 
           type: "image", 
