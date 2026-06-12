@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SanityImage } from '@/components/ui/SanityImage';
 import { RiCloseLine, RiArrowLeftSLine, RiArrowRightSLine, RiFullscreenLine } from "react-icons/ri";
+import { urlForImage } from "@/sanity/lib/image";
 
 interface ProjectLightboxProps {
   images: any[];
@@ -13,6 +14,20 @@ interface ProjectLightboxProps {
 
 export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  const getOptimizedUrl = (image: any) => {
+    if (!image?.asset) return null;
+    return urlForImage(image)?.auto("format").width(1600).height(1600).fit("max").url();
+  };
+
+  const prefetchImage = (index: number) => {
+    if (index < 0 || index >= images.length) return;
+    const url = getOptimizedUrl(images[index]);
+    if (url) {
+      const img = new Image();
+      img.src = url;
+    }
+  };
   const [direction, setDirection] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -34,6 +49,13 @@ export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxPro
       document.body.style.overflow = "";
     };
   }, [selectedImage, images.length]);
+
+  useEffect(() => {
+    if (selectedImage !== null && images.length > 1) {
+      const nextIndex = (selectedImage + 1) % images.length;
+      prefetchImage(nextIndex);
+    }
+  }, [selectedImage, images]);
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -84,6 +106,7 @@ export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxPro
             key={i} 
             className="group relative cursor-pointer overflow-hidden rounded-sm aspect-[4/3] bg-brand-black"
             onClick={() => setSelectedImage(i)}
+            onMouseEnter={() => prefetchImage(i)}
           >
             <SanityImage
               image={image}
@@ -193,6 +216,7 @@ export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxPro
                   objectFit="contain"
                   sizes="100vw"
                   className="pointer-events-none select-none"
+                  priority
                 />
               </motion.div>
             </div>
