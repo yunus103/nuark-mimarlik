@@ -34,11 +34,8 @@ export function SanityImage({
   // 1. Sanity URL Builder hazırlığı
   let builder = urlForImage(image)?.auto("format");
 
-  // Eğer fill ise ve fit "max" ise (örn. lightbox), en-boy oranını bozmadan 1600px sınırıyla optimize et
-  if (fill && fit === "max" && builder) {
-    builder = builder.width(1600).height(1600).fit("max");
-  } else if (!fill && builder) {
-    // Eğer fill değilse, CDN tarafında görseli tam istediğimiz boyuta çekiyoruz
+  // Eğer fill değilse, CDN tarafında görseli tam istediğimiz boyuta çekiyoruz
+  if (!fill && builder) {
     builder = builder.width(width).height(height).fit(fit);
   }
 

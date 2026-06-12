@@ -17,7 +17,7 @@ export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxPro
 
   const getOptimizedUrl = (image: any) => {
     if (!image?.asset) return null;
-    return urlForImage(image)?.auto("format").width(1600).height(1600).fit("max").url();
+    return urlForImage(image)?.auto("format").width(1600).url();
   };
 
   const prefetchImage = (index: number) => {
