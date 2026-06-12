@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { SanityImage } from "@/components/ui/SanityImage";
+import { ImageStackSlider } from "@/components/ui/ImageStackSlider";
 import { RichText } from "@/components/ui/RichText";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { RiArrowRightLine } from "react-icons/ri";
@@ -47,17 +47,10 @@ export function AboutSection({ data }: AboutSectionProps) {
             </div>
           </FadeIn>
 
-          {data.aboutImage && (
+          {data.aboutImages && data.aboutImages.length > 0 && (
             <FadeIn direction="left" delay={0.2}>
-              <div className="relative aspect-[4/5] w-full mt-10 lg:mt-0">
-                <SanityImage
-                  image={data.aboutImage}
-                  fill
-                  className="object-cover rounded-none transition-all duration-700"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                {/* Brutalist Shadow / Offset */}
-                <div className="absolute -bottom-6 -right-6 w-full h-full border border-brand-accent/30 -z-10 hidden md:block" />
+              <div className="w-full max-w-[420px] mx-auto lg:ml-auto lg:mr-0 mt-10 lg:mt-0">
+                <ImageStackSlider images={data.aboutImages} />
               </div>
             </FadeIn>
           )}

@@ -75,13 +75,25 @@ export const homePageType = defineType({
     defineField({ name: "aboutTitle", title: "Hakkımızda Özet Başlığı", type: "string", group: "about" }),
     defineField({ name: "aboutText", title: "Hakkımızda Özet Metni", type: "array", of: [{ type: "block" }], group: "about" }),
     defineField({
-      name: "aboutImage",
-      title: "Hakkımızda Tanıtım Görseli",
+      name: "aboutImages",
+      title: "Hakkımızda Tanıtım Görselleri",
       group: "about",
-      type: "image",
-      options: { hotspot: true },
-      description: "Tanıtım metninin yanında görünecek fotoğraf. Önerilen oran: 4:5 veya 1:1.",
-      fields: [defineField({ name: "alt", title: "Alt Metni", type: "string" })],
+      type: "array",
+      description: "Tanıtım metninin yanında kaydırılabilir olarak görünecek fotoğraflar. Sıralama paneldeki gibidir. Önerilen oran: 4:5 veya 1:1.",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "Alt Metni (Erişilebilirlik)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        },
+      ],
     }),
 
     // CTA

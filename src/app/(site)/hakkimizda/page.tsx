@@ -59,10 +59,10 @@ const FALLBACK_VALUES = [
 ];
 
 const FALLBACK_STATS = [
-  { value: "125+", label: "Uygulama" },
-  { value: "60+",  label: "Müşteri" },
-  { value: "12.500+", label: "m²" },
-  { value: "180+", label: "Mimari Proje" },
+  { value: "126+", label: "Uygulama" },
+  { value: "59+",  label: "Müşteri" },
+  { value: "12.567+", label: "m²" },
+  { value: "178+", label: "Mimari Proje" },
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────

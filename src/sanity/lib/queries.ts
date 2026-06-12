@@ -31,7 +31,7 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
   },
   servicesSectionTitle, servicesIntro,
   aboutTitle, aboutText,
-  aboutImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  aboutImages[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   ctaTitle, ctaSubtitle,
   clientLogos[] {
     companyName,
