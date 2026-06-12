@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SanityImage } from '@/components/ui/SanityImage';
 import { RiCloseLine, RiArrowLeftSLine, RiArrowRightSLine, RiFullscreenLine } from "react-icons/ri";
@@ -14,6 +15,11 @@ interface ProjectLightboxProps {
 
 export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getOptimizedUrl = (image: any) => {
     if (!image?.asset) return null;
@@ -137,92 +143,97 @@ export function ProjectLightbox({ images, title, limit = 3 }: ProjectLightboxPro
       )}
     </div>
 
-      <AnimatePresence initial={false} custom={direction}>
-        {selectedImage !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 px-4 md:px-12 backdrop-blur-sm touch-none"
-            onClick={() => setSelectedImage(null)}
-          >
-            {/* Top Bar */}
-            <div className="absolute top-0 left-0 right-0 p-6 md:p-10 flex justify-between items-center z-10">
-              <div className="text-white font-sans text-sm tracking-[0.2em] uppercase opacity-70">
-                {selectedImage + 1} <span className="mx-2 text-white/30">/</span> {images.length}
-              </div>
-              <button 
-                className="w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer group"
-                onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
-              >
-                <RiCloseLine className="text-3xl transform group-hover:rotate-90 transition-transform duration-300" />
-              </button>
-            </div>
-
-            {/* Navigation Arrows */}
-            {images.length > 1 && (
-              <>
-                <button 
-                  className="hidden md:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    paginate(-1);
-                  }}
+      {mounted && typeof document !== "undefined"
+        ? createPortal(
+            <AnimatePresence initial={false} custom={direction}>
+              {selectedImage !== null && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 px-4 md:px-12 backdrop-blur-sm touch-none"
+                  onClick={() => setSelectedImage(null)}
                 >
-                  <RiArrowLeftSLine className="text-5xl transform group-hover:-translate-x-2 transition-transform" />
-                </button>
-                <button 
-                  className="hidden md:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    paginate(1);
-                  }}
-                >
-                  <RiArrowRightSLine className="text-5xl transform group-hover:translate-x-2 transition-transform" />
-                </button>
-              </>
-            )}
+                  {/* Top Bar */}
+                  <div className="absolute top-0 left-0 right-0 p-6 md:p-10 flex justify-between items-center z-10">
+                    <div className="text-white font-sans text-sm tracking-[0.2em] uppercase opacity-70">
+                      {selectedImage + 1} <span className="mx-2 text-white/30">/</span> {images.length}
+                    </div>
+                    <button 
+                      className="w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer group"
+                      onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
+                    >
+                      <RiCloseLine className="text-3xl transform group-hover:rotate-90 transition-transform duration-300" />
+                    </button>
+                  </div>
 
-            {/* Main Image Container */}
-            <div className="relative w-full h-[70vh] md:h-[85vh] flex items-center justify-center overflow-hidden">
-              <motion.div
-                key={selectedImage}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.3 }
-                }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={1}
-                onDragEnd={(_, { offset, velocity }) => {
-                  if (offset.x > 100 || (offset.x > 20 && velocity.x > 500)) {
-                    paginate(-1);
-                  } else if (offset.x < -100 || (offset.x < -20 && velocity.x < -500)) {
-                    paginate(1);
-                  }
-                }}
-                className="absolute w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <SanityImage
-                  image={images[selectedImage]}
-                  fill
-                  fit="max"
-                  objectFit="contain"
-                  sizes="100vw"
-                  className="pointer-events-none select-none"
-                  priority
-                />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  {/* Navigation Arrows */}
+                  {images.length > 1 && (
+                    <>
+                      <button 
+                        className="hidden md:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          paginate(-1);
+                        }}
+                      >
+                        <RiArrowLeftSLine className="text-5xl transform group-hover:-translate-x-2 transition-transform" />
+                      </button>
+                      <button 
+                        className="hidden md:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          paginate(1);
+                        }}
+                      >
+                        <RiArrowRightSLine className="text-5xl transform group-hover:translate-x-2 transition-transform" />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Main Image Container */}
+                  <div className="relative w-full h-[70vh] md:h-[85vh] flex items-center justify-center overflow-hidden">
+                    <motion.div
+                      key={selectedImage}
+                      custom={direction}
+                      variants={variants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{
+                        x: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.3 }
+                      }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={1}
+                      onDragEnd={(_, { offset, velocity }) => {
+                        if (offset.x > 100 || (offset.x > 20 && velocity.x > 500)) {
+                          paginate(-1);
+                        } else if (offset.x < -100 || (offset.x < -20 && velocity.x < -500)) {
+                          paginate(1);
+                        }
+                      }}
+                      className="absolute w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <SanityImage
+                        image={images[selectedImage]}
+                        fill
+                        fit="max"
+                        objectFit="contain"
+                        sizes="100vw"
+                        className="pointer-events-none select-none"
+                        priority
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
     </>
   );
 }
