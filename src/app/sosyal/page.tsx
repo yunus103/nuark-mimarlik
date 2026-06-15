@@ -62,8 +62,8 @@ export default async function SosyalPage() {
 
       <div className="w-full max-w-[440px] flex flex-col items-center relative z-10 text-center">
         {/* Profil Görseli / Logo */}
-        <FadeIn direction="up" className="mb-8">
-          <div className="h-20 md:h-24 w-fit flex items-center justify-center relative select-none">
+        <FadeIn direction="up" className="mb-6">
+          <div className="h-24 md:h-28 w-fit flex items-center justify-center relative select-none">
             {profileImage ? (
               <SanityImage
                 image={{ ...profileImage, crop: undefined, hotspot: undefined }}
@@ -71,7 +71,7 @@ export default async function SosyalPage() {
                 height={800}
                 fit="max"
                 className="h-full w-auto object-contain transition-all duration-300"
-                sizes="200px"
+                sizes="240px"
                 priority
               />
             ) : (
