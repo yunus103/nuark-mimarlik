@@ -116,7 +116,7 @@ export default async function AboutPage() {
                     <SanityImage
                       image={data.storyImage}
                       fill
-                      className="object-cover transition-all duration-700 group-hover:scale-105 grayscale hover:grayscale-0"
+                      className="object-cover transition-all duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 45vw"
                     />
                   ) : (
@@ -132,10 +132,9 @@ export default async function AboutPage() {
               </div>
             </FadeIn>
 
-            {/* Text */}
             <FadeIn direction="left" delay={0.15}>
               <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-6">
-                HİKAYEMİZ
+                {data?.storyEyebrow || "HİKAYEMİZ"}
               </span>
               <h2 className="text-3xl md:text-5xl font-brand font-bold tracking-tight mb-8 text-brand-black leading-[1.1]">
                 {data?.storyTitle || "On Yılda Bir Vizyonun İnşası"}
@@ -178,7 +177,7 @@ export default async function AboutPage() {
           <div className="px-4 py-16 md:py-24 border-b border-brand-black/8">
             <FadeIn className="max-w-2xl">
               <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-5">
-                DEĞERLERİMİZ
+                {data?.valuesEyebrow || "DEĞERLERİMİZ"}
               </span>
               <h2 className="text-3xl md:text-5xl font-brand font-bold tracking-tight text-brand-black leading-[1.1]">
                 {data?.valuesTitle || "Bizi Biz Yapan İlkeler"}
@@ -217,7 +216,7 @@ export default async function AboutPage() {
 
             <FadeIn className="mb-16">
               <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-5">
-                EKİBİMİZ
+                {data?.teamEyebrow || "EKİBİMİZ"}
               </span>
               <h2 className="text-3xl md:text-5xl font-brand font-bold tracking-tight text-brand-black leading-[1.1]">
                 {data?.teamTitle || "Kurucu ve Mimarlar"}
@@ -267,14 +266,13 @@ export default async function AboutPage() {
           <div className="max-w-4xl mx-auto text-center">
             <FadeIn>
               <span className="font-brand text-sm font-bold tracking-[0.3em] uppercase mb-7 block text-brand-accent">
-                BİZİMLE ÇALIŞIN
+                {data?.ctaEyebrow || "BİZİMLE ÇALIŞIN"}
               </span>
-              <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white break-words">
-                Projenizi Birlikte<br />Hayata Geçirelim
+              <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white break-words whitespace-pre-line">
+                {data?.ctaTitle || "Projenizi Birlikte\nHayata Geçirelim"}
               </h2>
               <p className="text-lg max-w-xl mx-auto mb-14 text-brand-off-white/55">
-                Mimari danışmanlıktan anahtar teslim inşaata kadar tüm süreçlerde yanınızdayız.
-                Projenizi anlatın, sizin için en doğru çözümü birlikte tasarlayalım.
+                {data?.ctaDescription || "Mimari danışmanlıktan anahtar teslim inşaata kadar tüm süreçlerde yanınızdayız. Projenizi anlatın, sizin için en doğru çözümü birlikte tasarlayalım."}
               </p>
               <Link href="/iletisim">
                 <Button
@@ -282,7 +280,7 @@ export default async function AboutPage() {
                              bg-brand-off-white text-brand-black hover:bg-brand-accent hover:text-white
                              transition-all duration-300"
                 >
-                  İLETİŞİME GEÇİN
+                  {data?.ctaButtonLabel || "İLETİŞİME GEÇİN"}
                 </Button>
               </Link>
             </FadeIn>

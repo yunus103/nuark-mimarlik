@@ -62,14 +62,15 @@ export const homePageType = defineType({
       title: "Seçili Projeler",
       type: "array",
       group: "projects",
-      description: "Ana sayfada listelenecek projeleri seçin (Maksimum 3 adet).",
+      description: "Ana sayfada listelenecek projeleri seçin. Boş bırakılırsa en güncel projeler otomatik olarak gösterilir. (Maksimum 6 adet).",
       of: [{ type: "reference", to: [{ type: "project" }] }],
-      validation: (Rule) => Rule.max(3),
+      validation: (Rule) => Rule.max(6),
     }),
 
-    // Hizmetler Özeti
     defineField({ name: "servicesSectionTitle", title: "Hizmetler Bölüm Başlığı", type: "string", group: "services", initialValue: "Neler Yapıyoruz?" }),
     defineField({ name: "servicesIntro", title: "Hizmetler Kısa Tanıtımı", type: "text", rows: 2, group: "services" }),
+    defineField({ name: "servicesEyebrow", title: "Hizmetler Üst Etiketi", type: "string", group: "services", initialValue: "UZMANLIK" }),
+    defineField({ name: "servicesCtaLabel", title: "Hizmetler Buton Yazısı", type: "string", group: "services", initialValue: "Hizmetlerimizi İnceleyin" }),
 
     // Kısa Tanıtım
     defineField({ name: "aboutTitle", title: "Hakkımızda Özet Başlığı", type: "string", group: "about" }),
@@ -95,10 +96,11 @@ export const homePageType = defineType({
         },
       ],
     }),
+    defineField({ name: "aboutCtaLabel", title: "Hakkımızda Buton Yazısı", type: "string", group: "about", initialValue: "Kurumsal Profilimizi İnceleyin" }),
 
-    // CTA
     defineField({ name: "ctaTitle", title: "Eylem Çağrısı (CTA) Başlığı", type: "string", group: "cta", description: "Örn: 'Hayalinizdeki projeyi birlikte hayata geçirelim.'" }),
     defineField({ name: "ctaSubtitle", title: "CTA Alt Başlığı", type: "string", group: "cta" }),
+    defineField({ name: "ctaButtonLabel", title: "CTA Buton Yazısı", type: "string", group: "cta", initialValue: "Projeye Başlayalım" }),
 
     // Referans Markalar (Marquee)
     defineField({

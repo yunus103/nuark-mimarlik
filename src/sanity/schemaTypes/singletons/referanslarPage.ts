@@ -13,6 +13,14 @@ export const referanslarPageType = defineType({
   fields: [
     // ── Hero ──────────────────────────────────────────────────────────────────
     defineField({
+      name: "heroEyebrow",
+      title: "Sayfa Üst Başlığı (Eyebrow)",
+      type: "string",
+      group: "hero",
+      initialValue: "REFERANSLARIMIZ",
+      description: "Sayfanın en üstündeki küçük etiket.",
+    }),
+    defineField({
       name: "heroHeadline",
       title: "Sayfa Ana Başlığı",
       type: "string",
@@ -31,6 +39,14 @@ export const referanslarPageType = defineType({
     }),
 
     // ── Referanslar ───────────────────────────────────────────────────────────
+    defineField({
+      name: "sectionEyebrow",
+      title: "Referanslar Üst Başlığı (Eyebrow)",
+      type: "string",
+      group: "clients",
+      initialValue: "MARKALAR",
+      description: "Bölüm başlığının üzerindeki küçük yazı.",
+    }),
     defineField({
       name: "sectionTitle",
       title: "Referanslar Bölüm Başlığı",
@@ -110,8 +126,38 @@ export const referanslarPageType = defineType({
         },
       ],
     }),
+    defineField({
+      name: "metrics",
+      title: "Güven Metrikleri",
+      type: "array",
+      group: "clients",
+      description: "Sayfanın orta/alt kısmında yer alan güven ve değer sütunları (Maksimum 3 adet). Boş bırakılırsa varsayılan metrikler gösterilir.",
+      validation: (Rule) => Rule.max(3),
+      of: [
+        {
+          type: "object",
+          title: "Metrik",
+          fields: [
+            defineField({ name: "icon", title: "İkon / Sembol", type: "string", description: "Örn: ◈, ◉, ◎" }),
+            defineField({ name: "title", title: "Başlık", type: "string" }),
+            defineField({ name: "desc", title: "Açıklama", type: "text", rows: 2 }),
+          ],
+          preview: {
+            select: { title: "title", subtitle: "desc" },
+          },
+        },
+      ],
+    }),
 
     // ── CTA ───────────────────────────────────────────────────────────────────
+    defineField({
+      name: "ctaEyebrow",
+      title: "CTA Üst Başlığı (Eyebrow)",
+      type: "string",
+      group: "cta",
+      initialValue: "BİZİMLE ÇALIŞIN",
+      description: "CTA bölümündeki küçük etiket.",
+    }),
     defineField({
       name: "ctaTitle",
       title: "CTA Başlığı",
@@ -119,6 +165,14 @@ export const referanslarPageType = defineType({
       group: "cta",
       description:
         "Sayfanın altındaki eylem çağrısı bölümünün başlığı. Örnek: \"Siz de Referanslarımız Arasında Yer Alın\"",
+    }),
+    defineField({
+      name: "ctaButtonLabel",
+      title: "CTA Buton Yazısı",
+      type: "string",
+      group: "cta",
+      initialValue: "İLETİŞİME GEÇİN",
+      description: "CTA butonunun üzerindeki yazı.",
     }),
     defineField({
       name: "ctaDescription",

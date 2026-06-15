@@ -49,7 +49,7 @@ export default async function ReferanslarPage() {
 
       {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
       <PageHero
-        eyebrow="REFERANSLARIMIZ"
+        eyebrow={page?.heroEyebrow || "REFERANSLARIMIZ"}
         title={page?.heroHeadline || "Güvendikleri Markalar"}
         description={
           page?.heroSubtitle ||
@@ -62,10 +62,9 @@ export default async function ReferanslarPage() {
         <section className="py-24 md:py-36 bg-brand-off-white border-b border-brand-black/8">
           <div className="container mx-auto px-4">
 
-            {/* Bölüm başlığı */}
             <FadeIn className="mb-16 max-w-2xl">
               <span className="inline-block text-brand-accent font-brand text-sm font-bold tracking-[0.3em] uppercase mb-4">
-                MARKALAR
+                {page?.sectionEyebrow || "MARKALAR"}
               </span>
               <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight text-brand-black leading-[1.1]">
                 {page?.sectionTitle || "Birlikte Çalıştığımız Markalar"}
@@ -139,29 +138,33 @@ export default async function ReferanslarPage() {
       <section className="bg-brand-gray-100 border-b border-brand-black/8">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-brand-black/8">
-            {[
-              {
-                icon: "◈",
-                title: "Uzun Vadeli İlişkiler",
-                desc: "Müşterilerimizin büyük çoğunluğu birden fazla proje için bize tekrar başvurmaktadır.",
-              },
-              {
-                icon: "◉",
-                title: "Geniş Sektör Yelpazesi",
-                desc: "Konut, ticari, otelcilik ve endüstriyel alanlarda farklı sektörlerden markalara hizmet veriyoruz.",
-              },
-              {
-                icon: "◎",
-                title: "Şeffaf Süreç Yönetimi",
-                desc: "Her projede işveren ile kurduğumuz şeffaf iletişim, güvenilir bir iş birliğinin temelini oluşturuyor.",
-              },
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 0.1} className="px-10 py-14 md:px-12 md:py-16">
-                <span className="block text-brand-accent text-2xl mb-5 font-brand">{item.icon}</span>
-                <h3 className="font-brand font-bold text-lg text-brand-black mb-3">{item.title}</h3>
-                <p className="text-brand-black/55 text-sm leading-relaxed">{item.desc}</p>
-              </FadeIn>
-            ))}
+            {(() => {
+              const fallbackMetrics = [
+                {
+                  icon: "◈",
+                  title: "Uzun Vadeli İlişkiler",
+                  desc: "Müşterilerimizin büyük çoğunluğu birden fazla proje için bize tekrar başvurmaktadır.",
+                },
+                {
+                  icon: "◉",
+                  title: "Geniş Sektör Yelpazesi",
+                  desc: "Konut, ticari, otelcilik ve endüstriyel alanlarda farklı sektörlerden markalara hizmet veriyoruz.",
+                },
+                {
+                  icon: "◎",
+                  title: "Şeffaf Süreç Yönetimi",
+                  desc: "Her projede işveren ile kurduğumuz şeffaf iletişim, güvenilir bir iş birliğinin temelini oluşturuyor.",
+                },
+              ];
+              const metricsList = page?.metrics && page.metrics.length > 0 ? page.metrics : fallbackMetrics;
+              return metricsList.map((item: any, i: number) => (
+                <FadeIn key={i} delay={i * 0.1} className="px-10 py-14 md:px-12 md:py-16">
+                  <span className="block text-brand-accent text-2xl mb-5 font-brand">{item.icon}</span>
+                  <h3 className="font-brand font-bold text-lg text-brand-black mb-3">{item.title}</h3>
+                  <p className="text-brand-black/55 text-sm leading-relaxed">{item.desc}</p>
+                </FadeIn>
+              ));
+            })()}
           </div>
         </div>
       </section>
@@ -175,7 +178,7 @@ export default async function ReferanslarPage() {
           <div className="max-w-4xl mx-auto text-center">
             <FadeIn>
               <span className="font-brand text-sm font-bold tracking-[0.3em] uppercase mb-7 block text-brand-accent">
-                BİZİMLE ÇALIŞIN
+                {page?.ctaEyebrow || "BİZİMLE ÇALIŞIN"}
               </span>
               <h2 className="text-4xl md:text-6xl font-brand font-bold tracking-tighter mb-8 leading-tight text-brand-off-white">
                 {page?.ctaTitle || "Siz de Referanslarımız\nArasında Yer Alın"}
@@ -190,7 +193,7 @@ export default async function ReferanslarPage() {
                              bg-brand-off-white text-brand-black hover:bg-brand-accent hover:text-white
                              transition-all duration-300"
                 >
-                  İLETİŞİME GEÇİN
+                  {page?.ctaButtonLabel || "İLETİŞİME GEÇİN"}
                 </Button>
               </Link>
             </FadeIn>

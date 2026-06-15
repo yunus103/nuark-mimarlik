@@ -13,6 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Blog",
     canonicalPath: "/blog",
+    noIndex: true,
   });
 }
 

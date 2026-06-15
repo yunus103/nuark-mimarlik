@@ -1,28 +1,31 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import { projectListQuery } from "@/sanity/lib/queries";
+import { projectListQuery, projectsPageQuery } from "@/sanity/lib/queries";
 import { buildMetadata } from "@/lib/seo";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { PageHero } from "@/components/ui/PageHero";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const page = await client.fetch(projectsPageQuery, {}, { next: { tags: ["projectsPage"] } });
   return buildMetadata({
-    title: "Projelerimiz",
-    description: "Nuark Mimarlık tarafından hayata geçirilen seçkin projeler.",
+    title: page?.seo?.metaTitle || page?.heroTitle || "Projelerimiz",
+    description: page?.seo?.metaDescription || page?.heroSubtitle || "Nuark Mimarlık tarafından hayata geçirilen seçkin projeler.",
     canonicalPath: "/projeler",
+    pageSeo: page?.seo,
   });
 }
 
 export default async function ProjectsPage() {
+  const page = await client.fetch(projectsPageQuery, {}, { next: { tags: ["projectsPage"] } });
   const projects = await client.fetch(projectListQuery, {}, { next: { tags: ["projects"] } });
 
   return (
     <>
       <PageHero
-        eyebrow="PORTFOLYO"
-        title="Projelerimiz"
-        description="Özgün tasarım anlayışımızla hayat verdiğimiz, fonksiyonellik ve estetiği buluşturan seçkin çalışmalarımız."
+        eyebrow={page?.heroEyebrow || "PORTFOLYO"}
+        title={page?.heroTitle || "Projelerimiz"}
+        description={page?.heroSubtitle || "Özgün tasarım anlayışımızla hayat verdiğimiz, fonksiyonellik ve estetiği buluşturan seçkin çalışmalarımız."}
       />
 
       <section className="py-24 bg-brand-off-white">

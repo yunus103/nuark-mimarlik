@@ -25,14 +25,20 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
   heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, caption, alt, hotspot, crop },
   stats[] { value, label },
   featuredProjectsTitle,
-  "featuredProjects": *[_type == "project"] | order(order asc, _createdAt desc) [0..5] {
-    title, slug, category, year, city,
-    coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
-  },
-  servicesSectionTitle, servicesIntro,
-  aboutTitle, aboutText,
+  "featuredProjects": select(
+    defined(featuredProjects) && count(featuredProjects) > 0 => featuredProjects[]->{
+      title, slug, category, year, city,
+      coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+    },
+    *[_type == "project"] | order(order asc, _createdAt desc) [0..5] {
+      title, slug, category, year, city,
+      coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+    }
+  ),
+  servicesSectionTitle, servicesIntro, servicesEyebrow, servicesCtaLabel,
+  aboutTitle, aboutText, aboutCtaLabel,
   aboutImages[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
-  ctaTitle, ctaSubtitle,
+  ctaTitle, ctaSubtitle, ctaButtonLabel,
   clientLogos[] {
     companyName,
     logoScale,
@@ -48,13 +54,16 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
   heroHeadline, heroSubtitle,
   stats[] { value, label },
-  storyTitle, storyText,
+  storyEyebrow, storyTitle, storyText,
   storyImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  valuesEyebrow, valuesTitle,
   values[] { title, description },
+  teamEyebrow, teamTitle,
   team[] {
     name, title, bio,
     photo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
   },
+  ctaEyebrow, ctaTitle, ctaDescription, ctaButtonLabel,
   seo
 }`;
 
@@ -84,13 +93,14 @@ export const contactPageQuery = groq`{
 
 export const referanslarPageQuery = groq`{
   "page": *[_type == "referanslarPage"][0] {
-    heroHeadline, heroSubtitle,
-    sectionTitle, sectionSubtitle,
+    heroHeadline, heroSubtitle, heroEyebrow,
+    sectionTitle, sectionSubtitle, sectionEyebrow,
     clients[] {
       companyName, sector, url, forceGrayscale,
       logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
     },
-    ctaTitle, ctaDescription,
+    metrics[] { icon, title, desc },
+    ctaTitle, ctaDescription, ctaEyebrow, ctaButtonLabel,
     seo
   },
   "fallbackClients": *[_type == "homePage"][0].clientLogos[] {
@@ -145,8 +155,12 @@ export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $
 
 // ─── Projeler ──────────────────────────────────────────────────────────────────
 
+export const projectsPageQuery = groq`*[_type == "projectsPage"][0] {
+  heroEyebrow, heroTitle, heroSubtitle, seo
+}`;
+
 export const projectListQuery = groq`*[_type == "project"] | order(order asc, _createdAt desc) {
-  title, slug, category, city, year, featured,
+  title, slug, category, city, year,
   coverImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
 }`;
 
@@ -166,8 +180,6 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
 // ─── Sitemap ───────────────────────────────────────────────────────────────────
 
 export const allSlugsForSitemapQuery = groq`{
-  "blogPosts": *[_type == "blogPost" && defined(slug.current)] { "slug": slug.current, _updatedAt },
-  "services": *[_type == "service" && defined(slug.current)] { "slug": slug.current, _updatedAt },
   "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt }
 }`;
 

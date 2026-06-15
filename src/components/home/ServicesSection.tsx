@@ -31,7 +31,7 @@ export function ServicesSection({ data }: ServicesSectionProps) {
       <div className="container mx-auto px-4">
         <FadeIn direction="up" className="max-w-3xl mx-auto text-center mb-16">
           <span className="block text-brand-accent font-brand text-sm font-bold tracking-widest uppercase mb-4">
-            UZMANLIK
+            {data?.servicesEyebrow || "UZMANLIK"}
           </span>
           <h2 className="text-3xl md:text-4xl font-brand font-bold tracking-tight mb-6">
             {data?.servicesSectionTitle || "Mimari & Tasarım Hizmetleri"}
@@ -64,7 +64,7 @@ export function ServicesSection({ data }: ServicesSectionProps) {
         <div className="mt-16 text-center">
           <Link href="/hizmetlerimiz">
             <Button className="rounded-none bg-brand-accent text-brand-black hover:bg-white hover:text-black uppercase tracking-widest text-xs h-12 px-8 font-bold border-transparent transition-all duration-300">
-              Hizmetlerimizi İnceleyin
+              {data?.servicesCtaLabel || "Hizmetlerimizi İnceleyin"}
             </Button>
           </Link>
         </div>

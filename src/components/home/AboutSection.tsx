@@ -27,7 +27,7 @@ export function AboutSection({ data }: AboutSectionProps) {
                 <RichText value={data.aboutText} />
               </div>
               <Link href="/hakkimizda" className="inline-flex items-center gap-2 text-brand-accent font-brand font-bold uppercase tracking-wider text-sm hover:gap-4 transition-all duration-300 mt-4 group">
-                <span>Kurumsal Profilimizi İnceleyin</span>
+                <span>{data.aboutCtaLabel || "Kurumsal Profilimizi İnceleyin"}</span>
                 <RiArrowRightLine className="transition-transform group-hover:translate-x-1" />
               </Link>
 

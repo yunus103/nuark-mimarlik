@@ -24,8 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = await getClient().fetch(projectBySlugQuery, { slug }, { next: { tags: ["projects"] } });
   if (!project) return {};
+  
+  const fallbackDesc = project.title
+    ? `${project.title}${project.city ? ` - ${project.city}` : ""}${project.category ? ` konumunda yer alan ${project.category} projesi` : ""}. Detaylar ve görseller için tıklayın.`
+    : undefined;
+
   return buildMetadata({
     title: project.title,
+    description: fallbackDesc,
     canonicalPath: `/projeler/${slug}`,
     pageSeo: project.seo,
   });

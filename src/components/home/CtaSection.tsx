@@ -27,7 +27,7 @@ export function CtaSection({ data }: CtaSectionProps) {
           )}
           <Link href="/iletisim">
             <Button size="lg" className="rounded-none bg-foreground text-background hover:bg-primary font-brand uppercase tracking-widest text-sm h-16 px-12 font-bold shadow-xl shadow-foreground/5">
-              Projeye Başlayalım
+              {data.ctaButtonLabel || "Projeye Başlayalım"}
             </Button>
           </Link>
         </FadeIn>

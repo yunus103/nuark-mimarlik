@@ -127,8 +127,6 @@ export const projectType = defineType({
       ],
       options: { layout: "grid" },
     }),
-
-    defineField({ name: "featured", title: "Ana Sayfada Öne Çıkarsın mı?", type: "boolean", initialValue: false, description: "Açılırsa ana sayfadaki 'Öne Çıkan Projeler' arasında gösterilebilir." }),
     defineField({ name: "order", title: "Görüntüleme Sırası", type: "number", description: "Küçük sayı daha önce gösterilir." }),
     defineField({ name: "seo", title: "Proje SEO Ayarları", type: "seo" }),
   ],

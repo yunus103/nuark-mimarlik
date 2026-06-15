@@ -57,6 +57,13 @@ export const aboutPageType = defineType({
 
     // ── Hikayemiz ─────────────────────────────────────────────────────────────
     defineField({
+      name: "storyEyebrow",
+      title: "Hikayemiz — Üst Başlık",
+      type: "string",
+      initialValue: "HİKAYEMİZ",
+      description: "Hikayemiz başlığının üzerindeki küçük yazı.",
+    }),
+    defineField({
       name: "storyTitle",
       title: "Hikayemiz — Bölüm Başlığı",
       type: "string",
@@ -90,6 +97,13 @@ export const aboutPageType = defineType({
     }),
 
     // ── Değerlerimiz ──────────────────────────────────────────────────────────
+    defineField({
+      name: "valuesEyebrow",
+      title: "Değerlerimiz — Üst Başlık",
+      type: "string",
+      initialValue: "DEĞERLERİMİZ",
+      description: "Değerlerimiz başlığının üzerindeki küçük yazı.",
+    }),
     defineField({
       name: "valuesTitle",
       title: "Değerlerimiz — Bölüm Başlığı",
@@ -130,6 +144,13 @@ export const aboutPageType = defineType({
     }),
 
     // ── Ekibimiz ──────────────────────────────────────────────────────────────
+    defineField({
+      name: "teamEyebrow",
+      title: "Ekibimiz — Üst Başlık",
+      type: "string",
+      initialValue: "EKİBİMİZ",
+      description: "Ekibimiz başlığının üzerindeki küçük yazı.",
+    }),
     defineField({
       name: "teamTitle",
       title: "Ekibimiz — Bölüm Başlığı",
@@ -188,6 +209,37 @@ export const aboutPageType = defineType({
           },
         },
       ],
+    }),
+
+    // ── CTA Bölümü ────────────────────────────────────────────────────────────
+    defineField({
+      name: "ctaEyebrow",
+      title: "CTA Üst Başlığı",
+      type: "string",
+      initialValue: "BİZİMLE ÇALIŞIN",
+      description: "CTA bölümündeki küçük etiket.",
+    }),
+    defineField({
+      name: "ctaTitle",
+      title: "CTA Başlığı",
+      type: "string",
+      initialValue: "Projenizi Birlikte\nHayata Geçirelim",
+      description: "CTA bölümündeki büyük başlık.",
+    }),
+    defineField({
+      name: "ctaDescription",
+      title: "CTA Açıklaması",
+      type: "text",
+      rows: 3,
+      initialValue: "Mimari danışmanlıktan anahtar teslim inşaata kadar tüm süreçlerde yanınızdayız. Projenizi anlatın, sizin için en doğru çözümü birlikte tasarlayalım.",
+      description: "CTA başlığının altındaki açıklama metni.",
+    }),
+    defineField({
+      name: "ctaButtonLabel",
+      title: "CTA Buton Metni",
+      type: "string",
+      initialValue: "İLETİŞİME GEÇİN",
+      description: "İletişim sayfasına yönlendiren buton metni.",
     }),
 
     // ── SEO ───────────────────────────────────────────────────────────────────

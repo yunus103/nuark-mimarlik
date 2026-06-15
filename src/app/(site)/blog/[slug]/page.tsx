@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     canonicalPath: `/blog/${slug}`,
     pageSeo: post.seo,
+    noIndex: true,
   });
 }
 
