@@ -132,13 +132,13 @@ export default async function ProjectPage({ params }: Props) {
 
             <div className="space-y-16">
               {finalImages.length > 0 && (
-                <ProjectLightbox images={finalImages} title="Final Fotoğrafları" />
+                <ProjectLightbox images={finalImages} title="Final Görselleri" />
               )}
               {renderImages.length > 0 && (
                 <ProjectLightbox images={renderImages} title="Tasarım / Render Görselleri" />
               )}
               {constructionImages.length > 0 && (
-                <ProjectLightbox images={constructionImages} title="Uygulama Aşaması" />
+                <ProjectLightbox images={constructionImages} title="Uygulama Aşaması Görselleri" />
               )}
             </div>
           </div>
