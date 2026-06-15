@@ -202,3 +202,12 @@ export const defaultSeoQuery = groq`*[_type == "siteSettings"][0] {
   favicon { asset->{ url } },
   googleSearchConsole
 }`;
+
+export const qrPageQuery = groq`*[_type == "siteSettings"][0] {
+  siteName,
+  logo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  qrTitle,
+  qrSubtitle,
+  qrLogo { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  qrLinks[] { platform, label, url }
+}`;
