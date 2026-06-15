@@ -41,3 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# user manual docx
+/NUARK_MIMARLIK_SANITY_STUDIO_KULLANIM_KILAVUZU.docx
+*.docx
