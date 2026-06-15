@@ -107,15 +107,15 @@ export default async function SosyalPage() {
                   rel="noopener noreferrer"
                   className="block w-full group select-none"
                 >
-                  <div className="w-full flex items-center justify-between py-4.5 px-6 rounded-none bg-zinc-900/80 hover:bg-brand-accent border border-white/5 hover:border-brand-accent text-white/80 hover:text-brand-black transition-all duration-300 shadow-md group-active:scale-[0.98]">
-                    <div className="flex items-center gap-4">
-                      <Icon className="text-xl text-brand-accent group-hover:text-brand-black transition-colors shrink-0" />
-                      <span className="font-sans text-sm font-semibold tracking-wide text-left">
+                  <div className="w-full flex items-center justify-between py-5 px-7 rounded-none bg-zinc-900/80 hover:bg-brand-accent border border-white/5 hover:border-brand-accent text-white/80 hover:text-brand-black transition-all duration-300 shadow-md group-active:scale-[0.98]">
+                    <div className="flex items-center gap-5">
+                      <Icon className="text-2xl md:text-3xl text-brand-accent group-hover:text-brand-black transition-colors shrink-0" />
+                      <span className="font-sans text-base md:text-lg font-semibold tracking-wide text-left">
                         {link.label}
                       </span>
                     </div>
                     {/* Small visual indicator arrow */}
-                    <span className="text-white/20 group-hover:text-brand-black/40 transition-colors font-sans text-xs">
+                    <span className="text-white/20 group-hover:text-brand-black/40 transition-colors font-sans text-sm md:text-base">
                       ➔
                     </span>
                   </div>
