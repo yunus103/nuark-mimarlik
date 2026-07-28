@@ -10,10 +10,11 @@ import { MarqueeSection } from "@/components/home/MarqueeSection";
 import { AboutSection } from "@/components/home/AboutSection";
 import { FeaturedProjectsSection } from "@/components/home/FeaturedProjectsSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
+import { HomeBlogSection } from "@/components/home/HomeBlogSection";
 import { CtaSection } from "@/components/home/CtaSection";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getClient().fetch(homePageQuery, {}, { next: { tags: ["home"] } });
+  const data = await getClient().fetch(homePageQuery, {}, { next: { tags: ["home", "blog"] } });
   return buildMetadata({
     title: data?.seo?.metaTitle || data?.heroTitle || "Ana Sayfa",
     description: data?.seo?.metaDescription || data?.heroSubtitle,
@@ -27,7 +28,7 @@ export default async function HomePage() {
   const data = await getClient(isDraft).fetch(
     homePageQuery,
     {},
-    { next: { tags: ["home"] } }
+    { next: { tags: ["home", "blog"] } }
   );
 
   // Build marquee refs from homePage.clientLogos
@@ -47,6 +48,7 @@ export default async function HomePage() {
       <AboutSection data={data} />
       <FeaturedProjectsSection data={data} />
       <ServicesSection data={data} />
+      <HomeBlogSection posts={data?.latestPosts} />
       <CtaSection data={data} />
     </>
   );

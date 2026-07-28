@@ -18,8 +18,14 @@ export function FeaturedProjectsSection({ data }: FeaturedProjectsSectionProps) 
             <h2 className="text-4xl md:text-5xl font-brand font-bold tracking-tight">{data?.featuredProjectsTitle || "Öne Çıkan Projeler"}</h2>
           </FadeIn>
           <FadeIn delay={0.2} className="hidden md:block">
-            <Link href="/projeler" className="inline-flex items-center gap-2 text-foreground font-bold uppercase tracking-wider text-sm hover:text-brand-accent transition-colors group">
-              Tüm Projeleri Gör <RiArrowRightLine className="group-hover:translate-x-1 transition-transform" />
+            <Link
+              href="/projeler"
+              className="inline-flex items-center gap-3 font-brand font-bold uppercase tracking-widest text-base hover:text-brand-accent transition-all group border-b-2 border-brand-accent pb-1"
+            >
+              <span>TÜM PROJELERİ GÖR</span>
+              <div className="p-2 bg-brand-accent text-white rounded-full group-hover:translate-x-1.5 transition-transform duration-300">
+                <RiArrowRightLine size={18} />
+              </div>
             </Link>
           </FadeIn>
         </div>
@@ -34,13 +40,19 @@ export function FeaturedProjectsSection({ data }: FeaturedProjectsSectionProps) 
           )}
         </div>
 
-        {/* Mobile View All Button */}
-        <div className="mt-8 md:hidden flex justify-center">
-          <Link href="/projeler">
-            <Button variant="outline" className="rounded-none border-foreground uppercase tracking-widest text-xs h-12 px-8">
-              Tüm Projeleri Gör
-            </Button>
-          </Link>
+        {/* View All Projects Button */}
+        <div className="mt-12 md:mt-16 flex justify-center">
+          <FadeIn delay={0.3}>
+            <Link href="/projeler">
+              <Button
+                variant="outline"
+                className="rounded-none border-2 border-foreground hover:border-brand-accent hover:bg-brand-accent hover:text-white font-brand font-bold uppercase tracking-widest text-sm md:text-base h-14 px-10 transition-all duration-300 group shadow-md"
+              >
+                <span>TÜM PROJELERİ GÖR</span>
+                <RiArrowRightLine size={20} className="ml-3 group-hover:translate-x-1.5 transition-transform duration-300" />
+              </Button>
+            </Link>
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -11,9 +11,9 @@ import Link from "next/link";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
-    title: "Blog",
+    title: "Blog & Haberler",
+    description: "Nuark Mimarlık mimari tasarım, iç mimari ve restorasyon projeleri ile ilgili güncel yazılar ve haberler.",
     canonicalPath: "/blog",
-    noIndex: true,
   });
 }
 
@@ -41,7 +41,7 @@ export default async function BlogListPage() {
                           image={post.mainImage}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                     )}

@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/galeri`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/iletisim`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/projeler`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const dynamicRoutes: MetadataRoute.Sitemap = [
@@ -22,6 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(p._updatedAt),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })) || []),
+    ...(data?.blogs?.map((b: any) => ({
+      url: `${base}/blog/${b.slug}`,
+      lastModified: new Date(b._updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })) || []),
   ];
 

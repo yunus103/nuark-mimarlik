@@ -148,35 +148,35 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
               </div>
 
               {/* Linkler - İçerik */}
-              <div className="flex-1 flex flex-col items-center md:items-start justify-center px-8 md:px-16 overflow-y-auto w-full py-8 select-none">
-                <div className="flex flex-col items-center md:items-start space-y-8 md:space-y-6 w-full">
+              <div className="flex-1 flex flex-col items-center md:items-start justify-center px-6 md:px-12 overflow-y-auto w-full py-6 select-none">
+                <div className="flex flex-col items-center md:items-start space-y-4 md:space-y-5 w-full">
                   {links.map((item, i) => (
                     <motion.div 
                       key={i} 
                       className="flex flex-col items-center md:items-start w-full text-center md:text-left"
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + (i * 0.05), duration: 0.4 }}
+                      transition={{ delay: 0.05 + (i * 0.04), duration: 0.3 }}
                     >
                       <Link
                         href={resolveHref(item)}
                         target={item.openInNewTab ? "_blank" : undefined}
                         onClick={() => setMenuOpen(false)}
-                        className="text-4xl md:text-4xl font-brand font-bold hover:text-brand-accent transition-colors duration-300 relative group block"
+                        className="text-2xl md:text-3xl font-brand font-bold hover:text-brand-accent transition-colors duration-300 relative group block"
                       >
                         {item.label}
                       </Link>
                       
                       {/* Sublinks */}
                       {item.subLinks && item.subLinks.length > 0 && (
-                        <div className="flex flex-col items-center md:items-start space-y-3 mt-4 w-full">
+                        <div className="flex flex-col items-center md:items-start space-y-2 mt-2 w-full">
                           {item.subLinks.map((sub, j) => (
                             <Link
                               key={j}
                               href={resolveHref(sub)}
                               target={sub.openInNewTab ? "_blank" : undefined}
                               onClick={() => setMenuOpen(false)}
-                              className="text-base text-white/60 hover:text-brand-accent transition-colors uppercase tracking-widest font-brand font-medium"
+                              className="text-sm md:text-base text-white/60 hover:text-brand-accent transition-colors uppercase tracking-widest font-brand font-medium"
                             >
                               {sub.label}
                             </Link>
@@ -190,8 +190,8 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.4 }}
-                    className="mt-8 md:mt-12 pt-8 w-full border-t border-white/10 flex justify-center md:justify-start"
+                    transition={{ delay: 0.3, duration: 0.3 }}
+                    className="mt-6 md:mt-8 pt-6 w-full border-t border-white/10 flex justify-center md:justify-start"
                   >
                      <Link
                         href="/iletisim"
@@ -199,8 +199,8 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                         className="group inline-flex items-center gap-4 text-brand-accent text-sm font-bold uppercase tracking-widest"
                       >
                         <span>İletişime Geç</span>
-                        <div className="p-3 border border-brand-accent rounded-none group-hover:bg-brand-accent group-hover:text-black transition-all duration-300">
-                          <RiArrowRightLine size={18} />
+                        <div className="p-2.5 border border-brand-accent rounded-none group-hover:bg-brand-accent group-hover:text-black transition-all duration-300">
+                          <RiArrowRightLine size={16} />
                         </div>
                       </Link>
                   </motion.div>

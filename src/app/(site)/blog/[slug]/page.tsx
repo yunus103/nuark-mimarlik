@@ -11,6 +11,7 @@ import { JsonLd, articleJsonLd } from "@/components/seo/JsonLd";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { RiArrowLeftLine, RiCalendarLine } from "react-icons/ri";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,7 +29,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     canonicalPath: `/blog/${slug}`,
     pageSeo: post.seo,
-    noIndex: true,
   });
 }
 
@@ -47,42 +47,81 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <JsonLd data={articleJsonLd(post)} />
 
-      <article className="container mx-auto px-4 py-16 max-w-3xl break-words overflow-x-hidden">
-        <FadeIn direction="up">
-          <Button variant="ghost" className="mb-8 -ml-2" render={<Link href="/blog" />}>
-            ← Blog'a Dön
-          </Button>
+      <article className="min-h-screen bg-background">
+        {/* Top Spacer for fixed Header */}
+        <div className="pt-28 md:pt-36 bg-brand-off-white dark:bg-muted/30 border-b">
+          <div className="container mx-auto px-4 max-w-4xl pb-12 md:pb-16">
+            <FadeIn direction="up">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-foreground/60 hover:text-brand-accent transition-colors duration-300 font-brand text-xs font-bold tracking-widest uppercase mb-8 group"
+              >
+                <RiArrowLeftLine className="group-hover:-translate-x-1 transition-transform duration-300" />
+                Tüm Blog Yazılarına Dön
+              </Link>
 
-          {post.publishedAt && (
-            <time className="text-sm text-muted-foreground block mb-4">
-              {formatDate(post.publishedAt)}
-            </time>
+              {post.publishedAt && (
+                <div className="flex items-center gap-2 text-brand-accent font-brand font-bold text-xs uppercase tracking-widest mb-4">
+                  <RiCalendarLine size={16} />
+                  <time>{formatDate(post.publishedAt)}</time>
+                </div>
+              )}
+
+              <h1 className="text-3xl md:text-5xl font-brand font-bold tracking-tight text-foreground leading-tight mb-6">
+                {post.title}
+              </h1>
+
+              {post.excerpt && (
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-sans border-l-2 border-brand-accent pl-4">
+                  {post.excerpt}
+                </p>
+              )}
+            </FadeIn>
+          </div>
+        </div>
+
+        {/* Cover Image & Body */}
+        <div className="container mx-auto px-4 max-w-4xl py-12 md:py-16">
+          {post.mainImage && (
+            <FadeIn delay={0.15} className="mb-12">
+              <div className="relative h-64 md:h-[450px] w-full rounded-none overflow-hidden shadow-lg border">
+                <SanityImage
+                  image={post.mainImage}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </FadeIn>
           )}
 
-          <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
-
-          {post.excerpt && (
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">{post.excerpt}</p>
-          )}
-        </FadeIn>
-
-        {post.mainImage && (
-          <FadeIn delay={0.15}>
-            <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-12">
-              <SanityImage
-                image={post.mainImage}
-                fill
-                sizes="(max-width: 768px) 100vw, 800px"
-                className="object-cover"
-                priority
-              />
+          <FadeIn delay={0.25}>
+            <div className="bg-card p-6 md:p-10 rounded-none border shadow-xs">
+              <RichText value={post.body} />
             </div>
           </FadeIn>
-        )}
+        </div>
 
-        <FadeIn delay={0.25}>
-          <RichText value={post.body} />
-        </FadeIn>
+        {/* Bottom CTA & Navigation */}
+        <div className="border-t bg-muted/20 py-12">
+          <div className="container mx-auto px-4 max-w-4xl flex flex-col md:flex-row justify-between items-center gap-6">
+            <Link href="/blog">
+              <Button
+                variant="outline"
+                className="rounded-none border-foreground hover:border-brand-accent hover:bg-brand-accent hover:text-white uppercase tracking-widest text-xs h-12 px-8 font-bold transition-all duration-300 cursor-pointer"
+              >
+                <RiArrowLeftLine className="mr-2" />
+                Tüm Blog Yazılarına Dön
+              </Button>
+            </Link>
+            <Link href="/iletisim">
+              <Button className="rounded-none bg-brand-accent text-white hover:bg-brand-accent-light uppercase tracking-widest text-xs h-12 px-8 font-bold transition-all duration-300 cursor-pointer">
+                Projenizi Görüşelim
+              </Button>
+            </Link>
+          </div>
+        </div>
       </article>
     </>
   );

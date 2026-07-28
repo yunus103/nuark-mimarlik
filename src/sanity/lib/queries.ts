@@ -48,6 +48,10 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
   "services": *[_type == "service"] | order(order asc, _createdAt asc) {
     title, summary, order
   },
+  "latestPosts": *[_type == "blogPost"] | order(publishedAt desc)[0..2] {
+    title, slug, excerpt, publishedAt,
+    mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  },
   seo
 }`;
 
@@ -123,7 +127,7 @@ export const blogPostBySlugQuery = groq`*[_type == "blogPost" && slug.current ==
     ...,
     _type == "image" => {
       asset->{ _id, url, metadata { lqip, dimensions } },
-      alt, alignment, size, hotspot, crop
+      alt, alignment, size, hotspot, crop, caption
     }
   },
   seo
@@ -180,7 +184,8 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
 // ─── Sitemap ───────────────────────────────────────────────────────────────────
 
 export const allSlugsForSitemapQuery = groq`{
-  "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+  "projects": *[_type == "project" && defined(slug.current)] { "slug": slug.current, _updatedAt },
+  "blogs": *[_type == "blogPost" && defined(slug.current)] { "slug": slug.current, _updatedAt }
 }`;
 
 // ─── Galeri ────────────────────────────────────────────────────────────────────
