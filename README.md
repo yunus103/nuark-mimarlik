@@ -1,136 +1,112 @@
-# Next.js + Sanity Kurumsal Site Boilerplate
+<div align="right">
+  <img src="https://img.shields.io/badge/English_EN-2563EB?style=for-the-badge" alt="English" />
+  <a href="./README.tr.md">
+    <img src="https://img.shields.io/badge/Türkçe_TR-374151?style=for-the-badge" alt="Türkçe" />
+  </a>
+</div>
 
-Modern ajanslar için hazır, production-grade Next.js 15 + Sanity v3 boilerplate.
+# Nuark Mimarlık — Digital Architecture & Corporate Platform
 
-## Tech Stack
-
-| Teknoloji | Versiyon | Açıklama |
-|-----------|----------|----------|
-| Next.js | 15+ | App Router, TypeScript |
-| Tailwind CSS | v4 | `@plugin` tabanlı konfigürasyon |
-| shadcn/ui | v4 | `@base-ui/react` tabanlı |
-| Sanity | v3 | Headless CMS |
-| Framer Motion | latest | Animasyonlar |
-| react-icons | latest | SVG ikon kütüphanesi |
-| next-themes | latest | Dark/Light mod |
-| Nodemailer | latest | İletişim formu e-postası |
-| Zod + @t3-oss/env-nextjs | latest | Type-safe env validasyonu |
+A modern, high-performance web platform and digital portfolio engineered for **Nuark Mimarlık** (Nuark Architecture). The application is built with a **Refined Brutalism** design language, blending architectural elegance with cutting-edge web performance, headless content architecture, granular on-demand caching, and automated SEO systems.
 
 ---
 
-## Hızlı Başlangıç
+## 🏛️ Architecture & Tech Stack
 
-```bash
-# 1. Repoyu klonla
-git clone https://github.com/kullanici/proje-adi.git
-cd proje-adi
-
-# 2. Bağımlılıkları yükle
-npm install
-
-# 3. .env.local içindeki placeholder değerleri gerçek değerlerle doldur
-# (Aşağıdaki "Zorunlu Kurulum Adımları" bölümüne bak)
-
-# 4. Geliştirme sunucusunu başlat
-npm run dev
-```
-
-Tarayıcıda:
-- Site: `http://localhost:3000`
-- Sanity Studio: `http://localhost:3000/studio`
+| Domain | Technology | Description & Role |
+| :--- | :--- | :--- |
+| **Framework** | **Next.js 16 (App Router)** | Server Components (RSC), React 19, Turbopack, modular routing |
+| **Headless CMS** | **Sanity Studio v3** | Embedded CMS at `/studio`, typed schema definitions, singletons & collections |
+| **Styling & UI** | **Tailwind CSS v4** | CSS variables, typography plugin, Base UI primitives & custom design system |
+| **Motion & UX** | **Framer Motion** | Scroll-driven animations, interactive Lightbox, smooth transitions |
+| **Type Safety & Env** | **TypeScript 5 + Zod** | End-to-end type safety, runtime schema validation via `@t3-oss/env-nextjs` |
+| **Caching & ISR** | **Next.js On-Demand ISR** | Webhook-driven tag-based revalidation (`revalidateTag`, `revalidatePath`) |
+| **Communications** | **Nodemailer** | Secure SMTP contact form submission with server-side validation |
+| **SEO & Structured Data**| **Next.js Metadata + JSON-LD** | Dynamic OpenGraph images, Schema.org entities, dynamic sitemap & robots |
 
 ---
 
-## Zorunlu Kurulum Adımları
+## 💎 Core Modules & Functional Features
 
-### 1. Sanity Projesi Oluştur
-
-1. [sanity.io/manage](https://sanity.io/manage) adresine git
-2. "New Project" → proje adını gir
-3. Proje ID'yi kopyala → `.env.local` içinde `NEXT_PUBLIC_SANITY_PROJECT_ID` değerini güncelle
-
-### 2. Sanity API Token Al
-
-1. Sanity Dashboard → proje → **API** sekmesi
-2. **Tokens** → **Add API Token**
-3. İsim: `Read Token`, Yetki: **Editor**
-4. Token'ı kopyala → `.env.local` içinde `SANITY_API_READ_TOKEN` değerini güncelle
-
-### 3. Sanity Webhook Kur (ISR için)
-
-1. Sanity Dashboard → proje → **API** → **Webhooks**
-2. **Add Webhook**:
-   - URL: `https://siteadi.com/api/revalidate`
-   - HTTP Method: `POST`
-   - Trigger on: **Create, Update, Delete**
-   - Header: `x-webhook-secret` = `.env.local`'daki `SANITY_WEBHOOK_SECRET` değeri
-3. `.env.local` içinde `SANITY_WEBHOOK_SECRET` değerini webhook'ta ayarladığın şifre ile güncelle
-
-### 4. Draft Mode Kurulumu
-
-`SANITY_PREVIEW_SECRET` değerini rastgele bir şifre ile güncelle:
-
-```bash
-# Güvenli bir şifre üretmek için (opsiyonel)
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-Draft mode'u aktifleştirmek için: `/api/draft/enable?secret=SECRET&redirect=/`
-
-### 5. Gmail SMTP Kurulumu (İletişim Formu)
-
-1. Google Hesabı → **Güvenlik** → **2 Adımlı Doğrulama** → etkinleştir
-2. **Uygulama Şifreleri** → Uygulama: Mail → Şifreyi kopyala
-3. `.env.local` içinde `SMTP_USER` ve `SMTP_PASS` değerlerini güncelle
+- **Portfolio & Project Showcase (`/projeler`, `/projeler/[slug]`):** Filterable architectural project directory with metadata (location, surface area, typology, year), rich editorial narratives, and an interactive full-screen image Lightbox.
+- **Service Modules (`/hizmetlerimiz`):** Structured architectural service offerings with step-by-step methodologies and contextual accordion FAQs.
+- **Corporate Narrative & Team (`/hakkimizda`):** Studio philosophy, architectural values, animated statistics counters, and leadership profiles.
+- **Client References & Testimonials (`/referanslar`):** Client logo marquee and verified testimonials fetched dynamically from Sanity CMS.
+- **Architectural Journal / Blog (`/blog`, `/blog/[slug]`):** Portable Text rich-text publications with syntax highlighting, custom callouts, and author metadata.
+- **Inquiry & Quick Access (`/iletisim`, `/sosyal`):** SMTP-powered contact form with client/server validation, Google Maps integration, floating WhatsApp CTA, and a dedicated social link hub (`/sosyal`).
 
 ---
 
-## Yeni Projede Yapılacaklar Checklist
+## 🧭 Routing & App Architecture
 
-- [ ] `package.json` içinde `"name"` alanını güncelle
-- [ ] `.env.local` içindeki tüm `your-*` placeholder değerlerini gerçek değerlerle değiştir
-- [ ] `src/app/layout.tsx` içindeki `"Site Adı"` metnini güncelle
-- [ ] `tailwind.config.ts` → `globals.css` üzerinden marka renklerini güncelle
-- [ ] `public/` klasörüne `favicon.ico` koy
-- [ ] Sanity Studio'yu aç (`/studio`), **Site Ayarları** ve **Navigasyon** dokümanlarını doldur
-- [ ] Vercel'e deploy et, tüm `.env.local` env değişkenlerini Vercel paneline ekle
-- [ ] Sanity Dashboard → Webhooks: `https://siteadi.com/api/revalidate` ekle
+The project leverages Next.js App Router route groups to cleanly decouple public presentation layers from administrative and API routes:
+
+- `(site)/`: Public layout wrapping navigation, theme providers, floaters, and footer.
+- `studio/[[...tool]]/`: Full-featured embedded Sanity Studio directly within the Next.js runtime.
+- `sosyal/`: Standalone, distraction-free social media landing page (Bio link tree).
+- `api/`:
+  - `/api/revalidate`: Webhook handler for instant CMS content invalidation.
+  - `/api/contact`: Form processing endpoint with SMTP integration.
+  - `/api/draft/*`: Draft Mode activation/deactivation for real-time editorial previews.
 
 ---
 
-## Proje Yapısı
+## ⚡ Caching, ISR & SEO Engine
 
-```
+### Granular On-Demand Revalidation
+Content updates in Sanity CMS trigger the `/api/revalidate` endpoint. Payload signatures are validated via HMAC-SHA256 (`@sanity/webhook`). Cache tags are invalidated instantaneously without full-site rebuilds:
+- Tag mappings: `siteSettings` & `navigation` → `layout`, `project` → `projects`, `blogPost` → `blog`, etc.
+- Granular slug-level invalidation (`project:slug`).
+
+### Search Engine Optimization (SEO) Standards
+- **Centralized Metadata Generator (`src/lib/seo.ts`):** Dynamically constructs titles, descriptions, canonical URLs, and OpenGraph/Twitter card assets using the Sanity Image Pipeline (`urlForImage`).
+- **Structured Data (`src/components/seo/JsonLd.tsx`):** Injects Schema.org `Organization` and `Article` schemas into page headers.
+- **Dynamic XML Sitemap (`src/app/sitemap.ts`):** Automatically discovers static routes and dynamic project/blog slugs with `_updatedAt` timestamps.
+
+---
+
+## 📂 Project Directory Structure
+
+```text
 src/
 ├── app/
-│   ├── (site)/           # Kullanıcıya görünen tüm sayfalar
-│   │   ├── page.tsx      # Ana sayfa
-│   │   ├── blog/         # Blog listesi + detay
-│   │   ├── hizmetler/    # Hizmet detay sayfaları
-│   │   ├── projeler/     # Proje detay sayfaları
-│   │   ├── iletisim/     # İletişim sayfası
-│   │   └── yasal/        # Yasal sayfalar
-│   ├── api/              # API route'ları
-│   │   ├── revalidate/   # ISR webhook
-│   │   ├── draft/        # Draft mode enable/disable
-│   │   └── contact/      # İletişim formu
-│   ├── studio/           # Sanity Studio (embedded)
-│   ├── layout.tsx        # Root layout
-│   ├── not-found.tsx     # 404 sayfası
-│   ├── sitemap.ts        # Dinamik sitemap
-│   └── robots.ts         # robots.txt
+│   ├── (site)/               # Public-facing application pages
+│   │   ├── blog/             # Editorial listings & [slug] dynamic posts
+│   │   ├── galeri/           # Architectural media gallery
+│   │   ├── hakkimizda/       # Studio profile, values & team
+│   │   ├── hizmetlerimiz/    # Architectural services & process
+│   │   ├── iletisim/         # Contact page & interactive form
+│   │   ├── projeler/         # Portfolio grid & [slug] project details
+│   │   ├── referanslar/      # References & client feedback
+│   │   ├── layout.tsx        # Main site shell (Header, Footer, Floaters)
+│   │   └── page.tsx          # Homepage with dynamic hero, stats & marquee
+│   ├── api/                  # Serverless route handlers (revalidate, contact, draft)
+│   ├── sosyal/               # Dedicated social media link gateway
+│   ├── studio/               # Embedded Sanity Studio CMS
+│   ├── sitemap.ts            # Dynamic XML sitemap generator
+│   └── robots.ts             # Dynamic robots.txt
 ├── components/
-│   ├── forms/            # ContactForm
-│   ├── layout/           # Header, Footer, ThemeProvider, vb.
-│   ├── seo/              # JsonLd
-│   └── ui/               # SanityImage, RichText, FadeIn, AnimateGroup + shadcn
+│   ├── forms/                # Contact form component & validation
+│   ├── home/                 # Modular home page sections
+│   ├── layout/               # Header, Footer, Floaters, ThemeProvider
+│   ├── seo/                  # JSON-LD Schema.org generators
+│   └── ui/                   # ProjectLightbox, SanityImage, RichText, UI primitives
 ├── lib/
-│   ├── env.ts            # Type-safe env validasyonu
-│   ├── seo.ts            # buildMetadata()
-│   └── utils.ts          # cn(), formatDate()
+│   ├── env.ts                # Strict runtime environment validation (T3 Env + Zod)
+│   ├── seo.ts                # Metadata builder utility
+│   └── utils.ts              # Class merging (clsx + tailwind-merge) & formatters
 └── sanity/
-    ├── lib/              # client.ts, image.ts, queries.ts
-    ├── plugins/          # singletonPlugin
-    ├── schemaTypes/      # Tüm Sanity şemaları
-    └── structure.ts      # Studio sol panel yapısı
+    ├── lib/                  # Client initialization, queries & image builder
+    ├── plugins/              # Singleton page plugins & custom desk controls
+    ├── schemaTypes/          # Document, singleton & object schemas
+    └── structure.ts          # Studio panel hierarchy & desk structure
 ```
+
+---
+
+## 🔒 Security & Engineering Standards
+
+- **Environment Isolation:** Zero leakage of secret keys (`SANITY_API_READ_TOKEN`, `SMTP_PASS`, `SANITY_WEBHOOK_SECRET`) enforced via `@t3-oss/env-nextjs` and `zod`.
+- **Webhook Authenticity:** Constant-time HMAC cryptographic verification ensures revalidation triggers originate exclusively from Sanity servers.
+- **Server-First Execution:** Heavy Sanity GROQ queries execute on the server, serving static/streaming HTML with minimal client-side JavaScript footprint.
+- **Accessibility & UX:** Semantic HTML5 markup, WCAG-compliant color contrasts, keyboard-navigable Lightbox, and fluid typography (`clamp()`).
